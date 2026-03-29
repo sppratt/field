@@ -1,6 +1,7 @@
 import type { Metadata } from 'next';
 import '@/app/styles/globals.css';
 import { Layout } from '@/app/components/Layout';
+import { AuthProvider } from '@/app/providers/AuthProvider';
 
 export const metadata: Metadata = {
   title: 'Field - Explore Your Career Path',
@@ -22,7 +23,9 @@ export default function RootLayout({
   return (
     <html lang="en">
       <body>
-        <Layout>{children}</Layout>
+        <AuthProvider>
+          <Layout>{children}</Layout>
+        </AuthProvider>
       </body>
     </html>
   );

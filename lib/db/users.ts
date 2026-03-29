@@ -1,5 +1,7 @@
-import { supabase } from '@/lib/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 import type { User, SignUpData, LogInData } from './types';
+
+const supabase = createClient();
 
 // Get user profile by ID
 export async function getUser(userId: string): Promise<User | null> {

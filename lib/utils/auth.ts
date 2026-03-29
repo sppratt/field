@@ -1,7 +1,8 @@
-import { supabase } from '@/lib/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 
 // Check if user is authenticated
 export async function isAuthenticated(): Promise<boolean> {
+  const supabase = createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -10,6 +11,7 @@ export async function isAuthenticated(): Promise<boolean> {
 
 // Get auth state (user + session)
 export async function getAuthState() {
+  const supabase = createClient();
   const {
     data: { user },
   } = await supabase.auth.getUser();
@@ -22,9 +24,10 @@ export async function getAuthState() {
 
 // Hook to listen to auth changes (for client components)
 export function onAuthStateChange(callback: (user: any) => void) {
+  const supabase = createClient();
   const {
     data: { subscription },
-  } = supabase.auth.onAuthStateChange((_event, session) => {
+  } = supabase.auth.onAuthStateChange((_event: any, session: any) => {
     callback(session?.user || null);
   });
 

@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 
 export const dynamic = 'force-dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { logIn } from '@/lib/db/users';
 import { getCurrentUserProfile } from '@/lib/db/users';
 import styles from './LogIn.module.css';
 import { Button } from '@/app/components/Button';
 
-export default function LogInPage() {
+function LogInForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectParam = searchParams.get('redirect');
+
   const [formData, setFormData] = useState({
     email: '',
     password: '',
@@ -53,15 +56,20 @@ export default function LogInPage() {
       return;
     }
 
-    // Get user profile to determine role
-    const user = await getCurrentUserProfile();
+    // If there's a redirect parameter, go there; otherwise determine role and redirect
+    if (redirectParam) {
+      router.push(redirectParam);
+    } else {
+      // Get user profile to determine role
+      const user = await getCurrentUserProfile();
 
-    if (user) {
-      // Redirect to appropriate dashboard
-      if (user.role === 'teacher') {
-        router.push('/teacher/dashboard');
-      } else {
-        router.push('/student/dashboard');
+      if (user) {
+        // Redirect to appropriate dashboard
+        if (user.role === 'teacher') {
+          router.push('/teacher/dashboard');
+        } else {
+          router.push('/student/dashboard');
+        }
       }
     }
   };
@@ -118,5 +126,13 @@ export default function LogInPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function LogInPage() {
+  return (
+    <Suspense fallback={<div className={styles.container}>Loading...</div>}>
+      <LogInForm />
+    </Suspense>
   );
 }

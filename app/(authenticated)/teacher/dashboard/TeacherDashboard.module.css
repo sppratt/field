@@ -32,6 +32,133 @@
   margin: 0;
 }
 
+/* Overview Cards Grid */
+.overviewGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.overviewCard {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.overviewCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+}
+
+.cardLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+}
+
+.cardValue {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.cardSubtext {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+}
+
+/* Action Cards */
+.actionGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.actionCard {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  padding: var(--spacing-lg);
+  text-align: center;
+  cursor: pointer;
+  transition: all var(--transition-base);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: var(--spacing-md);
+  text-decoration: none;
+}
+
+.actionCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.actionIcon {
+  font-size: 1.75rem;
+}
+
+.actionLabel {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  font-weight: var(--font-weight-semibold);
+}
+
+/* Insights Section */
+.insightsSection {
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-xl);
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.insightsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.insightCard {
+  padding: var(--spacing-lg);
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 3px solid var(--color-primary);
+  border-radius: 0.5rem;
+}
+
+.insightLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-semibold);
+  margin-bottom: var(--spacing-md);
+}
+
+.insightValue {
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  font-weight: var(--font-weight-bold);
+}
+
+.insightSubtext {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  margin-top: var(--spacing-sm);
+}
+
+/* Section */
 .section {
   margin-bottom: var(--spacing-2xl);
   padding: var(--spacing-xl);
@@ -60,6 +187,79 @@
   color: var(--color-text);
   margin-bottom: var(--spacing-lg);
   font-weight: var(--font-weight-bold);
+}
+
+/* Student Table */
+.tableContainer {
+  overflow-x: auto;
+}
+
+.table {
+  width: 100%;
+  border-collapse: collapse;
+}
+
+.table thead {
+  background-color: rgba(168, 184, 160, 0.08);
+  border-bottom: 2px solid var(--color-border);
+}
+
+.table th {
+  padding: var(--spacing-md);
+  text-align: left;
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.table td {
+  padding: var(--spacing-md);
+  border-bottom: 1px solid var(--color-border);
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+}
+
+.table tbody tr:hover {
+  background-color: rgba(168, 184, 160, 0.04);
+}
+
+.studentName {
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.status {
+  display: inline-block;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-pill);
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+}
+
+.statusActive {
+  background-color: rgba(124, 184, 159, 0.15);
+  color: var(--color-primary);
+}
+
+.statusInactive {
+  background-color: rgba(200, 200, 200, 0.2);
+  color: #666;
+}
+
+.statusNewStudent {
+  background-color: rgba(168, 184, 160, 0.15);
+  color: var(--color-primary);
+}
+
+.progressValue {
+  font-weight: var(--font-weight-semibold);
+}
+
+.lastActive {
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
 }
 
 .emptyState {
@@ -94,30 +294,6 @@
   justify-content: center;
 }
 
-.featureList {
-  list-style: none;
-  padding: 0;
-  margin: 0;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-md);
-}
-
-.featureList li {
-  font-size: var(--font-size-base);
-  color: var(--color-text-light);
-  padding-left: var(--spacing-lg);
-  position: relative;
-}
-
-.featureList li::before {
-  content: '✓';
-  position: absolute;
-  left: 0;
-  color: var(--color-primary);
-  font-weight: var(--font-weight-bold);
-}
-
 @media (max-width: 768px) {
   .sectionHeader {
     flex-direction: column;
@@ -127,6 +303,27 @@
 
   .header h1 {
     font-size: var(--font-size-2xl);
+  }
+
+  .overviewGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .actionGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .insightsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .table {
+    font-size: var(--font-size-xs);
+  }
+
+  .table th,
+  .table td {
+    padding: var(--spacing-sm);
   }
 }
 

@@ -1,5 +1,7 @@
-import { supabase } from '@/lib/supabase/client';
+import { createClient } from '@/utils/supabase/client';
 import type { StudentProgress, ProgressStatus } from './types';
+
+const supabase = createClient();
 
 // Get progress for a specific pathway
 export async function getPathwayProgress(

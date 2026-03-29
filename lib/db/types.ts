@@ -44,3 +44,31 @@ export interface LogInData {
   email: string;
   password: string;
 }
+
+export interface TeacherClass {
+  id: string;
+  teacher_id: string;
+  class_name: string;
+  class_code: string;
+  description: string | null;
+  created_at: string;
+  updated_at: string;
+}
+
+export interface ClassEnrollment {
+  id: string;
+  student_id: string;
+  class_id: string;
+  enrolled_at: string;
+}
+
+export interface ClassStudent {
+  id: string;
+  student_id: string;
+  name: string | null;
+  email: string;
+  pathways_started: number;
+  pathways_completed: number;
+  completion_percentage: number;
+  last_active: string | null;
+}

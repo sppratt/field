@@ -2,7 +2,6 @@
 
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
-import { Layout } from '@/app/components/Layout';
 import { getAuthState } from '@/lib/utils/auth';
 
 export default function AuthenticatedLayout({ children }: { children: React.ReactNode }) {
@@ -23,8 +22,8 @@ export default function AuthenticatedLayout({ children }: { children: React.Reac
   }, [router]);
 
   if (isAuthenticated === null) {
-    return <Layout>Loading...</Layout>;
+    return <div>Loading...</div>;
   }
 
-  return <Layout>{children}</Layout>;
+  return children;
 }

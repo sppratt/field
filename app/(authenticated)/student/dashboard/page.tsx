@@ -11,6 +11,7 @@ import { getUserProgress, getProgressSummary } from '@/lib/db/progress';
 import { careers } from '@/app/data/careers';
 import type { User, StudentProgress } from '@/lib/db/types';
 import styles from './StudentDashboard.module.css';
+import { Button } from '@/app/components/Button';
 
 export default function StudentDashboard() {
   const router = useRouter();
@@ -18,6 +19,12 @@ export default function StudentDashboard() {
   const [progress, setProgress] = useState<StudentProgress[]>([]);
   const [summary, setSummary] = useState({ notStarted: 0, inProgress: 0, completed: 0 });
   const [loading, setLoading] = useState(true);
+  const [classCode, setClassCode] = useState('');
+  const [enrolledClass, setEnrolledClass] = useState<{
+    id: string;
+    name: string;
+    teacherName: string;
+  } | null>(null);
 
   useEffect(() => {
     const loadData = async () => {
@@ -55,6 +62,23 @@ export default function StudentDashboard() {
     return careerProgress?.completion_percentage || 0;
   };
 
+  const handleJoinClass = () => {
+    // For now, simulate joining with mock data
+    if (classCode.trim().length > 0) {
+      // In a real app, this would validate the code against the database
+      setEnrolledClass({
+        id: 'class-001',
+        name: `Class ${classCode.toUpperCase()}`,
+        teacherName: 'Ms. Rodriguez',
+      });
+      setClassCode('');
+    }
+  };
+
+  const handleLeaveClass = () => {
+    setEnrolledClass(null);
+  };
+
   if (loading) {
     return (
       <div className={styles.container}>
@@ -70,6 +94,53 @@ export default function StudentDashboard() {
           <h1>Welcome, {user?.name}!</h1>
           <p>Continue exploring careers and tracking your progress</p>
         </div>
+      </div>
+
+      {/* Optional Join Class Section */}
+      <div className={styles.joinClassSection}>
+        {!enrolledClass ? (
+          <>
+            <div className={styles.joinClassHeader}>
+              <h3>Connect with Your Teacher</h3>
+              <p>
+                Join a class to share your progress with your teacher. This is optional—you can
+                always explore on your own.
+              </p>
+            </div>
+            <div className={styles.joinClassForm}>
+              <input
+                type="text"
+                className={styles.codeInput}
+                placeholder="Enter class code"
+                value={classCode}
+                onChange={(e) => setClassCode(e.target.value.toUpperCase())}
+                onKeyPress={(e) => {
+                  if (e.key === 'Enter') {
+                    handleJoinClass();
+                  }
+                }}
+              />
+              <Button variant="primary" onClick={handleJoinClass} className={styles.joinButton}>
+                Join Class
+              </Button>
+            </div>
+          </>
+        ) : (
+          <div className={styles.classInfo}>
+            <div className={styles.classInfoIcon}>✓</div>
+            <div className={styles.classInfoText}>
+              <h4>{enrolledClass.name}</h4>
+              <p>Teacher: {enrolledClass.teacherName}</p>
+            </div>
+            <Button
+              variant="secondary"
+              onClick={handleLeaveClass}
+              className={styles.leaveButton}
+            >
+              Leave Class
+            </Button>
+          </div>
+        )}
       </div>
 
       <div className={styles.statsGrid}>

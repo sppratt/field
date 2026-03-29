@@ -74,6 +74,98 @@
   font-weight: var(--font-weight-bold);
 }
 
+/* Join Class Section */
+.joinClassSection {
+  margin-bottom: var(--spacing-2xl);
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.08) 0%, rgba(168, 184, 160, 0.04) 100%);
+  border: 1px solid rgba(168, 184, 160, 0.2);
+  border-radius: 0.875rem;
+  box-shadow: var(--shadow-sm);
+}
+
+.joinClassHeader {
+  margin-bottom: var(--spacing-md);
+}
+
+.joinClassHeader h3 {
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm) 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.joinClassHeader p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.joinClassForm {
+  display: flex;
+  gap: var(--spacing-md);
+  align-items: flex-end;
+}
+
+.codeInput {
+  flex: 1;
+  max-width: 280px;
+  padding: var(--spacing-md);
+  font-size: var(--font-size-base);
+  border: 1px solid var(--color-border);
+  border-radius: 0.5rem;
+  background: white;
+  color: var(--color-text);
+  font-family: inherit;
+  transition: all var(--transition-base);
+}
+
+.codeInput:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(168, 184, 160, 0.1);
+}
+
+.codeInput::placeholder {
+  color: var(--color-text-light);
+}
+
+.joinButton {
+  white-space: nowrap;
+}
+
+.classInfo {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  padding: var(--spacing-md);
+  background: white;
+  border: 1px solid rgba(124, 184, 159, 0.2);
+  border-radius: 0.5rem;
+}
+
+.classInfoIcon {
+  font-size: 1.5rem;
+}
+
+.classInfoText h4 {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-xs) 0;
+  font-weight: var(--font-weight-semibold);
+}
+
+.classInfoText p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.leaveButton {
+  padding: var(--spacing-xs) var(--spacing-md);
+  font-size: var(--font-size-sm);
+}
+
 .pathwaysGrid {
   display: grid;
   grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));

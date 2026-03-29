@@ -1,9 +1,10 @@
 import { NextRequest, NextResponse } from 'next/server';
+import { createClient } from '@/utils/supabase/client';
 
 // GET: Fetch user's progress for a specific pathway
 export async function GET(request: NextRequest) {
   try {
-    const { supabase } = await import('@/lib/supabase/client');
+    const supabase = createClient();
     const { updateProgress, startPathway } = await import('@/lib/db/progress');
 
     const { searchParams } = new URL(request.url);
@@ -42,7 +43,7 @@ export async function GET(request: NextRequest) {
 // POST: Update progress on a pathway
 export async function POST(request: NextRequest) {
   try {
-    const { supabase } = await import('@/lib/supabase/client');
+    const supabase = createClient();
     const { updateProgress, startPathway } = await import('@/lib/db/progress');
 
     const {

@@ -1,9 +1,9 @@
 'use client';
 
-import { useEffect, useState } from 'react';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
-import { getAuthState } from '@/lib/utils/auth';
+import { useAuth } from '@/app/providers/AuthProvider';
+import { useUserRole } from '@/app/hooks/useUserRole';
 import { logOut } from '@/lib/db/users';
 import styles from '@/app/styles/Navigation.module.css';
 import { cn } from '@/app/utils/cn';
@@ -11,22 +11,14 @@ import { cn } from '@/app/utils/cn';
 export const Navigation = () => {
   const pathname = usePathname();
   const router = useRouter();
-  const [user, setUser] = useState<any>(null);
-  const [loading, setLoading] = useState(true);
-
-  useEffect(() => {
-    const checkAuth = async () => {
-      const { user: authUser } = await getAuthState();
-      setUser(authUser);
-      setLoading(false);
-    };
-
-    checkAuth();
-  }, []);
+  const { user, loading } = useAuth();
+  const role = useUserRole();
 
   const isActive = (href: string) => {
     return pathname === href || pathname.startsWith(href + '/');
   };
+
+  const dashboardHref = role === 'teacher' ? '/teacher/dashboard' : '/student/dashboard';
 
   const handleLogout = async () => {
     const { error } = await logOut();
@@ -68,8 +60,11 @@ export const Navigation = () => {
                 <>
                   <li>
                     <Link
-                      href={user.user_metadata?.role === 'teacher' ? '/teacher/dashboard' : '/student/dashboard'}
-                      className={cn(styles.link, isActive('/dashboard') && styles.active)}
+                      href={dashboardHref}
+                      className={cn(
+                        styles.link,
+                        (isActive('/teacher/dashboard') || isActive('/student/dashboard')) && styles.active
+                      )}
                     >
                       Dashboard
                     </Link>

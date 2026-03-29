@@ -1,17 +1,20 @@
 'use client';
 
-import { useState } from 'react';
+import { useState, Suspense } from 'react';
 
 export const dynamic = 'force-dynamic';
-import { useRouter } from 'next/navigation';
+import { useRouter, useSearchParams } from 'next/navigation';
 import Link from 'next/link';
 import { signUp } from '@/lib/db/users';
 import type { UserRole } from '@/lib/db/types';
 import styles from './SignUp.module.css';
 import { Button } from '@/app/components/Button';
 
-export default function SignUpPage() {
+function SignUpForm() {
   const router = useRouter();
+  const searchParams = useSearchParams();
+  const redirectParam = searchParams.get('redirect');
+
   const [formData, setFormData] = useState({
     name: '',
     email: '',
@@ -72,11 +75,16 @@ export default function SignUpPage() {
     }
 
     if (user) {
-      // Redirect to appropriate dashboard
-      if (user.role === 'teacher') {
-        router.push('/teacher/dashboard');
+      // If there's a redirect parameter, go there; otherwise determine role and redirect
+      if (redirectParam) {
+        router.push(redirectParam);
       } else {
-        router.push('/student/dashboard');
+        // Redirect to appropriate dashboard
+        if (user.role === 'teacher') {
+          router.push('/teacher/dashboard');
+        } else {
+          router.push('/student/dashboard');
+        }
       }
     }
   };
@@ -168,5 +176,13 @@ export default function SignUpPage() {
         </div>
       </div>
     </div>
+  );
+}
+
+export default function SignUpPage() {
+  return (
+    <Suspense fallback={<div className={styles.container}>Loading...</div>}>
+      <SignUpForm />
+    </Suspense>
   );
 }
