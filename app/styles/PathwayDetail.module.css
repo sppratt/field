@@ -1,0 +1,218 @@
+.page {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.hero {
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.08) 0%, transparent 100%);
+  padding: var(--spacing-2xl) var(--spacing-2xl);
+  margin-bottom: var(--spacing-2xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.heroContent {
+  max-width: 900px;
+  margin: 0 auto;
+}
+
+.title {
+  font-size: var(--font-size-4xl);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.description {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  line-height: var(--line-height-relaxed);
+  max-width: 700px;
+}
+
+.container {
+  max-width: 900px;
+  margin: 0 auto;
+  padding: 0 var(--spacing-2xl);
+}
+
+.simulationSection {
+  display: grid;
+  grid-template-columns: 2fr 1fr;
+  gap: var(--spacing-xl);
+  margin-bottom: var(--spacing-2xl);
+  align-items: start;
+}
+
+.simulationContainer {
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: 0.875rem;
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-md);
+  text-align: center;
+}
+
+.simulationContainer h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.simulationPlaceholder {
+  color: var(--color-text-light);
+  line-height: var(--line-height-relaxed);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.infoSection {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.infoCard {
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 0.75rem;
+  padding: var(--spacing-lg);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+}
+
+.infoCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-2px);
+}
+
+.infoCard h3 {
+  font-size: var(--font-size-sm);
+  color: var(--color-primary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-semibold);
+}
+
+.infoCard p {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  margin: 0;
+  line-height: var(--line-height-normal);
+}
+
+.skillsList {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.skillItem {
+  font-size: var(--font-size-base);
+  color: var(--color-text);
+  padding-left: var(--spacing-md);
+  position: relative;
+}
+
+.skillItem::before {
+  content: '✓';
+  position: absolute;
+  left: 0;
+  color: var(--color-primary);
+  font-weight: var(--font-weight-bold);
+}
+
+.backButton {
+  margin-top: var(--spacing-lg);
+}
+
+/* Not found state */
+.notFound {
+  text-align: center;
+  padding: var(--spacing-3xl) var(--spacing-2xl);
+}
+
+.notFound h1 {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.notFound p {
+  font-size: var(--font-size-lg);
+  color: var(--color-text-light);
+  margin-bottom: var(--spacing-2xl);
+}
+
+@media (max-width: 768px) {
+  .hero {
+    padding: var(--spacing-lg) var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .title {
+    font-size: var(--font-size-3xl);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .simulationSection {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-lg);
+    margin-bottom: var(--spacing-lg);
+  }
+
+  .simulationContainer {
+    padding: var(--spacing-xl);
+  }
+
+  .infoSection {
+    gap: var(--spacing-md);
+  }
+
+  .container {
+    padding: 0 var(--spacing-lg);
+  }
+}
+
+@media (max-width: 640px) {
+  .hero {
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .title {
+    font-size: var(--font-size-2xl);
+    margin-bottom: var(--spacing-sm);
+  }
+
+  .description {
+    font-size: var(--font-size-base);
+  }
+
+  .container {
+    padding: 0 var(--spacing-md);
+  }
+
+  .simulationContainer {
+    padding: var(--spacing-lg);
+  }
+
+  .simulationContainer h2 {
+    font-size: var(--font-size-lg);
+  }
+
+  .infoCard {
+    padding: var(--spacing-md);
+  }
+}

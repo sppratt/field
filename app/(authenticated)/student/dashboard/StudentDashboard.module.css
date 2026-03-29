@@ -1,0 +1,212 @@
+.container {
+  animation: fadeIn 0.6s ease-in-out;
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.header {
+  margin-bottom: var(--spacing-2xl);
+  padding-bottom: var(--spacing-xl);
+  border-bottom: 1px solid var(--color-border);
+}
+
+.header h1 {
+  font-size: var(--font-size-3xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.header p {
+  font-size: var(--font-size-base);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.statsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-2xl);
+}
+
+.statCard {
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  padding: var(--spacing-lg);
+  text-align: center;
+  box-shadow: var(--shadow-sm);
+}
+
+.statNumber {
+  font-size: var(--font-size-4xl);
+  font-weight: var(--font-weight-bold);
+  color: var(--color-primary);
+  margin-bottom: var(--spacing-sm);
+}
+
+.statLabel {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  font-weight: var(--font-weight-semibold);
+}
+
+.section {
+  margin-bottom: var(--spacing-2xl);
+}
+
+.section h2 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-lg);
+  font-weight: var(--font-weight-bold);
+}
+
+.pathwaysGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.pathwayCard {
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 0.875rem;
+  padding: var(--spacing-lg);
+  text-decoration: none;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+  box-shadow: var(--shadow-sm);
+  transition: all var(--transition-base);
+  position: relative;
+  overflow: hidden;
+}
+
+.pathwayCard::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 3px;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transform: translateX(-100%);
+  transition: transform var(--transition-base);
+}
+
+.pathwayCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: var(--shadow-md);
+  transform: translateY(-4px);
+}
+
+.pathwayCard:hover::before {
+  transform: translateX(0);
+}
+
+.cardHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: var(--spacing-md);
+}
+
+.cardHeader h3 {
+  font-size: var(--font-size-lg);
+  color: var(--color-text);
+  margin: 0;
+  font-weight: var(--font-weight-semibold);
+  flex: 1;
+}
+
+.badge {
+  display: inline-block;
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  padding: var(--spacing-xs) var(--spacing-md);
+  border-radius: var(--radius-pill);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.badge-not_started {
+  background-color: #e8e8e8;
+  color: #5a5a5a;
+}
+
+.badge-in_progress {
+  background-color: rgba(168, 184, 160, 0.15);
+  color: var(--color-primary);
+}
+
+.badge-completed {
+  background-color: rgba(124, 184, 159, 0.15);
+  color: var(--color-success);
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: var(--line-height-relaxed);
+  flex: 1;
+}
+
+.progressBar {
+  width: 100%;
+  height: 6px;
+  background-color: #e8e8e8;
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 0.3s ease-in-out;
+}
+
+.cardFooter {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin-top: auto;
+}
+
+@media (max-width: 768px) {
+  .statsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .pathwaysGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .header h1 {
+    font-size: var(--font-size-2xl);
+  }
+}
+
+@media (max-width: 640px) {
+  .cardHeader {
+    flex-direction: column;
+  }
+
+  .badge {
+    align-self: flex-start;
+  }
+}

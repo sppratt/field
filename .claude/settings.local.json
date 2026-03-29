@@ -1,0 +1,18 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm run:*)",
+      "Bash(curl -s http://localhost:3000/)",
+      "Bash(curl -s http://localhost:3001/)",
+      "Bash(curl -s http://localhost:3001/pathways)",
+      "Bash(curl -s http://localhost:3001/pathways/software-engineer)",
+      "Bash(curl -s http://localhost:3000/pathways)",
+      "Bash(curl -s http://localhost:3000/pathways/software-engineer)",
+      "Bash(npm list:*)",
+      "Bash(npm install:*)",
+      "Bash(curl -s http://localhost:3000/auth/signup)",
+      "Bash(curl -s http://localhost:3000/auth/login)",
+      "Bash(curl -s http://localhost:3000)"
+    ]
+  }
+}

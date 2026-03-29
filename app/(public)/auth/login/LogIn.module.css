@@ -1,0 +1,118 @@
+.container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: calc(100vh - 120px);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.03) 0%, transparent 100%);
+}
+
+.content {
+  width: 100%;
+  max-width: 420px;
+  background: white;
+  border: 1px solid var(--color-border);
+  border-radius: 1rem;
+  padding: var(--spacing-2xl);
+  box-shadow: var(--shadow-sm);
+}
+
+.header {
+  text-align: center;
+  margin-bottom: var(--spacing-2xl);
+}
+
+.header h1 {
+  font-size: var(--font-size-2xl);
+  color: var(--color-text);
+  margin-bottom: var(--spacing-sm);
+  font-weight: var(--font-weight-bold);
+}
+
+.header p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.form {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+}
+
+.error {
+  background-color: #ffe6e6;
+  color: #c27c7c;
+  padding: var(--spacing-md);
+  border-radius: var(--radius-md);
+  font-size: var(--font-size-sm);
+  border: 1px solid #f0c0c0;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.formGroup label {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.formGroup input {
+  font-family: var(--font-family-sans);
+  font-size: var(--font-size-base);
+  padding: var(--spacing-md) var(--spacing-lg);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background-color: white;
+  color: var(--color-text);
+  transition: all var(--transition-base);
+}
+
+.formGroup input:focus {
+  outline: none;
+  border-color: var(--color-primary);
+  box-shadow: 0 0 0 3px rgba(168, 184, 160, 0.1);
+}
+
+.footer {
+  text-align: center;
+  padding-top: var(--spacing-lg);
+  border-top: 1px solid var(--color-border);
+}
+
+.footer p {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+.link {
+  color: var(--color-primary);
+  font-weight: var(--font-weight-semibold);
+  text-decoration: none;
+  transition: color var(--transition-base);
+}
+
+.link:hover {
+  color: var(--color-accent);
+}
+
+@media (max-width: 640px) {
+  .container {
+    min-height: auto;
+    padding: var(--spacing-lg);
+  }
+
+  .content {
+    padding: var(--spacing-xl);
+  }
+
+  .header h1 {
+    font-size: var(--font-size-xl);
+  }
+}
