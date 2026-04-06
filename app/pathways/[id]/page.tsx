@@ -21,9 +21,9 @@ export default async function PathwayPage({ params }: PathwayPageProps) {
     return (
       <div className={styles.notFound}>
         <h1>Career not found</h1>
-        <p>The career pathway you&apos;re looking for doesn&apos;t exist.</p>
+        <p>The field you&apos;re looking for doesn&apos;t exist.</p>
         <Button href="/pathways" variant="primary">
-          Back to Pathways
+          Back to Fields
         </Button>
       </div>
     );

@@ -17,12 +17,11 @@
 }
 
 .logo {
-  font-size: var(--font-size-2xl);
-  font-weight: var(--font-weight-bold);
+  padding-top: 6px;
   color: var(--color-primary);
   text-decoration: none;
   transition: color var(--transition-base);
-  white-space: nowrap;
+  /* white-space: nowrap; */
 }
 
 .logo:hover {
@@ -78,6 +77,84 @@
   border-bottom-color: var(--color-primary);
 }
 
+.profileContainer {
+  position: relative;
+  display: flex;
+  align-items: center;
+}
+
+.profileButton {
+  background: none;
+  border: none;
+  color: var(--color-text);
+  cursor: pointer;
+  padding: var(--spacing-sm);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: color var(--transition-base);
+  border-radius: 4px;
+}
+
+.profileButton:hover,
+.profileButton:focus {
+  color: var(--color-primary);
+  outline: none;
+}
+
+.profileDropdown {
+  position: absolute;
+  top: 100%;
+  right: 0;
+  background-color: var(--color-background);
+  border: 1px solid var(--color-border);
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.08);
+  min-width: 160px;
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(-8px);
+  transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
+  z-index: 1000;
+  margin-top: 8px;
+}
+
+.profileContainer:hover .profileDropdown {
+  opacity: 1;
+  visibility: visible;
+  transform: translateY(0);
+}
+
+.dropdownItem {
+  display: block;
+  width: 100%;
+  padding: var(--spacing-md) var(--spacing-lg);
+  color: var(--color-text);
+  text-decoration: none;
+  font-size: var(--font-size-sm);
+  background: none;
+  border: none;
+  cursor: pointer;
+  font-family: var(--font-family-sans);
+  text-align: left;
+  transition: background-color var(--transition-base), color var(--transition-base);
+}
+
+.dropdownItem:first-child {
+  border-radius: 8px 8px 0 0;
+}
+
+.dropdownItem:last-child {
+  border-radius: 0 0 8px 8px;
+}
+
+.dropdownItem:hover,
+.dropdownItem:focus {
+  background-color: var(--color-border);
+  color: var(--color-primary);
+  outline: none;
+}
+
 @media (max-width: 640px) {
   .nav {
     padding: var(--spacing-md);
@@ -97,5 +174,9 @@
 
   .link {
     font-size: var(--font-size-sm);
+  }
+
+  .profileDropdown {
+    right: -12px;
   }
 }

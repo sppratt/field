@@ -144,14 +144,14 @@ export default function TeacherDashboard() {
           <div className={styles.cardSubtext}>Enrolled in your class</div>
         </div>
         <div className={styles.overviewCard}>
-          <div className={styles.cardLabel}>Pathways Started</div>
+          <div className={styles.cardLabel}>Fields Explored</div>
           <div className={styles.cardValue}>{mockInsights.pathwaysStarted}</div>
           <div className={styles.cardSubtext}>Across all students</div>
         </div>
         <div className={styles.overviewCard}>
           <div className={styles.cardLabel}>Completed</div>
           <div className={styles.cardValue}>{mockInsights.pathwaysCompleted}</div>
-          <div className={styles.cardSubtext}>Pathways finished</div>
+          <div className={styles.cardSubtext}>Fields finished</div>
         </div>
         <div className={styles.overviewCard}>
           <div className={styles.cardLabel}>Avg Completion</div>
@@ -181,14 +181,14 @@ export default function TeacherDashboard() {
         <h2 style={{ marginTop: 0 }}>Classroom Insights</h2>
         <div className={styles.insightsGrid}>
           <div className={styles.insightCard}>
-            <div className={styles.insightLabel}>Most Explored</div>
+            <div className={styles.insightLabel}>Most Explored Field</div>
             <div className={styles.insightValue}>{mockInsights.mostExplored}</div>
-            <div className={styles.insightSubtext}>Your class is most interested in this pathway</div>
+            <div className={styles.insightSubtext}>Your class is most interested in this field</div>
           </div>
           <div className={styles.insightCard}>
-            <div className={styles.insightLabel}>Least Explored</div>
+            <div className={styles.insightLabel}>Least Explored Field</div>
             <div className={styles.insightValue}>{mockInsights.leastExplored}</div>
-            <div className={styles.insightSubtext}>Consider promoting this pathway</div>
+            <div className={styles.insightSubtext}>Consider promoting this field</div>
           </div>
           <div className={styles.insightCard}>
             <div className={styles.insightLabel}>Needing Attention</div>

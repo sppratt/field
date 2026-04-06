@@ -32,8 +32,8 @@ export default function Home() {
           <div className={styles.step}>
             <div className={styles.stepNumber}>1</div>
             <div className={styles.stepContent}>
-              <h3>Choose a Career</h3>
-              <p>Browse our collection of career pathways and select one that interests you. Each career offers a unique perspective on professional life.</p>
+              <h3>Explore Fields</h3>
+              <p>Browse our collection of career fields and select one that interests you. Each career offers a unique perspective on professional life.</p>
             </div>
           </div>
 

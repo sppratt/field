@@ -1,5 +1,6 @@
 'use client';
 
+import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
 import { useAuth } from '@/app/providers/AuthProvider';
@@ -31,7 +32,12 @@ export const Navigation = () => {
     <nav className={styles.nav}>
       <div className={styles.container}>
         <Link href="/" className={styles.logo}>
-          Field
+          <Image
+            src="/field_logo.svg"
+            alt="Field"
+            width={105}
+            height={40}
+          />
         </Link>
         <ul className={styles.links}>
           <li>
@@ -50,7 +56,7 @@ export const Navigation = () => {
               href="/pathways"
               className={cn(styles.link, isActive('/pathways') && styles.active)}
             >
-              Explore Careers
+              Explore Fields
             </Link>
           </li>
 
@@ -69,10 +75,25 @@ export const Navigation = () => {
                       Dashboard
                     </Link>
                   </li>
-                  <li>
-                    <button onClick={handleLogout} className={styles.logoutBtn}>
-                      Log Out
+                  <li className={styles.profileContainer}>
+                    <button className={styles.profileButton} title="Profile menu">
+                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
+                        <circle cx="12" cy="12" r="1"></circle>
+                        <circle cx="19" cy="12" r="1"></circle>
+                        <circle cx="5" cy="12" r="1"></circle>
+                      </svg>
                     </button>
+                    <div className={styles.profileDropdown}>
+                      <Link href="/account" className={styles.dropdownItem}>
+                        Account
+                      </Link>
+                      <Link href="/settings" className={styles.dropdownItem}>
+                        Settings
+                      </Link>
+                      <button onClick={handleLogout} className={styles.dropdownItem}>
+                        Log Out
+                      </button>
+                    </div>
                   </li>
                 </>
               ) : (

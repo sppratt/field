@@ -6,10 +6,10 @@ export default function PathwaysPage() {
   return (
     <div className={styles.page}>
       <div className={styles.header}>
-        <h1 className={styles.title}>Explore Career Pathways</h1>
+        <h1 className={styles.title}>Explore Fields</h1>
         <p className={styles.description}>
           Choose a career below to step into a scenario and experience what the job is really
-          like. Make decisions, learn from outcomes, and discover which path resonates with you.
+          like. Make decisions, learn from outcomes, and discover which field resonates with you.
         </p>
       </div>
 

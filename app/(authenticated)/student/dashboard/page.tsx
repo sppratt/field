@@ -159,7 +159,8 @@ export default function StudentDashboard() {
       </div>
 
       <div className={styles.section}>
-        <h2>Your Career Pathways</h2>
+        <h2>Your Fields</h2>
+        <p style={{ fontSize: '0.95rem', color: 'var(--color-text-secondary)', marginBottom: '1.5rem' }}>Your growing fields</p>
         <div className={styles.pathwaysGrid}>
           {careers.map((career) => {
             const status = getProgressStatus(career.id);
