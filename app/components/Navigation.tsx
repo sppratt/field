@@ -3,6 +3,7 @@
 import Image from 'next/image';
 import Link from 'next/link';
 import { usePathname, useRouter } from 'next/navigation';
+import PersonIcon from '@mui/icons-material/Person';
 import { useAuth } from '@/app/providers/AuthProvider';
 import { useUserRole } from '@/app/hooks/useUserRole';
 import { logOut } from '@/lib/db/users';
@@ -79,11 +80,7 @@ export const Navigation = () => {
                   </li>
                   <li className={styles.profileContainer}>
                     <button className={styles.profileButton} title="Profile menu">
-                      <svg width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2">
-                        <circle cx="12" cy="12" r="1"></circle>
-                        <circle cx="19" cy="12" r="1"></circle>
-                        <circle cx="5" cy="12" r="1"></circle>
-                      </svg>
+                      <PersonIcon sx={{ width: 24, height: 24 }} />
                     </button>
                     <div className={styles.profileDropdown}>
                       <Link href="/account" className={styles.dropdownItem}>
