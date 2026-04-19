@@ -5,7 +5,6 @@ import { useRouter } from 'next/navigation';
 import { getCurrentUserProfile } from '@/lib/db/users';
 import styles from '@/app/styles/Homepage.module.css';
 import { Button } from '@/app/components/Button';
-import { StepsConnector } from '@/app/components/StepsConnector';
 
 export default function Home() {
   const router = useRouter();
