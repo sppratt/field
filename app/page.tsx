@@ -1,8 +1,45 @@
+'use client';
+
+import { useEffect, useState } from 'react';
+import { useRouter } from 'next/navigation';
+import { getCurrentUserProfile } from '@/lib/db/users';
 import styles from '@/app/styles/Homepage.module.css';
 import { Button } from '@/app/components/Button';
 import { StepsConnector } from '@/app/components/StepsConnector';
 
 export default function Home() {
+  const router = useRouter();
+  const [isLoading, setIsLoading] = useState(true);
+
+  useEffect(() => {
+    const checkAuth = async () => {
+      try {
+        const user = await getCurrentUserProfile();
+        if (user) {
+          if (user.role === 'teacher') {
+            router.push('/teacher/dashboard');
+          } else if (user.role === 'student') {
+            router.push('/student/dashboard');
+          }
+        }
+      } catch (error) {
+        console.error('Auth check error:', error);
+      } finally {
+        setIsLoading(false);
+      }
+    };
+
+    checkAuth();
+  }, [router]);
+
+  if (isLoading) {
+    return (
+      <div style={{ display: 'flex', justifyContent: 'center', alignItems: 'center', minHeight: '100vh' }}>
+        <p>Loading...</p>
+      </div>
+    );
+  }
+
   return (
     <>
       <section className={styles.hero}>
