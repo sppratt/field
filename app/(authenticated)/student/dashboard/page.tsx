@@ -12,6 +12,23 @@ import { careers } from '@/app/data/careers';
 import type { User, StudentProgress } from '@/lib/db/types';
 import styles from './StudentDashboard.module.css';
 import { Button } from '@/app/components/Button';
+import { CareerCard } from '@/app/components/CareerCard';
+
+const careerIcons: Record<string, string> = {
+  'software-engineer': '⚙️',
+  'nurse': '💊',
+  'graphic-designer': '🎨',
+  'data-analyst': '📊',
+  'architect': '🏗️',
+};
+
+const careerColors: Record<string, string> = {
+  'software-engineer': 'var(--career-software-engineer)',
+  'nurse': 'var(--career-nurse)',
+  'graphic-designer': 'var(--career-graphic-designer)',
+  'data-analyst': 'var(--career-data-analyst)',
+  'architect': 'var(--career-architect)',
+};
 
 export default function StudentDashboard() {
   const router = useRouter();
@@ -67,6 +84,83 @@ export default function StudentDashboard() {
     return careerProgress?.completion_percentage || 0;
   };
 
+  const getTagScores = () => {
+    const tagScores: Record<string, number> = {
+      analytical: 0,
+      creative: 0,
+      hands_on: 0,
+      social: 0,
+      problem_solving: 0,
+    };
+
+    progress.forEach((p) => {
+      if (p.status === 'completed' || p.status === 'in_progress') {
+        try {
+          const tagScoresJson = p.decisions_made?.tagScores_json;
+          if (tagScoresJson) {
+            const scores = typeof tagScoresJson === 'string' ? JSON.parse(tagScoresJson) : tagScoresJson;
+            Object.keys(scores).forEach((tag) => {
+              if (tag in tagScores) {
+                tagScores[tag] += scores[tag] || 0;
+              }
+            });
+          }
+        } catch (err) {
+          console.error('Error parsing tag scores:', err);
+        }
+      }
+    });
+
+    return tagScores;
+  };
+
+  const getTopSkill = () => {
+    const tagScores = getTagScores();
+    const topTag = Object.entries(tagScores).sort((a, b) => b[1] - a[1])[0];
+    if (!topTag || topTag[1] === 0) return null;
+    return topTag[0].replace(/_/g, ' ').charAt(0).toUpperCase() + topTag[0].slice(1).replace(/_/g, ' ');
+  };
+
+  const getTopCareerMatch = () => {
+    if (progress.length === 0) return null;
+    const tagScores = getTagScores();
+
+    // Calculate match score for each career
+    const careerScores = careers.map((c) => {
+      const score = c.recommendationTags.reduce((sum, tag) => sum + (tagScores[tag as keyof typeof tagScores] || 0), 0);
+      return { career: c, score };
+    });
+
+    const topMatch = careerScores.sort((a, b) => b.score - a.score)[0];
+    if (!topMatch || topMatch.score === 0) return null;
+    return topMatch.career;
+  };
+
+  const getRecommendedCareers = () => {
+    // Calculate aggregate tag scores from all completed/in-progress simulations
+    const tagScores = getTagScores();
+
+    // Find top 2 tags
+    const topTags = Object.entries(tagScores)
+      .sort((a, b) => b[1] - a[1])
+      .slice(0, 2)
+      .map(([tag]) => tag);
+
+    // Find not-started careers that match top tags
+    const notStartedCareers = careers.filter((c) => {
+      const careerProgress = progress.find((p) => p.pathway_id === c.id);
+      return !careerProgress || careerProgress.status === 'not_started';
+    });
+
+    const recommendedCareers = notStartedCareers
+      .filter((c) =>
+        topTags.some((tag) => c.recommendationTags.includes(tag as any))
+      )
+      .slice(0, 3);
+
+    return recommendedCareers;
+  };
+
   const handleJoinClass = () => {
     // For now, simulate joining with mock data
     if (classCode.trim().length > 0) {
@@ -98,30 +192,169 @@ export default function StudentDashboard() {
       <div className={styles.hero}>
         <div className={styles.heroInner}>
           <h1 className={styles.welcomeHeading}>Welcome, {user?.name}!</h1>
-          <p className={styles.welcomeSubtext}>Your personal career exploration journey</p>
 
-          <h2 className={styles.heroHeadline}>Your field is growing</h2>
-          <p className={styles.heroSubheading}>
-            Track your exploration across different career paths. Each simulation you complete adds depth to your understanding.
-          </p>
-          <div className={styles.statsGrid}>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>{summary.notStarted}</div>
-              <p className={styles.statLabel}>Not Started</p>
+          <div className={styles.heroRow}>
+            <div className={styles.heroGrowthSection}>
+              <h2 className={styles.heroHeadline}>Your field is growing</h2>
+              <p className={styles.heroSubheading}>
+                Track your exploration across different career paths. Each simulation you complete adds depth to your understanding.
+              </p>
             </div>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>{summary.inProgress}</div>
-              <p className={styles.statLabel}>In Progress</p>
-            </div>
-            <div className={styles.statCard}>
-              <div className={styles.statNumber}>{summary.completed}</div>
-              <p className={styles.statLabel}>Completed</p>
+
+            <div className={styles.statsGrid}>
+              <button
+                onClick={() => {
+                  document.getElementById('in-progress-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={styles.statCard}
+              >
+                <div className={styles.statNumber}>{summary.inProgress}</div>
+                <p className={styles.statLabel}>In Progress</p>
+              </button>
+              <button
+                onClick={() => {
+                  document.getElementById('completed-section')?.scrollIntoView({ behavior: 'smooth' });
+                }}
+                className={styles.statCard}
+              >
+                <div className={styles.statNumber}>{summary.completed}</div>
+                <p className={styles.statLabel}>Completed</p>
+              </button>
+              {getTopSkill() && (
+                <div className={styles.statCard}>
+                  <div className={styles.statLabel} style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.25rem' }}>
+                    {getTopSkill()}
+                  </div>
+                  <p className={styles.statLabel}>Top Skill</p>
+                </div>
+              )}
+              {getTopCareerMatch() && (
+                <div className={styles.statCard}>
+                  <div className={styles.statNumber} style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
+                    {careerIcons[getTopCareerMatch()!.id]}
+                  </div>
+                  <p className={styles.statLabel}>{getTopCareerMatch()!.title}</p>
+                </div>
+              )}
             </div>
           </div>
         </div>
       </div>
 
-      {/* Optional Join Class Section */}
+      {/* Recommended Section - Moved to top for discovery-first flow */}
+      <div id="recommended-section" className={styles.recommendedSection}>
+        <h2>Recommended for You</h2>
+        <p className={styles.sectionSubheading}>Based on your strongest skills</p>
+        <div className={styles.pathwaysGrid}>
+          {getRecommendedCareers().map((career) => (
+            <CareerCard
+              key={career.id}
+              id={career.id}
+              title={career.title}
+              description={career.description}
+              level={career.level}
+              keySkills={career.keySkills}
+              icon={careerIcons[career.id]}
+              accentColor={careerColors[career.id]}
+              progress={0}
+              status="not_started"
+              isDashboard={true}
+              showTear={false}
+            />
+          ))}
+        </div>
+        {getRecommendedCareers().length === 0 && (
+          <p className={styles.emptyState}>
+            Complete simulations to get personalized recommendations! <Link href="/pathways" className={styles.emptyStateLink}>Start exploring</Link>
+          </p>
+        )}
+      </div>
+
+      {/* In Progress Section */}
+      <div id="in-progress-section" className={styles.section}>
+        <h2>In Progress</h2>
+        <p className={styles.sectionSubheading}>Continue exploring these fields</p>
+        <div className={styles.pathwaysGrid}>
+          {careers
+            .filter((career) => {
+              const status = getProgressStatus(career.id);
+              return status === 'in_progress';
+            })
+            .map((career) => {
+              const status = getProgressStatus(career.id);
+              const percentage = getProgressPercentage(career.id);
+
+              return (
+                <CareerCard
+                  key={career.id}
+                  id={career.id}
+                  title={career.title}
+                  description={career.description}
+                  level={career.level}
+                  keySkills={career.keySkills}
+                  icon={careerIcons[career.id]}
+                  accentColor={careerColors[career.id]}
+                  progress={percentage}
+                  status={status}
+                  isDashboard={true}
+                  showTear={false}
+                />
+              );
+            })}
+        </div>
+        {careers.filter((c) => {
+          const status = getProgressStatus(c.id);
+          return status === 'in_progress';
+        }).length === 0 && (
+          <p className={styles.emptyState}>
+            No fields in progress yet. Head to <Link href="/pathways" className={styles.emptyStateLink}>Explore Fields</Link> to get started!
+          </p>
+        )}
+      </div>
+
+      {/* Completed Section */}
+      <div id="completed-section" className={styles.section}>
+        <h2>Completed</h2>
+        <p className={styles.sectionSubheading}>Fields you've mastered</p>
+        <div className={styles.pathwaysGrid}>
+          {careers
+            .filter((career) => {
+              const status = getProgressStatus(career.id);
+              return status === 'completed';
+            })
+            .map((career) => {
+              const status = getProgressStatus(career.id);
+              const percentage = getProgressPercentage(career.id);
+
+              return (
+                <CareerCard
+                  key={career.id}
+                  id={career.id}
+                  title={career.title}
+                  description={career.description}
+                  level={career.level}
+                  keySkills={career.keySkills}
+                  icon={careerIcons[career.id]}
+                  accentColor={careerColors[career.id]}
+                  progress={percentage}
+                  status={status}
+                  isDashboard={true}
+                  showTear={false}
+                />
+              );
+            })}
+        </div>
+        {careers.filter((c) => {
+          const status = getProgressStatus(c.id);
+          return status === 'completed';
+        }).length === 0 && (
+          <p className={styles.emptyState}>
+            Complete simulations to see them appear here!
+          </p>
+        )}
+      </div>
+
+      {/* Optional Join Class Section - At bottom */}
       <div className={styles.joinClassSection}>
         {!enrolledClass ? (
           <>
@@ -166,157 +399,6 @@ export default function StudentDashboard() {
             </Button>
           </div>
         )}
-      </div>
-
-      <div className={styles.section}>
-        <h2>Your Fields</h2>
-        <p className={styles.sectionSubheading}>Explore and cultivate your interests</p>
-        <div className={styles.pathwaysGrid}>
-          {careers.map((career) => {
-            const status = getProgressStatus(career.id);
-            const percentage = getProgressPercentage(career.id);
-
-            // Career icon mapping (illustrated emoji-based for now)
-            const careerIcons: Record<string, string> = {
-              'software-engineer': '🔌',
-              'nurse': '🩺',
-              'graphic-designer': '🎨',
-              'data-analyst': '📈',
-              'architect': '🏛️',
-            };
-            const icon = careerIcons[career.id] || '🌱';
-
-            // Career metadata
-            const careerMetadata: Record<
-              string,
-              { seedType: string; difficulty: string; growthTime: string; skills: string[] }
-            > = {
-              'software-engineer': {
-                seedType: 'Problem Solver',
-                difficulty: 'Medium',
-                growthTime: '2-4 yrs',
-                skills: ['Logic', 'Creativity'],
-              },
-              'nurse': {
-                seedType: 'Healer',
-                difficulty: 'Hard',
-                growthTime: '2-6 yrs',
-                skills: ['Empathy', 'Science'],
-              },
-              'graphic-designer': {
-                seedType: 'Creator',
-                difficulty: 'Medium',
-                growthTime: '1-3 yrs',
-                skills: ['Design', 'Vision'],
-              },
-              'data-analyst': {
-                seedType: 'Analyst',
-                difficulty: 'Hard',
-                growthTime: '1-2 yrs',
-                skills: ['Math', 'Insight'],
-              },
-              'architect': {
-                seedType: 'Builder',
-                difficulty: 'Hard',
-                growthTime: '5-7 yrs',
-                skills: ['Vision', 'Planning'],
-              },
-            };
-
-            const metadata = careerMetadata[career.id] || {
-              seedType: 'Explorer',
-              difficulty: 'Medium',
-              growthTime: '2-4 yrs',
-              skills: ['Discovery'],
-            };
-
-            // Growth stage icons
-            const growthStages = ['🌱', '🌿', '🌳', '🌸'];
-            const currentStage = Math.ceil((percentage / 100) * growthStages.length) - 1;
-
-            return (
-              <Link
-                key={career.id}
-                href={`/pathways/${career.id}`}
-                className={`${styles.pathwayCard} ${styles[`pathwayCard-${status}`]}`}
-              >
-                {/* Packet accent stripe */}
-                <div className={styles.packetAccent} />
-
-                {/* Progress badge - visible for in_progress and completed */}
-                {(status === 'in_progress' || status === 'completed') && (
-                  <div className={styles.progressBadge}>
-                    {status === 'completed' ? '🌸' : `${Math.min(percentage, 99)}%`}
-                  </div>
-                )}
-
-                {/* Seed Packet Header */}
-                <div className={styles.packetHeader}>
-                  <div className={styles.packetIllustration}>{icon}</div>
-                  <div className={styles.packetLabel}>
-                    <h3>{career.title}</h3>
-                  </div>
-                </div>
-
-                <div className={styles.cardContent}>
-                  {/* Packet Metadata */}
-                  <div className={styles.packetMetadata}>
-                    <div className={styles.metadataItem}>
-                      <div className={styles.metadataLabel}>Seed Type</div>
-                      <div className={styles.metadataValue}>{metadata.seedType}</div>
-                    </div>
-                    <div className={styles.metadataItem}>
-                      <div className={styles.metadataLabel}>Difficulty</div>
-                      <div className={styles.metadataValue}>{metadata.difficulty}</div>
-                    </div>
-                  </div>
-
-                  <p className={styles.description}>{career.description}</p>
-
-                  {/* Growth stage indicator */}
-                  {(status === 'in_progress' || status === 'completed') && (
-                    <div className={styles.growthStage}>
-                      {growthStages.map((stage, i) => (
-                        <span
-                          key={i}
-                          className={`${styles.stageIcon} ${
-                            i <= currentStage ? styles.active : ''
-                          }`}
-                        >
-                          {stage}
-                        </span>
-                      ))}
-                    </div>
-                  )}
-
-                  {status !== 'not_started' && (
-                    <div className={styles.progressBar}>
-                      <div
-                        className={styles.progressFill}
-                        style={{ width: `${percentage}%` }}
-                      />
-                    </div>
-                  )}
-
-                  <div className={styles.cardFooter}>
-                    <span
-                      className={`${styles.badge} ${styles[`badge-${status}`]}`}
-                    >
-                      {status === 'not_started' && 'Ready to Plant'}
-                      {status === 'in_progress' && 'Growing'}
-                      {status === 'completed' && 'Bloomed'}
-                    </span>
-                    <span className={styles.statusText}>
-                      {status === 'not_started' && 'Explore now'}
-                      {status === 'in_progress' && `${percentage}% grown`}
-                      {status === 'completed' && 'Fully grown'}
-                    </span>
-                  </div>
-                </div>
-              </Link>
-            );
-          })}
-        </div>
       </div>
     </div>
   );

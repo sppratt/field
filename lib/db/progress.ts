@@ -88,13 +88,24 @@ export async function updateProgress(
   decisions: Record<string, string | number | boolean>,
   completionPercentage: number
 ): Promise<{ progress: StudentProgress | null; error: string | null }> {
+  // Validate inputs
+  if (!Number.isInteger(step) || step < 0) {
+    console.error(`Invalid step number: ${step}`);
+    return { progress: null, error: `Invalid step number: ${step}. Must be a non-negative integer.` };
+  }
+
+  if (!Number.isInteger(completionPercentage) || completionPercentage < 0 || completionPercentage > 100) {
+    console.error(`Invalid completion percentage: ${completionPercentage}`);
+    return { progress: null, error: `Invalid completion percentage: ${completionPercentage}. Must be between 0 and 100.` };
+  }
+
   const status: ProgressStatus = completionPercentage >= 100 ? 'completed' : 'in_progress';
 
   return upsertProgress(userId, pathwayId, {
     status,
     current_step: step,
     decisions_made: decisions,
-    completion_percentage: completionPercentage,
+    completion_percentage: Math.round(completionPercentage),
     completed_at: status === 'completed' ? new Date().toISOString() : null,
   });
 }

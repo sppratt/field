@@ -1,0 +1,386 @@
+/* ========== CONTAINER ========== */
+.container {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-xl) var(--spacing-lg);
+  max-width: 100%;
+  width: 100%;
+  margin: 0 auto;
+  animation: pageEnter 0.5s ease-out;
+}
+
+@keyframes pageEnter {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== PROGRESS INDICATOR ========== */
+.progressContainer {
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-xs);
+  margin-bottom: var(--spacing-md);
+}
+
+.progressBar {
+  width: 100%;
+  height: 2px;
+  background-color: rgba(168, 184, 160, 0.15);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, rgba(124, 184, 159, 0.7) 100%);
+  transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+  border-radius: 1px;
+}
+
+.progressText {
+  font-size: var(--font-size-xs);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+/* ========== SCENARIO STAGE ========== */
+.scenarioContainer {
+  display: flex;
+  justify-content: center;
+  margin-bottom: var(--spacing-lg);
+  animation: scenarioReveal 0.6s ease-out 0.1s backwards;
+}
+
+@keyframes scenarioReveal {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.scenarioBox {
+  position: relative;
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border-radius: 1.25rem;
+  padding: var(--spacing-xl) var(--spacing-2xl);
+  max-width: 100%;
+  box-shadow:
+    0 4px 16px rgba(0, 0, 0, 0.08),
+    inset 0 1px 0 rgba(124, 184, 159, 0.1);
+  border-top: 3px solid var(--color-primary);
+}
+
+.scenarioTitle {
+  font-size: var(--font-size-lg);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-md) 0;
+  line-height: 1.3;
+  letter-spacing: -0.5px;
+}
+
+.scenarioText {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: var(--line-height-relaxed);
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+}
+
+.scenarioAccent {
+  position: absolute;
+  bottom: 0;
+  right: 0;
+  width: 80px;
+  height: 2px;
+  background: linear-gradient(90deg, transparent, var(--color-primary));
+  border-radius: 1px;
+}
+
+/* ========== CHOICES CONTAINER - ASYMMETRIC LAYOUT ========== */
+.choicesContainer {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: var(--spacing-md);
+  margin-top: var(--spacing-md);
+}
+
+/* Asymmetric positioning for visual interest */
+.choiceCard-0 {
+  grid-column: 1;
+  align-self: start;
+  animation: choiceEnter 0.5s ease-out 0.2s backwards;
+}
+
+.choiceCard-1 {
+  grid-column: 2;
+  align-self: center;
+  animation: choiceEnter 0.5s ease-out 0.25s backwards;
+}
+
+.choiceCard-2 {
+  grid-column: 3;
+  align-self: flex-end;
+  animation: choiceEnter 0.5s ease-out 0.3s backwards;
+}
+
+@keyframes choiceEnter {
+  from {
+    opacity: 0;
+    transform: translateY(24px) scale(0.96);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0) scale(1);
+  }
+}
+
+/* ========== CHOICE CARD ========== */
+.choiceCard {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 1px solid rgba(168, 184, 160, 0.12);
+  border-radius: 1.125rem;
+  cursor: pointer;
+  transition: all 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.06);
+  min-height: auto;
+  text-align: left;
+  font-family: inherit;
+  overflow: hidden;
+}
+
+.choiceCard:hover:not(:disabled) {
+  transform: translateY(-8px);
+  box-shadow:
+    0 12px 32px rgba(0, 0, 0, 0.1),
+    inset 0 0 1px rgba(124, 184, 159, 0.15);
+  border-color: rgba(124, 184, 159, 0.25);
+}
+
+.choiceCard:disabled {
+  opacity: 0.5;
+  cursor: not-allowed;
+}
+
+.choiceCard.chosen {
+  background: linear-gradient(135deg, rgba(124, 184, 159, 0.08) 0%, rgba(124, 184, 159, 0.04) 100%);
+  border-color: var(--color-primary);
+  box-shadow:
+    0 8px 24px rgba(124, 184, 159, 0.15),
+    inset 0 0 20px rgba(124, 184, 159, 0.1);
+}
+
+.choiceCard.unchosen {
+  opacity: 0.4;
+}
+
+/* ========== CHOICE ICON ========== */
+.choiceIcon {
+  font-size: 2rem;
+  line-height: 1;
+}
+
+/* ========== CHOICE CONTENT ========== */
+.choiceContent {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-sm);
+}
+
+.choiceTitle {
+  font-size: var(--font-size-base);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0;
+  line-height: 1.2;
+  letter-spacing: -0.3px;
+}
+
+.choiceDescription {
+  font-size: 0.8125rem;
+  color: var(--color-text-light);
+  line-height: 1.5;
+  margin: 0;
+  font-weight: var(--font-weight-regular);
+}
+
+/* ========== CONSEQUENCE PREVIEW - HIDDEN ========== */
+.consequencePreview {
+  display: none;
+}
+
+.consequenceBadge {
+  display: none;
+}
+
+.consequenceText {
+  display: none;
+}
+
+/* ========== SELECTION CHECKMARK ========== */
+.selectionCheckmark {
+  position: absolute;
+  top: var(--spacing-lg);
+  right: var(--spacing-lg);
+  width: 32px;
+  height: 32px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  background: var(--color-primary);
+  color: white;
+  border-radius: 50%;
+  font-weight: 700;
+  font-size: var(--font-size-base);
+  animation: checkmarkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
+  z-index: 10;
+}
+
+@keyframes checkmarkPop {
+  from {
+    transform: scale(0) rotate(-45deg);
+    opacity: 0;
+  }
+  to {
+    transform: scale(1) rotate(0);
+    opacity: 1;
+  }
+}
+
+/* ========== RESPONSIVE DESIGN ========== */
+@media (max-width: 1024px) {
+  .container {
+    gap: var(--spacing-md);
+    padding: var(--spacing-lg) var(--spacing-md);
+  }
+
+  .choicesContainer {
+    grid-template-columns: repeat(2, 1fr);
+    gap: var(--spacing-sm);
+  }
+
+  .choiceCard-0 {
+    grid-column: 1;
+    align-self: auto;
+  }
+
+  .choiceCard-1 {
+    grid-column: 2;
+    align-self: auto;
+  }
+
+  .choiceCard-2 {
+    grid-column: 1 / -1;
+    align-self: auto;
+  }
+}
+
+@media (max-width: 768px) {
+  .container {
+    gap: var(--spacing-3xl);
+    padding: var(--spacing-2xl) var(--spacing-lg);
+  }
+
+  .scenarioBox {
+    padding: var(--spacing-2xl);
+  }
+
+  .scenarioTitle {
+    font-size: var(--font-size-xl);
+    margin-bottom: var(--spacing-md);
+  }
+
+  .scenarioText {
+    font-size: var(--font-size-sm);
+  }
+
+  .choicesContainer {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-xl);
+  }
+
+  .choiceCard-0,
+  .choiceCard-1,
+  .choiceCard-2 {
+    grid-column: 1;
+    align-self: auto;
+    grid-row: auto;
+  }
+
+  .choiceCard {
+    min-height: auto;
+    padding: var(--spacing-lg);
+    gap: var(--spacing-md);
+  }
+
+  .choiceIcon {
+    font-size: 2rem;
+  }
+
+  .choiceTitle {
+    font-size: var(--font-size-base);
+  }
+
+  .choiceDescription {
+    font-size: var(--font-size-xs);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    gap: var(--spacing-2xl);
+    padding: var(--spacing-xl) var(--spacing-md);
+  }
+
+  .scenarioBox {
+    padding: var(--spacing-lg);
+    border-radius: 1rem;
+  }
+
+  .scenarioTitle {
+    font-size: var(--font-size-lg);
+  }
+
+  .choiceCard {
+    border-radius: 1rem;
+    padding: var(--spacing-lg);
+    min-height: auto;
+  }
+
+  .choiceIcon {
+    font-size: 1.75rem;
+  }
+
+  .consequencePreview {
+    padding: var(--spacing-md);
+  }
+
+  .selectionCheckmark {
+    width: 28px;
+    height: 28px;
+    font-size: var(--font-size-sm);
+  }
+}

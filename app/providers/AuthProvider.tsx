@@ -16,23 +16,49 @@ export function AuthProvider({ children }: { children: ReactNode }) {
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
+    let isMounted = true;
+    let hasSettledLoading = false;
+
     // Subscribe to auth changes
     const subscription = onAuthStateChange((authUser) => {
-      setUser(authUser);
-      setLoading(false);
+      if (isMounted) {
+        setUser(authUser);
+        setLoading(false);
+        hasSettledLoading = true;
+      }
     });
 
     // Initial check
     const checkAuth = async () => {
-      const { getAuthState } = await import('@/lib/utils/auth');
-      const { user: initialUser } = await getAuthState();
-      setUser(initialUser || null);
-      setLoading(false);
+      try {
+        const { getAuthState } = await import('@/lib/utils/auth');
+        const { user: initialUser } = await getAuthState();
+        if (isMounted) {
+          setUser(initialUser || null);
+          setLoading(false);
+          hasSettledLoading = true;
+        }
+      } catch (error) {
+        console.error('Auth check failed:', error);
+        if (isMounted) {
+          setLoading(false);
+          hasSettledLoading = true;
+        }
+      }
     };
 
     checkAuth();
 
+    // Ensure loading is false after 5 seconds max to prevent infinite loading
+    const timeout = setTimeout(() => {
+      if (isMounted && !hasSettledLoading) {
+        setLoading(false);
+      }
+    }, 5000);
+
     return () => {
+      isMounted = false;
+      clearTimeout(timeout);
       subscription?.unsubscribe();
     };
   }, []);

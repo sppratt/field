@@ -18,6 +18,13 @@
   --color-success: #7cb89f;
   --color-error: #c27c7c;
 
+  /* Career-Specific Accents */
+  --career-software-engineer: #4f9fd8;
+  --career-nurse: #d97a7a;
+  --career-graphic-designer: #d4a05a;
+  --career-data-analyst: #9b7bb9;
+  --career-architect: #5a8b7d;
+
   /* Spacing */
   --spacing-xs: 0.25rem;
   --spacing-sm: 0.5rem;
@@ -66,4 +73,71 @@
   --shadow-md: 0 4px 12px rgba(0, 0, 0, 0.1);
   --shadow-lg: 0 12px 24px rgba(0, 0, 0, 0.12);
   --shadow-xl: 0 20px 40px rgba(0, 0, 0, 0.15);
+}
+
+/* Global Micro-Interactions */
+* {
+  scroll-behavior: smooth;
+}
+
+a {
+  position: relative;
+  text-decoration: none;
+}
+
+/* Link underline animation */
+a:not(.button):not(.logo):not(.link) {
+  position: relative;
+  transition: color var(--transition-base);
+}
+
+a:not(.button):not(.logo):not(.link)::after {
+  content: '';
+  position: absolute;
+  bottom: -2px;
+  left: 0;
+  width: 0;
+  height: 1.5px;
+  background-color: var(--color-primary);
+  transition: width var(--transition-base);
+}
+
+/* Underline effect removed */
+
+/* Focus visible states removed */
+
+/* Selection highlighting */
+::selection {
+  background-color: var(--color-primary);
+  color: white;
+}
+
+/* Input focus states */
+input:focus,
+textarea:focus,
+select:focus {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 1px;
+  border-color: var(--color-primary) !important;
+}
+
+/* Disabled states */
+button:disabled,
+input:disabled,
+textarea:disabled,
+select:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
+  }
 }

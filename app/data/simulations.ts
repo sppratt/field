@@ -14,6 +14,10 @@ export interface SimulationChoice {
   feedback: string;
   tagEffects?: TagEffects;
   nextStep: number | null;
+  icon?: string;
+  description?: string;
+  consequence?: string;
+  consequenceTone?: 'positive' | 'neutral' | 'bold';
 }
 
 export interface SimulationStep {
@@ -50,6 +54,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-1a',
             text: 'Approve the code quickly to keep momentum going',
+            description: 'Ship it and move on to the next feature. Fast delivery is what matters most.',
+            consequence: 'Hidden bugs surface weeks later',
+            consequenceTone: 'neutral',
+            icon: '⚡',
             feedback:
               'You approve the code and it ships. The feature works, but two weeks later a subtle bug emerges that takes 6 hours to fix. Lesson: Speed without quality has costs.',
             tagEffects: {
@@ -61,6 +69,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-1b',
             text: 'Request revisions to improve code quality',
+            description: 'Provide constructive feedback to strengthen the codebase. Quality over velocity.',
+            consequence: 'Cleaner, more maintainable code ships',
+            consequenceTone: 'positive',
+            icon: '✨',
             feedback:
               'Sarah is slightly frustrated but appreciates the feedback. The revised code is cleaner and more maintainable. Your team ships a better product.',
             tagEffects: {
@@ -72,6 +84,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-1c',
             text: 'Ask a senior engineer for help with the review',
+            description: 'Collaborate and learn from someone more experienced. Build relationships while solving the problem.',
+            consequence: 'Edge cases caught, knowledge shared',
+            consequenceTone: 'positive',
+            icon: '👥',
             feedback:
               'Great call! Your senior catches an edge case and uses it as a teaching moment. You learn something and the code is stronger for it.',
             tagEffects: {
@@ -92,6 +108,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-2a',
             text: 'Build the fast feature to hit the deadline',
+            description: 'Prioritize the business need. Get it shipped, refactor later if needed.',
+            consequence: 'Technical debt accumulates over time',
+            consequenceTone: 'neutral',
+            icon: '🎯',
             feedback:
               'You ship on time and the business is happy. But 3 months later, the technical debt makes adding new features painful.',
             tagEffects: {
@@ -102,6 +122,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-2b',
             text: 'Argue for the well-architected solution',
+            description: 'Advocate for doing it right. Make the case that solid design pays off long-term.',
+            consequence: 'Scalable solution, but deadline pressure',
+            consequenceTone: 'positive',
+            icon: '🏗️',
             feedback:
               'You push back and propose a timeline that allows for better design. Your manager respects the input and you build something that scales beautifully.',
             tagEffects: {
@@ -113,6 +137,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-2c',
             text: 'Suggest a compromise that balances both',
+            description: 'Find middle ground. Build MVP now, refactor with a clear plan.',
+            consequence: 'On-time delivery without major debt',
+            consequenceTone: 'positive',
+            icon: '⚖️',
             feedback:
               'You propose an MVP with a refactoring plan. The team aligns on this approach and ships on time without major technical debt.',
             tagEffects: {
@@ -133,6 +161,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-3a',
             text: 'Start trying random fixes to see what works',
+            description: "Experiment and iterate. Eventually you'll find what breaks the bug.",
+            consequence: 'Slow fix, learn through trial and error',
+            consequenceTone: 'neutral',
+            icon: '🔧',
             feedback:
               'You fix the bug through trial and error, but it takes 4 hours. You learn through experimentation but miss the opportunity to understand the root cause.',
             tagEffects: {
@@ -144,6 +176,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-3b',
             text: 'Systematically trace through the code and logs',
+            description: 'Methodically debug. Understand root cause before fixing.',
+            consequence: 'Root cause found, clean fix, documented',
+            consequenceTone: 'positive',
+            icon: '🔍',
             feedback:
               'You methodically work through the problem, understand the root cause, and implement a clean fix. You document the issue so it never happens again.',
             tagEffects: {
@@ -155,6 +191,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'choice-3c',
             text: 'Call a senior engineer and pair with them on the fix',
+            description: 'Get expert guidance. Learn the debugging process together.',
+            consequence: 'Quick fix, valuable mentorship gained',
+            consequenceTone: 'positive',
+            icon: '👨‍🔬',
             feedback:
               'You and your mentor debug together. You learn the debugging process and build trust. The fix is solid and you feel supported.',
             tagEffects: {
@@ -187,6 +227,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-1a',
             text: 'Immediately assess Patient C',
+            description: 'Trust your instincts. Respond to signs of distress right away.',
+            consequence: 'Complication caught early, intervention swift',
+            consequenceTone: 'positive',
+            icon: '🚑',
             feedback:
               'You catch the early signs of a complication, alert the doctor, and interventions begin quickly. Patient C improves. Your quick action saved time.',
             tagEffects: {
@@ -198,6 +242,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-1b',
             text: 'Get the charge nurse to help triage',
+            description: 'Coordinate with your team. Share the burden and get expert guidance.',
+            consequence: 'Team response, proper care coordination',
+            consequenceTone: 'positive',
+            icon: '👨‍⚕️',
             feedback:
               'You alert the charge nurse who coordinates the response. Patient C gets the care needed, and you learn the importance of team communication.',
             tagEffects: {
@@ -209,6 +257,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-1c',
             text: 'Check vitals on all three systematically',
+            description: 'Follow protocol exactly. Document everything methodically.',
+            consequence: 'Patient C deteriorates during rounds',
+            consequenceTone: 'neutral',
+            icon: '📋',
             feedback:
               'You follow protocol, but Patient C deteriorates before you finish rounds. The oversight costs time and you realize clinical judgment matters.',
             tagEffects: {
@@ -229,6 +281,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-2a',
             text: 'Explain the care plan thoroughly and listen to their concerns',
+            description: 'Take time to communicate. Build trust through transparency and empathy.',
+            consequence: 'Family becomes partner in care',
+            consequenceTone: 'positive',
+            icon: '💬',
             feedback:
               'You spend 10 minutes addressing their worries. They feel heard and become an ally in the patient\'s care. Communication builds trust.',
             tagEffects: {
@@ -240,6 +296,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-2b',
             text: 'Reassure them and continue with tasks',
+            description: 'Brief reassurance. You have other patients to care for.',
+            consequence: 'Family anxiety persists, escalates later',
+            consequenceTone: 'neutral',
+            icon: '⏱️',
             feedback:
               'You offer brief reassurance but move on quickly. The family remains anxious and calls the charge nurse later anyway.',
             tagEffects: {
@@ -250,6 +310,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-2c',
             text: 'Ask the doctor to speak with the family',
+            description: 'Defer to the physician. Let the expert handle family concerns.',
+            consequence: 'Family misses connection with nurse',
+            consequenceTone: 'neutral',
+            icon: '👨‍⚕️',
             feedback:
               'You involve the physician, which is appropriate. But the family wishes they\'d talked to you first—the nurse they see every day.',
             tagEffects: {
@@ -270,6 +334,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-3a',
             text: 'Exhausted but fulfilled—you made a real difference',
+            description: 'You provided care, advocated for patients, supported families.',
+            consequence: 'This is what nursing is truly about',
+            consequenceTone: 'positive',
+            icon: '❤️',
             feedback:
               'This is the essence of nursing: you provided direct care, advocated for your patients, and navigated complex situations with compassion.',
             tagEffects: {
@@ -281,6 +349,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-3b',
             text: 'Overwhelmed by the pace and complexity',
+            description: 'Recognizing the intensity and challenge of the work.',
+            consequence: 'Respect for the profession deepens',
+            consequenceTone: 'neutral',
+            icon: '🌊',
             feedback:
               'You realize nursing is intense. But you also see why it\'s rewarding—every decision impacts someone\'s health and life.',
             tagEffects: {
@@ -292,6 +364,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'nurse-choice-3c',
             text: 'Already planning tomorrow—what to do better',
+            description: 'Reflecting on improvements and growth opportunities.',
+            consequence: 'Continuous learning defines your path',
+            consequenceTone: 'positive',
+            icon: '🚀',
             feedback:
               'You\'re reflective and growth-oriented. This mindset will make you a great nurse. Continuous learning and improvement define the profession.',
             tagEffects: {
@@ -324,6 +400,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'designer-choice-1a',
             text: 'Start designing immediately based on the mood board',
+            description: 'Jump into creation mode. Let the visuals guide the concept.',
+            consequence: 'Quick designs need multiple revisions',
+            consequenceTone: 'neutral',
+            icon: '🎨',
             feedback:
               'You jump in and create designs quickly. But they don\'t align with the client\'s deeper values. Multiple rounds of revision waste time.',
             tagEffects: {
@@ -335,6 +415,10 @@ export const simulations: Record<string, Simulation> = {
           {
             id: 'designer-choice-1b',
             text: 'Ask deeper questions about their brand values and target audience',
+            description: 'Dig into their story. Understand the people they serve.',
+            consequence: 'Stronger concepts, fewer revisions',
+            consequenceTone: 'positive',
+            icon: '🔍',
             feedback:
               'You uncover that their audience is eco-conscious millennials who value transparency. Your insights lead to stronger design concepts.',
             tagEffects: {

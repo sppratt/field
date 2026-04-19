@@ -15,7 +15,11 @@
       "Bash(curl -s http://localhost:3000)",
       "Bash(curl -s http://localhost:3000/healthz)",
       "Bash(pkill -f \"next dev\")",
-      "Bash(curl -s \"http://localhost:3000/pathways/software-engineer\")"
+      "Bash(curl -s \"http://localhost:3000/pathways/software-engineer\")",
+      "Bash(pkill -f \"npm run dev\")",
+      "Bash(curl -s -I http://localhost:3000/auth/signup)",
+      "Bash(curl -s http://localhost:3001)",
+      "Bash(xargs kill *)"
     ]
   }
 }
