@@ -11,7 +11,13 @@
   --color-primary: #a8b8a0;
   --color-text: #3a3a3a;
 
-  /* Secondary Colors */
+  /* Secondary Colors - Natural Brown (Tree Trunk Aesthetic) */
+  --color-secondary: #8b7355;
+  --color-secondary-light: #a68a75;
+  --color-secondary-dark: #6b5344;
+  --color-secondary-subtle: rgba(139, 115, 85, 0.08);
+
+  /* Tertiary Colors */
   --color-text-light: #5a5a5a;
   --color-border: #e0d9d0;
   --color-accent: #8ba996;

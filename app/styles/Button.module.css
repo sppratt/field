@@ -67,6 +67,31 @@
   box-shadow: var(--shadow-sm);
 }
 
+/* Accent variant (Brown secondary) */
+.accent {
+  background-color: var(--color-secondary);
+  color: white;
+  box-shadow: var(--shadow-sm);
+}
+
+.accent:hover:not(:disabled) {
+  background-color: var(--color-secondary-dark);
+  color: white;
+  box-shadow: var(--shadow-lg);
+  transform: translateY(-2px);
+}
+
+.accent:active:not(:disabled) {
+  transform: translateY(0);
+  box-shadow: var(--shadow-md);
+  color: white;
+}
+
+.accent:focus {
+  outline: 2px solid var(--color-secondary);
+  outline-offset: 2px;
+}
+
 /* Size variants */
 .small {
   padding: var(--spacing-xs) var(--spacing-md);

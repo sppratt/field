@@ -40,7 +40,7 @@
 
 .progressFill {
   height: 100%;
-  background: linear-gradient(90deg, var(--color-primary) 0%, rgba(124, 184, 159, 0.7) 100%);
+  background: linear-gradient(90deg, var(--color-secondary) 0%, rgba(139, 115, 85, 0.7) 100%);
   transition: width 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
   border-radius: 1px;
 }
@@ -81,8 +81,9 @@
   max-width: 100%;
   box-shadow:
     0 4px 16px rgba(0, 0, 0, 0.08),
-    inset 0 1px 0 rgba(124, 184, 159, 0.1);
-  border-top: 3px solid var(--color-primary);
+    inset 0 1px 0 rgba(139, 115, 85, 0.1);
+  border-top: 3px solid var(--color-secondary);
+  border-left: 3px solid var(--color-secondary);
 }
 
 .scenarioTitle {
@@ -109,7 +110,7 @@
   right: 0;
   width: 80px;
   height: 2px;
-  background: linear-gradient(90deg, transparent, var(--color-primary));
+  background: linear-gradient(90deg, transparent, var(--color-secondary));
   border-radius: 1px;
 }
 
@@ -184,11 +185,12 @@
 }
 
 .choiceCard.chosen {
-  background: linear-gradient(135deg, rgba(124, 184, 159, 0.08) 0%, rgba(124, 184, 159, 0.04) 100%);
-  border-color: var(--color-primary);
+  background: linear-gradient(135deg, rgba(139, 115, 85, 0.12) 0%, rgba(139, 115, 85, 0.06) 100%);
+  border-color: var(--color-secondary);
+  border-width: 2px;
   box-shadow:
-    0 8px 24px rgba(124, 184, 159, 0.15),
-    inset 0 0 20px rgba(124, 184, 159, 0.1);
+    0 8px 24px rgba(139, 115, 85, 0.2),
+    inset 0 0 20px rgba(139, 115, 85, 0.12);
 }
 
 .choiceCard.unchosen {
@@ -250,13 +252,14 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: var(--color-primary);
+  background: var(--color-secondary);
   color: white;
   border-radius: 50%;
   font-weight: 700;
   font-size: var(--font-size-base);
   animation: checkmarkPop 0.4s cubic-bezier(0.34, 1.56, 0.64, 1);
   z-index: 10;
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.3);
 }
 
 @keyframes checkmarkPop {

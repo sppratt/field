@@ -5,7 +5,7 @@ import { cn } from '@/app/utils/cn';
 
 interface ButtonProps {
   children: React.ReactNode;
-  variant?: 'primary' | 'secondary';
+  variant?: 'primary' | 'secondary' | 'accent';
   size?: 'small' | 'medium' | 'large';
   fullWidth?: boolean;
   disabled?: boolean;
