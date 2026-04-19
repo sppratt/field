@@ -38,21 +38,21 @@ A natural brown secondary color has been integrated throughout the Field app to 
 
 ---
 
-### 2. **Stat Cards - Alternating Color Scheme**
+### 2. **Stat Cards - No Alternating (Intentional)**
 **Location**: `app/components/ClassroomStatCard.module.css`
-**Implementation**: Alternating even/odd cards with brown accents
-- **Odd cards (1, 3, 5, ...)**: Sage green borders, green value text, green icons
-- **Even cards (2, 4, 6, ...)**: **Brown left borders, brown value text, brown icons**
-- Hover state: Brown shadow for even cards
+**Implementation**: All cards consistent green styling
+- All stat cards use **green** (primary color)
+- All metrics are equally important in the dashboard
+- No false emphasis through color alternation
 
-**Benefits**:
-- Creates visual rhythm and breaks monotony
-- Guides eye through dashboard sequentially
-- Maintains hierarchy while adding variety
+**Why this approach**:
+- Dashboard metrics should feel unified and equal
+- Brown was removed to avoid creating false hierarchy
+- When a card needs emphasis, it happens through interaction (hover, click)
 
 **Affected areas**:
-- Teacher dashboard: Classroom Stats grid (6 cards)
-- Student dashboard: Progress overview cards (if applicable)
+- Teacher dashboard: Classroom Stats grid (all green)
+- Student dashboard: Progress cards (all green)
 
 ---
 
@@ -92,16 +92,17 @@ A natural brown secondary color has been integrated throughout the Field app to 
 
 ---
 
-### 5. **Progress & Status Indicators**
+### 5. **Progress & Status Indicators** (Future Enhancement)
 **Location**: Various dashboard and simulation components
-**Implementation**: Brown as alternative to green for different contexts
-- **Completion progress bars**: Can alternate or layer green/brown
-- **Status badges**: Brown for "in-progress" or "attempted" (vs green for "completed")
-- **Milestone markers**: Brown for intermediate goals
+**Implementation**: Brown as semantic alternative for distinct states
+- **Completion progress bars**: Brown (shows commitment/engagement)
+- **Status badges**: Brown for "in-progress" or "attempted" (vs green "completed")
+- **Milestone markers**: Brown for intermediate/current progress
 
-**Recommended usage**:
-- Green: Completed, active, success
-- Brown: In-progress, selected, neutral, archived
+**Semantic distinction**:
+- Green: Completed, unlocked, success, ready
+- Brown: In-progress, selected, current focus, commitment
+- Yellow/Orange: Warning, needs attention, limited
 - Yellow/Orange: Warning, needs attention
 
 ---
@@ -148,27 +149,46 @@ input:nth-of-type(even):focus {
 
 ---
 
+## Strategic Use: Brown as Emphasis Only
+
+Brown is **NOT** used for:
+- ❌ Alternating patterns on equal items (stat cards, steps, pathways)
+- ❌ Decorative variety without purpose
+- ❌ Creating false hierarchy where none exists
+
+Brown **IS** used for:
+- ✅ Selected/interactive states (simulation choices)
+- ✅ Accent button variant for secondary CTAs
+- ✅ Progress bars showing completion/commitment
+- ✅ Scenario containers in interactive flows
+- ✅ Emphasis/callout elements (future: insights, warnings)
+- ✅ Checkmarks/confirmation indicators
+
+**Why this matters**: Brown creates visual weight. Using it on equally-important items (like dashboard metrics or career cards) dilutes its meaning and confuses the user about what should actually draw their attention.
+
+---
+
 ## Implementation Checklist
 
 ### Completed ✓
 - [x] Added brown color variables to `variables.css`
 - [x] Created `accent` button variant in Button component
-- [x] Alternating even/odd styling on ClassroomStatCard
 - [x] SimulationStep: Progress bar, scenario box, selected choice styling
-- [x] CareerCard: Level badge brown styling, border accents
+- [x] Removed false alternating patterns
+- [x] Homepage: Brown accent underline on section titles
 - [x] Color palette exported for documentation
 
 ### In Progress
-- [ ] Test responsiveness on mobile (stat cards)
+- [ ] Test responsiveness on mobile
 - [ ] Verify color contrast accessibility (WCAG AA)
-- [ ] Visual review of all implementations
-- [ ] User testing: Does brown feel right for these contexts?
+- [ ] Visual review of implementations
+- [ ] User testing: Does brown feel purposeful and not forced?
 
-### To-Do (Optional Enhancements)
-- [ ] Add brown variant to Badge component
-- [ ] Update teacher dashboard modals with brown accents
-- [ ] Implement brown in form validation states
-- [ ] Add brown to pathway detail page hierarchy
+### To-Do (Strategic Enhancements)
+- [ ] Brown callout boxes for emphasis (insights, recommendations)
+- [ ] Brown status badge for "in-progress" vs green "completed"
+- [ ] Brown in form validation states (error feedback)
+- [ ] Brown highlights on important announcements
 - [ ] Consider brown in dark mode variant (if implemented)
 
 ---
@@ -185,6 +205,19 @@ input:nth-of-type(even):focus {
 2. Test with color-blind simulation tools (Deuteranopia, Protanopia)
 3. Ensure brown accents don't compete with interactive states
 4. Provide alternative visual cues (borders, text, icons) in addition to color
+
+---
+
+## Design Principle: Intentionality Over Decoration
+
+**Gold Rule**: Brown is added for **meaning**, not aesthetics.
+
+Every use of brown should answer: "Why does this element need emphasis?"
+- If the answer is "visual variety" → Remove brown
+- If the answer is "this is selected/active/important" → Keep brown
+- If the answer is "to guide user attention to this action" → Keep brown
+
+Alternating patterns fail this test. Emphasis indicators pass.
 
 ---
 
