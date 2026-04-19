@@ -8,6 +8,7 @@ export interface User {
   name: string | null;
   role: UserRole;
   avatar_url: string | null;
+  interests?: string | null;
   created_at: string;
   updated_at: string;
 }

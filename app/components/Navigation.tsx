@@ -83,11 +83,8 @@ export const Navigation = () => {
                       <PersonIcon sx={{ width: 24, height: 24 }} />
                     </button>
                     <div className={styles.profileDropdown}>
-                      <Link href="/account" className={styles.dropdownItem}>
-                        Account
-                      </Link>
-                      <Link href="/settings" className={styles.dropdownItem}>
-                        Settings
+                      <Link href="/profile" className={styles.dropdownItem}>
+                        Profile Settings
                       </Link>
                       <button onClick={handleLogout} className={styles.dropdownItem}>
                         Log Out
