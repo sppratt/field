@@ -3,6 +3,13 @@
 import { useEffect, useState } from 'react';
 import { useRouter } from 'next/navigation';
 import { getCurrentUserProfile } from '@/lib/db/users';
+import { ClassroomStatCard } from '@/app/components/ClassroomStatCard';
+import { TotalStudentsModal } from '@/app/components/modals/TotalStudentsModal';
+import { PathwaysMetricModal } from '@/app/components/modals/PathwaysMetricModal';
+import { StudentsNeedingAttentionModal } from '@/app/components/modals/StudentsNeedingAttentionModal';
+import { FieldTrendsModal } from '@/app/components/modals/FieldTrendsModal';
+import { StudentDetailModal } from '@/app/components/modals/StudentDetailModal';
+import { AverageCompletionModal } from '@/app/components/modals/AverageCompletionModal';
 import type { User } from '@/lib/db/types';
 import styles from './TeacherDashboard.module.css';
 import { Button } from '@/app/components/Button';
@@ -89,10 +96,30 @@ function formatDate(dateString: string | null): string {
   return `${diffDays}d ago`;
 }
 
+interface Student {
+  id: string;
+  name: string;
+  email: string;
+  pathways_started: number;
+  pathways_completed: number;
+  completion_percentage: number;
+  last_active: string | null;
+}
+
 export default function TeacherDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
   const [loading, setLoading] = useState(true);
+  const [selectedStudent, setSelectedStudent] = useState<Student | null>(null);
+  const [modalsOpen, setModalsOpen] = useState({
+    totalStudents: false,
+    pathwaysStarted: false,
+    pathwaysCompleted: false,
+    studentsNeedingAttention: false,
+    fieldTrends: false,
+    studentDetail: false,
+    averageCompletion: false,
+  });
 
   useEffect(() => {
     const loadData = async () => {
@@ -129,81 +156,109 @@ export default function TeacherDashboard() {
 
   return (
     <div className={styles.container}>
-      <div className={styles.header}>
-        <div>
-          <h1>Welcome, {user?.name}!</h1>
-          <p>Classroom overview and student progress tracking</p>
+      {/* Hero: Classroom Overview */}
+      <div className={styles.hero}>
+        <div className={styles.heroInner}>
+          <h1 className={styles.welcomeHeading}>Welcome, {user?.name}!</h1>
+
+          <div className={styles.heroGrowthSection}>
+            <h2 className={styles.heroHeadline}>Your classroom is progressing</h2>
+            <p className={styles.heroSubheading}>
+              Monitor class-wide progress, encourage exploration, and see where students need support.
+            </p>
+          </div>
+
+          <div className={styles.statsContainer}>
+            <h3 className={styles.statsHeading}>Classroom Stats</h3>
+            <div className={styles.statsGrid}>
+              <ClassroomStatCard
+                label="Total Students"
+                value={mockInsights.totalStudents}
+                subtext="Enrolled in your class"
+                onClick={() => setModalsOpen({ ...modalsOpen, totalStudents: true })}
+              />
+              <ClassroomStatCard
+                label="Fields Explored"
+                value={mockInsights.pathwaysStarted}
+                subtext="Total class-wide"
+                onClick={() => setModalsOpen({ ...modalsOpen, pathwaysStarted: true })}
+              />
+              <ClassroomStatCard
+                label="Completed"
+                value={mockInsights.pathwaysCompleted}
+                subtext="Simulations finished"
+                onClick={() => setModalsOpen({ ...modalsOpen, pathwaysCompleted: true })}
+              />
+              <ClassroomStatCard
+                label="Avg Completion"
+                value={`${mockInsights.averageCompletion}%`}
+                subtext="Class progress rate"
+                onClick={() => setModalsOpen({ ...modalsOpen, averageCompletion: true })}
+              />
+              <ClassroomStatCard
+                label="Needing Attention"
+                value={mockInsights.needingAttention}
+                subtext="Students stuck or inactive"
+                onClick={() => setModalsOpen({ ...modalsOpen, studentsNeedingAttention: true })}
+              />
+              <ClassroomStatCard
+                label="Most Explored"
+                value={mockInsights.mostExplored}
+                subtext="Trending in your class"
+                onClick={() => setModalsOpen({ ...modalsOpen, fieldTrends: true })}
+              />
+            </div>
+          </div>
         </div>
       </div>
 
-      {/* Overview Cards */}
-      <div className={styles.overviewGrid}>
-        <div className={styles.overviewCard}>
-          <div className={styles.cardLabel}>Total Students</div>
-          <div className={styles.cardValue}>{mockInsights.totalStudents}</div>
-          <div className={styles.cardSubtext}>Enrolled in your class</div>
+      {/* Quick Actions */}
+      <div className={styles.actionsSection}>
+        <div className={styles.actionsGrid}>
+          <button className={styles.actionButton} onClick={() => alert('Invite students feature coming soon')}>
+            <span className={styles.actionIcon}>👥</span>
+            <span className={styles.actionLabel}>Invite Students</span>
+          </button>
+          <button className={styles.actionButton} onClick={() => alert('Create assignment feature coming soon')}>
+            <span className={styles.actionIcon}>📋</span>
+            <span className={styles.actionLabel}>Create Assignment</span>
+          </button>
+          <button className={styles.actionButton} onClick={() => alert('View analytics feature coming soon')}>
+            <span className={styles.actionIcon}>📊</span>
+            <span className={styles.actionLabel}>View Analytics</span>
+          </button>
+          <button className={styles.actionButton} onClick={() => alert('Send message feature coming soon')}>
+            <span className={styles.actionIcon}>📢</span>
+            <span className={styles.actionLabel}>Send Message</span>
+          </button>
         </div>
-        <div className={styles.overviewCard}>
-          <div className={styles.cardLabel}>Fields Explored</div>
-          <div className={styles.cardValue}>{mockInsights.pathwaysStarted}</div>
-          <div className={styles.cardSubtext}>Across all students</div>
-        </div>
-        <div className={styles.overviewCard}>
-          <div className={styles.cardLabel}>Completed</div>
-          <div className={styles.cardValue}>{mockInsights.pathwaysCompleted}</div>
-          <div className={styles.cardSubtext}>Fields finished</div>
-        </div>
-        <div className={styles.overviewCard}>
-          <div className={styles.cardLabel}>Avg Completion</div>
-          <div className={styles.cardValue}>{mockInsights.averageCompletion}%</div>
-          <div className={styles.cardSubtext}>Class progress rate</div>
-        </div>
-      </div>
-
-      {/* Action Cards */}
-      <div className={styles.actionGrid}>
-        <button className={styles.actionCard}>
-          <div className={styles.actionIcon}>+</div>
-          <div className={styles.actionLabel}>Create Class</div>
-        </button>
-        <button className={styles.actionCard}>
-          <div className={styles.actionIcon}>👥</div>
-          <div className={styles.actionLabel}>Invite Students</div>
-        </button>
-        <button className={styles.actionCard}>
-          <div className={styles.actionIcon}>📊</div>
-          <div className={styles.actionLabel}>View Analytics</div>
-        </button>
       </div>
 
       {/* Classroom Insights */}
       <div className={styles.insightsSection}>
-        <h2 style={{ marginTop: 0 }}>Classroom Insights</h2>
+        <h2 className={styles.insightsSectionTitle}>Classroom Insights</h2>
         <div className={styles.insightsGrid}>
           <div className={styles.insightCard}>
             <div className={styles.insightLabel}>Most Explored Field</div>
             <div className={styles.insightValue}>{mockInsights.mostExplored}</div>
-            <div className={styles.insightSubtext}>Your class is most interested in this field</div>
+            <div className={styles.insightSubtext}>Your class shows strong interest in this field</div>
           </div>
           <div className={styles.insightCard}>
             <div className={styles.insightLabel}>Least Explored Field</div>
             <div className={styles.insightValue}>{mockInsights.leastExplored}</div>
-            <div className={styles.insightSubtext}>Consider promoting this field</div>
+            <div className={styles.insightSubtext}>Consider promoting this career pathway</div>
           </div>
           <div className={styles.insightCard}>
-            <div className={styles.insightLabel}>Needing Attention</div>
-            <div className={styles.insightValue}>{mockInsights.needingAttention}</div>
-            <div className={styles.insightSubtext}>Students who haven&apos;t started yet</div>
+            <div className={styles.insightLabel}>Class Engagement</div>
+            <div className={styles.insightValue}>{Math.round((mockStudents.filter((s) => s.last_active).length / mockStudents.length) * 100)}%</div>
+            <div className={styles.insightSubtext}>Active students this week</div>
           </div>
         </div>
       </div>
 
       {/* Student Progress Table */}
       <div className={styles.section}>
-        <div className={styles.sectionHeader}>
-          <h2>Student Progress</h2>
-          <Button variant="secondary">Export Report</Button>
-        </div>
+        <h2>Student Progress</h2>
 
         {mockStudents.length > 0 ? (
           <div className={styles.tableContainer}>
@@ -220,9 +275,18 @@ export default function TeacherDashboard() {
               </thead>
               <tbody>
                 {mockStudents.map((student) => (
-                  <tr key={student.id}>
+                  <tr
+                    key={student.id}
+                    style={{ cursor: 'pointer' }}
+                    onClick={() => {
+                      setSelectedStudent(student);
+                      setModalsOpen({ ...modalsOpen, studentDetail: true });
+                    }}
+                  >
                     <td>
-                      <span className={styles.studentName}>{student.name}</span>
+                      <span className={styles.studentName} style={{ color: 'var(--color-primary)', textDecoration: 'underline' }}>
+                        {student.name}
+                      </span>
                     </td>
                     <td>
                       <span
@@ -257,6 +321,50 @@ export default function TeacherDashboard() {
           </div>
         )}
       </div>
+
+      {/* Modals */}
+      <TotalStudentsModal
+        open={modalsOpen.totalStudents}
+        onClose={() => setModalsOpen({ ...modalsOpen, totalStudents: false })}
+        students={mockStudents}
+      />
+      <PathwaysMetricModal
+        open={modalsOpen.pathwaysStarted}
+        onClose={() => setModalsOpen({ ...modalsOpen, pathwaysStarted: false })}
+        students={mockStudents}
+        type="started"
+        totalCount={mockInsights.pathwaysStarted}
+      />
+      <PathwaysMetricModal
+        open={modalsOpen.pathwaysCompleted}
+        onClose={() => setModalsOpen({ ...modalsOpen, pathwaysCompleted: false })}
+        students={mockStudents}
+        type="completed"
+        totalCount={mockInsights.pathwaysCompleted}
+      />
+      <StudentsNeedingAttentionModal
+        open={modalsOpen.studentsNeedingAttention}
+        onClose={() => setModalsOpen({ ...modalsOpen, studentsNeedingAttention: false })}
+        students={mockStudents}
+      />
+      <FieldTrendsModal
+        open={modalsOpen.fieldTrends}
+        onClose={() => setModalsOpen({ ...modalsOpen, fieldTrends: false })}
+        mostExplored={mockInsights.mostExplored}
+        leastExplored={mockInsights.leastExplored}
+      />
+      <StudentDetailModal
+        open={modalsOpen.studentDetail}
+        onClose={() => setModalsOpen({ ...modalsOpen, studentDetail: false })}
+        student={selectedStudent}
+      />
+      <AverageCompletionModal
+        open={modalsOpen.averageCompletion}
+        onClose={() => setModalsOpen({ ...modalsOpen, averageCompletion: false })}
+        averagePercentage={mockInsights.averageCompletion}
+        totalStudents={mockInsights.totalStudents}
+        completedSimulations={mockInsights.pathwaysCompleted}
+      />
     </div>
   );
 }

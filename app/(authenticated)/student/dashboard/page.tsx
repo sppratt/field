@@ -13,6 +13,12 @@ import type { User, StudentProgress } from '@/lib/db/types';
 import styles from './StudentDashboard.module.css';
 import { Button } from '@/app/components/Button';
 import { CareerCard } from '@/app/components/CareerCard';
+import { InfoIcon } from '@/app/components/InfoIcon';
+import { PathwaysExploredModal } from '@/app/components/modals/PathwaysExploredModal';
+import { SkillsFoundModal } from '@/app/components/modals/SkillsFoundModal';
+import { TopSkillModal } from '@/app/components/modals/TopSkillModal';
+import { CareerCalculationModal } from '@/app/components/modals/CareerCalculationModal';
+import { WeeklyActivityModal } from '@/app/components/modals/WeeklyActivityModal';
 
 const careerIcons: Record<string, string> = {
   'software-engineer': '⚙️',
@@ -42,6 +48,16 @@ export default function StudentDashboard() {
     name: string;
     teacherName: string;
   } | null>(null);
+
+  // Modal state
+  const [modalsOpen, setModalsOpen] = useState({
+    pathwaysExplored: false,
+    skillsFound: false,
+    topSkill: false,
+    bestMatch: false,
+    runnerUpMatch: false,
+    weeklyActivity: false,
+  });
 
   useEffect(() => {
     const loadData = async () => {
@@ -161,6 +177,39 @@ export default function StudentDashboard() {
     return recommendedCareers;
   };
 
+  const getPathwaysExplored = () => {
+    return progress.filter((p) => p.status !== 'not_started').length;
+  };
+
+  const getSkillsDiscovered = () => {
+    const tagScores = getTagScores();
+    return Object.values(tagScores).filter((score) => score > 0).length;
+  };
+
+  const getNextBestMatch = () => {
+    if (progress.length === 0) return null;
+    const tagScores = getTagScores();
+
+    const careerScores = careers.map((c) => {
+      const score = c.recommendationTags.reduce((sum, tag) => sum + (tagScores[tag as keyof typeof tagScores] || 0), 0);
+      return { career: c, score };
+    });
+
+    const sortedCareers = careerScores.sort((a, b) => b.score - a.score);
+    if (sortedCareers.length < 2 || sortedCareers[1].score === 0) return null;
+    return sortedCareers[1].career;
+  };
+
+  const getThisWeekProgress = () => {
+    const oneWeekAgo = new Date();
+    oneWeekAgo.setDate(oneWeekAgo.getDate() - 7);
+
+    return progress.filter((p) => {
+      const updatedAt = p.updated_at ? new Date(p.updated_at) : null;
+      return updatedAt && updatedAt >= oneWeekAgo && p.status === 'completed';
+    }).length;
+  };
+
   const handleJoinClass = () => {
     // For now, simulate joining with mock data
     if (classCode.trim().length > 0) {
@@ -201,7 +250,9 @@ export default function StudentDashboard() {
               </p>
             </div>
 
-            <div className={styles.statsGrid}>
+            <div className={styles.statsContainer}>
+              <h3 className={styles.statsHeading}>Your Stats</h3>
+              <div className={styles.statsGrid}>
               <button
                 onClick={() => {
                   document.getElementById('in-progress-section')?.scrollIntoView({ behavior: 'smooth' });
@@ -209,7 +260,7 @@ export default function StudentDashboard() {
                 className={styles.statCard}
               >
                 <div className={styles.statNumber}>{summary.inProgress}</div>
-                <p className={styles.statLabel}>In Progress</p>
+                <p className={styles.statLabel}>Simulations In Progress</p>
               </button>
               <button
                 onClick={() => {
@@ -218,24 +269,77 @@ export default function StudentDashboard() {
                 className={styles.statCard}
               >
                 <div className={styles.statNumber}>{summary.completed}</div>
-                <p className={styles.statLabel}>Completed</p>
+                <p className={styles.statLabel}>Simulations Completed</p>
               </button>
+              <div
+                className={styles.statCard}
+                title="Click to see all explored pathways"
+                onClick={() => setModalsOpen({ ...modalsOpen, pathwaysExplored: true })}
+              >
+                <InfoIcon label="See all explored pathways" />
+                <div className={styles.statNumber}>{getPathwaysExplored()}</div>
+                <p className={styles.statLabel}>Pathways Explored</p>
+              </div>
+              <div
+                className={styles.statCard}
+                title="Click to see skill breakdown"
+                onClick={() => setModalsOpen({ ...modalsOpen, skillsFound: true })}
+              >
+                <InfoIcon label="See skill breakdown" />
+                <div className={styles.statNumber}>{getSkillsDiscovered()}/5</div>
+                <p className={styles.statLabel}>Skills Found</p>
+              </div>
               {getTopSkill() && (
-                <div className={styles.statCard}>
-                  <div className={styles.statLabel} style={{ fontSize: '0.85rem', fontWeight: 700, marginBottom: '0.25rem' }}>
+                <div
+                  className={styles.statCard}
+                  title="Click to see matching careers"
+                  onClick={() => setModalsOpen({ ...modalsOpen, topSkill: true })}
+                >
+                  <InfoIcon label="See careers that match this skill" />
+                  <p className={styles.statLabel} style={{ fontSize: '0.65rem', marginBottom: '0.5rem' }}>Your Top Skill</p>
+                  <div className={styles.statLabel} style={{ fontSize: '0.85rem', fontWeight: 700 }}>
                     {getTopSkill()}
                   </div>
-                  <p className={styles.statLabel}>Top Skill</p>
                 </div>
               )}
               {getTopCareerMatch() && (
-                <div className={styles.statCard}>
-                  <div className={styles.statNumber} style={{ fontSize: '1.5rem', marginBottom: '0.25rem' }}>
+                <div
+                  className={styles.statCard}
+                  title="Click to see how we calculated this"
+                  onClick={() => setModalsOpen({ ...modalsOpen, bestMatch: true })}
+                >
+                  <InfoIcon label="How we calculated this match" />
+                  <p className={styles.statLabel} style={{ fontSize: '0.65rem', marginBottom: '0.5rem' }}>Your Best Match</p>
+                  <div className={styles.statNumber} style={{ fontSize: '1.5rem' }}>
                     {careerIcons[getTopCareerMatch()!.id]}
                   </div>
                   <p className={styles.statLabel}>{getTopCareerMatch()!.title}</p>
                 </div>
               )}
+              {getNextBestMatch() && (
+                <div
+                  className={styles.statCard}
+                  title="Click to see how we calculated this"
+                  onClick={() => setModalsOpen({ ...modalsOpen, runnerUpMatch: true })}
+                >
+                  <InfoIcon label="How we calculated this match" />
+                  <p className={styles.statLabel} style={{ fontSize: '0.65rem', marginBottom: '0.5rem' }}>Runner-Up Match</p>
+                  <div className={styles.statNumber} style={{ fontSize: '1.5rem' }}>
+                    {careerIcons[getNextBestMatch()!.id]}
+                  </div>
+                  <p className={styles.statLabel}>{getNextBestMatch()!.title}</p>
+                </div>
+              )}
+              <div
+                className={styles.statCard}
+                title="Click to see weekly activity"
+                onClick={() => setModalsOpen({ ...modalsOpen, weeklyActivity: true })}
+              >
+                <InfoIcon label="See weekly activity breakdown" />
+                <div className={styles.statNumber}>{getThisWeekProgress()}</div>
+                <p className={styles.statLabel}>Completed This Week</p>
+              </div>
+              </div>
             </div>
           </div>
         </div>
@@ -400,6 +504,41 @@ export default function StudentDashboard() {
           </div>
         )}
       </div>
+
+      {/* Modals */}
+      <PathwaysExploredModal
+        open={modalsOpen.pathwaysExplored}
+        onClose={() => setModalsOpen({ ...modalsOpen, pathwaysExplored: false })}
+        progress={progress}
+      />
+      <SkillsFoundModal
+        open={modalsOpen.skillsFound}
+        onClose={() => setModalsOpen({ ...modalsOpen, skillsFound: false })}
+        progress={progress}
+      />
+      <TopSkillModal
+        open={modalsOpen.topSkill}
+        onClose={() => setModalsOpen({ ...modalsOpen, topSkill: false })}
+        topSkill={getTopSkill()}
+        progress={progress}
+      />
+      <CareerCalculationModal
+        open={modalsOpen.bestMatch}
+        onClose={() => setModalsOpen({ ...modalsOpen, bestMatch: false })}
+        career={getTopCareerMatch()}
+        progress={progress}
+      />
+      <CareerCalculationModal
+        open={modalsOpen.runnerUpMatch}
+        onClose={() => setModalsOpen({ ...modalsOpen, runnerUpMatch: false })}
+        career={getNextBestMatch()}
+        progress={progress}
+      />
+      <WeeklyActivityModal
+        open={modalsOpen.weeklyActivity}
+        onClose={() => setModalsOpen({ ...modalsOpen, weeklyActivity: false })}
+        progress={progress}
+      />
     </div>
   );
 }

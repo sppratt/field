@@ -19,7 +19,9 @@
       "Bash(pkill -f \"npm run dev\")",
       "Bash(curl -s -I http://localhost:3000/auth/signup)",
       "Bash(curl -s http://localhost:3001)",
-      "Bash(xargs kill *)"
+      "Bash(xargs kill *)",
+      "WebSearch",
+      "WebFetch(domain:fonts.google.com)"
     ]
   }
 }

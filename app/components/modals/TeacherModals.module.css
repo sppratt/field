@@ -1,0 +1,516 @@
+/* Teacher Dashboard Modals - Extends StatsModals aesthetic */
+
+/* Dialog base styling (reuse from StatsModals) */
+.dialog {
+  --modal-bg: #ffffff;
+  --modal-border: rgba(168, 184, 160, 0.15);
+  --modal-text: #2c2c2c;
+  --modal-accent: #a8b8a0;
+}
+
+.dialog :global(.MuiDialog-paper) {
+  background: var(--modal-bg);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 0 1px rgba(168, 184, 160, 0.3);
+  border-radius: 12px;
+  border: 1px solid var(--modal-border);
+}
+
+.dialog :global(.MuiBackdrop-root) {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+}
+
+/* Dialog title */
+.dialogTitle {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid var(--modal-border);
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.02) 0%, transparent 100%);
+}
+
+.titleText {
+  display: block;
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--modal-text);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.titleSubtext {
+  display: block;
+  font-size: 0.875rem;
+  color: #8c8c8c;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Dialog content */
+.dialogContent {
+  padding: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.dialogContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dialogContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dialogContent::-webkit-scrollbar-thumb {
+  background: rgba(168, 184, 160, 0.3);
+  border-radius: 3px;
+}
+
+.dialogContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 184, 160, 0.5);
+}
+
+/* Dialog actions */
+.dialogActions {
+  padding: 16px 24px;
+  border-top: 1px solid var(--modal-border);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.button {
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 8px 20px;
+  border-radius: 6px;
+  color: var(--modal-accent) !important;
+  border-color: var(--modal-accent) !important;
+}
+
+.button:hover {
+  background: rgba(168, 184, 160, 0.08) !important;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* ========== TOTAL STUDENTS MODAL ========== */
+.studentsList {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.studentItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(168, 184, 160, 0.03);
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  transition: all 200ms ease;
+}
+
+.studentItem:hover {
+  background: rgba(168, 184, 160, 0.06);
+  border-color: rgba(168, 184, 160, 0.2);
+  transform: translateX(4px);
+}
+
+.studentHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.studentInitial {
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a8b8a0 0%, #8fa591 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: 700;
+  color: white;
+  font-size: 1rem;
+}
+
+.studentInfo {
+  display: flex;
+  flex-direction: column;
+  gap: 2px;
+}
+
+.studentName {
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 0.95rem;
+}
+
+.studentEmail {
+  font-size: 0.8rem;
+  color: #8c8c8c;
+}
+
+.studentStats {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.statusBadge {
+  font-size: 0.7rem;
+  font-weight: 700;
+  padding: 4px 10px;
+  border-radius: 12px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.statusOnline {
+  background: rgba(124, 184, 159, 0.15);
+  color: #7cb89f;
+}
+
+.statusOffline {
+  background: rgba(200, 200, 200, 0.15);
+  color: #999;
+}
+
+.progressIndicator {
+  font-size: 0.85rem;
+  font-weight: 700;
+  color: var(--modal-accent);
+}
+
+/* ========== PATHWAYS METRIC MODAL ========== */
+.metricsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.metricCard {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(168, 184, 160, 0.03);
+  padding: 14px;
+  border-radius: 8px;
+  border: 1px solid rgba(168, 184, 160, 0.1);
+}
+
+.metricHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 8px;
+}
+
+.metricStudent {
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 0.9rem;
+}
+
+.metricValue {
+  font-weight: 700;
+  color: var(--modal-accent);
+  font-size: 1rem;
+}
+
+.metricBar {
+  height: 6px;
+  background: rgba(168, 184, 160, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.metricBarFill {
+  height: 100%;
+  background: var(--modal-accent);
+  border-radius: 3px;
+  transition: width 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+/* ========== STUDENTS NEEDING ATTENTION MODAL ========== */
+.attentionList {
+  display: flex;
+  flex-direction: column;
+  gap: 14px;
+}
+
+.attentionItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.05) 0%, rgba(212, 165, 116, 0.02) 100%);
+  border: 1px solid rgba(212, 165, 116, 0.2);
+  border-left: 4px solid #d4a574;
+  padding: 14px;
+  border-radius: 6px;
+}
+
+.attentionStatus {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 10px;
+}
+
+.attentionWarning {
+  font-size: 1.25rem;
+}
+
+.attentionName {
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 0.95rem;
+}
+
+.attentionReason {
+  font-size: 0.8rem;
+  color: #8c8c8c;
+}
+
+.attentionSuggestion {
+  font-size: 0.85rem;
+  color: #2c2c2c;
+  font-weight: 500;
+  padding: 8px 12px;
+  background: rgba(255, 255, 255, 0.6);
+  border-radius: 4px;
+  border-left: 2px solid #d4a574;
+}
+
+/* ========== FIELD TRENDS MODAL ========== */
+.trendsContainer {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.trendCard {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.06) 0%, rgba(168, 184, 160, 0.02) 100%);
+  border: 1px solid rgba(168, 184, 160, 0.2);
+  border-radius: 8px;
+  padding: 20px;
+  text-align: center;
+  transition: all 200ms ease;
+}
+
+.trendCard:hover {
+  border-color: rgba(168, 184, 160, 0.4);
+  box-shadow: 0 4px 12px rgba(168, 184, 160, 0.1);
+}
+
+.trendLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8c8c8c;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 8px;
+}
+
+.trendEmoji {
+  font-size: 2.5rem;
+  margin: 12px 0;
+}
+
+.trendName {
+  font-size: 1.1rem;
+  font-weight: 700;
+  color: var(--modal-text);
+  margin-bottom: 6px;
+}
+
+.trendDescription {
+  font-size: 0.85rem;
+  color: #8c8c8c;
+  margin-bottom: 8px;
+}
+
+.trendAction {
+  font-size: 0.8rem;
+  color: var(--modal-accent);
+  font-weight: 600;
+  margin-top: 12px;
+  padding-top: 12px;
+  border-top: 1px solid rgba(168, 184, 160, 0.15);
+}
+
+.trendInsight {
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 3px solid var(--modal-accent);
+  border-radius: 4px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #2c2c2c;
+  line-height: 1.5;
+}
+
+/* ========== STUDENT DETAIL MODAL ========== */
+.studentDetailCard {
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.02) 0%, transparent 100%);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: 8px;
+  padding: 20px;
+}
+
+.studentDetailSection {
+  margin-bottom: 20px;
+  padding-bottom: 20px;
+  border-bottom: 1px solid rgba(168, 184, 160, 0.1);
+}
+
+.studentDetailSection:last-of-type {
+  border-bottom: none;
+}
+
+.detailLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8c8c8c;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin-bottom: 6px;
+}
+
+.detailValue {
+  font-size: 1rem;
+  font-weight: 600;
+  color: var(--modal-text);
+}
+
+.detailStatus {
+  font-size: 0.85rem;
+  margin-top: 6px;
+}
+
+.statusGreen {
+  color: #7cb89f;
+  font-weight: 600;
+}
+
+.statusGray {
+  color: #999;
+  font-weight: 600;
+}
+
+.studentDetailStats {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+  background: rgba(168, 184, 160, 0.04);
+  padding: 16px;
+  border-radius: 6px;
+  margin-bottom: 20px;
+}
+
+.detailStatItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  text-align: center;
+}
+
+.detailStatLabel {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: #8c8c8c;
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.detailStatNumber {
+  font-size: 1.5rem;
+  font-weight: 700;
+  color: var(--modal-accent);
+}
+
+.progressSection {
+  margin-bottom: 20px;
+}
+
+.progressBar {
+  height: 8px;
+  background: rgba(168, 184, 160, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+  margin: 12px 0;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, #a8b8a0 0%, #8fa591 100%);
+  border-radius: 4px;
+  transition: width 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.progressText {
+  font-size: 0.85rem;
+  color: #8c8c8c;
+  font-weight: 600;
+}
+
+.actionHint {
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.08) 0%, rgba(168, 184, 160, 0.02) 100%);
+  border-left: 3px solid var(--modal-accent);
+  border-radius: 6px;
+  padding: 12px 16px;
+  font-size: 0.9rem;
+  color: #2c2c2c;
+}
+
+.actionHint p {
+  margin: 0;
+  line-height: 1.5;
+}
+
+/* Empty state */
+.emptyMessage {
+  text-align: center;
+  padding: 40px 20px;
+  color: #8c8c8c;
+}
+
+.emptyMessage p {
+  margin: 0;
+  line-height: 1.6;
+  font-size: 0.95rem;
+}
+
+/* Responsive */
+@media (max-width: 640px) {
+  .dialogTitle {
+    padding: 20px 16px 16px;
+  }
+
+  .dialogContent {
+    padding: 16px;
+  }
+
+  .dialogActions {
+    padding: 12px 16px;
+  }
+
+  .studentDetailStats {
+    grid-template-columns: 1fr;
+  }
+
+  .trendsContainer {
+    grid-template-columns: 1fr;
+  }
+}

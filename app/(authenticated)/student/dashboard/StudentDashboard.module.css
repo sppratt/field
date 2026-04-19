@@ -69,17 +69,13 @@
 .heroInner {
   max-width: 1200px;
   margin: 0 auto;
-  display: flex;
-  flex-direction: column;
-  gap: var(--spacing-lg);
+  display: grid;
+  grid-template-columns: 1fr 700px;
+  gap: var(--spacing-2xl);
 }
 
 .heroRow {
-  display: flex;
-  flex-direction: row;
-  align-items: flex-start;
-  justify-content: flex-start;
-  gap: var(--spacing-sm);
+  display: contents;
 }
 
 .heroPicture {
@@ -98,10 +94,12 @@
 }
 
 .heroGrowthSection {
-  flex: 0 0 auto;
-  max-width: 300px;
-  min-width: 0;
   animation: slideUp 0.6s ease-out 0.3s both;
+  grid-column: 1;
+  grid-row: 2;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
 }
 
 .welcomeHeading {
@@ -112,6 +110,8 @@
   margin: 0;
   animation: slideUp 0.6s ease-out 0.1s both;
   text-align: left;
+  grid-column: 1;
+  grid-row: 1;
 }
 
 .heroHeadline {
@@ -129,16 +129,34 @@
   color: var(--color-text-light);
   margin: 0;
   line-height: var(--line-height-normal);
-  max-width: 100%;
+  max-width: 280px;
   animation: slideUp 0.6s ease-out 0.5s both;
   text-align: left;
 }
 
+.statsContainer {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  align-self: start;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-md);
+}
+
+.statsHeading {
+  font-size: 0.875rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+  animation: slideUp 0.6s ease-out 0.4s both;
+}
+
 .statsGrid {
   display: grid;
-  grid-template-columns: repeat(2, 1fr);
-  gap: var(--spacing-lg);
-  width: 350px;
+  grid-template-columns: repeat(4, minmax(80px, 1fr));
+  gap: var(--spacing-sm);
   animation: slideUp 0.6s ease-out 0.5s both;
 }
 
@@ -146,7 +164,7 @@
   background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
   border: 2px solid var(--color-primary);
   border-radius: 0.5rem;
-  padding: var(--spacing-md);
+  padding: var(--spacing-lg) var(--spacing-md) var(--spacing-md) var(--spacing-md);
   text-align: center;
   box-shadow: 0 2px 8px rgba(168, 184, 160, 0.12);
   transition: all var(--transition-base);
@@ -157,7 +175,10 @@
   flex-direction: column;
   align-items: center;
   justify-content: center;
+  min-height: 100px;
+  position: relative;
 }
+
 
 .statCard:hover {
   border-color: var(--color-primary);
@@ -166,7 +187,7 @@
 }
 
 .statNumber {
-  font-size: 2rem;
+  font-size: 1.5rem;
   font-family: var(--font-playful);
   font-weight: 700;
   color: var(--color-primary);
@@ -175,12 +196,13 @@
 }
 
 .statLabel {
-  font-size: var(--font-size-xs);
+  font-size: 0.65rem;
   font-weight: var(--font-weight-semibold);
   color: var(--color-text-light);
   text-transform: uppercase;
   letter-spacing: 0.05em;
   margin: 0;
+  line-height: 1.2;
 }
 
 /* ========== JOIN CLASS SECTION ========== */
@@ -503,19 +525,19 @@
   }
 
   .heroInner {
+    grid-template-columns: 1fr;
     gap: var(--spacing-md);
-  }
-
-  .heroRow {
-    gap: var(--spacing-sm);
-  }
-
-  .heroGrowthSection {
-    max-width: 260px;
   }
 
   .welcomeHeading {
     font-size: 2rem;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .heroGrowthSection {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .heroHeadline {
@@ -524,11 +546,14 @@
 
   .heroSubheading {
     font-size: var(--font-size-xs);
+    max-width: 100%;
   }
 
   .statsGrid {
-    width: 300px;
+    grid-column: 1;
+    grid-row: 3;
     gap: var(--spacing-md);
+    grid-template-columns: repeat(2, 1fr);
   }
 
   .section {
@@ -564,12 +589,19 @@
     margin-bottom: var(--spacing-lg);
   }
 
-  .welcomeHeading {
-    font-size: 1.5rem;
+  .heroInner {
+    grid-template-columns: 1fr;
   }
 
-  .heroRow {
-    gap: var(--spacing-sm);
+  .welcomeHeading {
+    font-size: 1.5rem;
+    grid-column: 1;
+    grid-row: 1;
+  }
+
+  .heroGrowthSection {
+    grid-column: 1;
+    grid-row: 2;
   }
 
   .heroHeadline {
@@ -578,20 +610,26 @@
 
   .heroSubheading {
     font-size: 0.7rem;
-  }
-
-  .heroRow {
-    gap: var(--spacing-xs);
-  }
-
-  .heroGrowthSection {
-    max-width: 200px;
+    max-width: 100%;
   }
 
   .statsGrid {
+    grid-column: 1;
+    grid-row: 3;
     grid-template-columns: repeat(2, 1fr);
-    width: 240px;
     gap: var(--spacing-sm);
+  }
+
+  .statCard {
+    padding: var(--spacing-sm);
+  }
+
+  .statNumber {
+    font-size: 1.25rem;
+  }
+
+  .statLabel {
+    font-size: var(--font-size-xs);
   }
 
   .statCard {

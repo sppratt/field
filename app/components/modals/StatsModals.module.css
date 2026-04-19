@@ -1,0 +1,540 @@
+/* Elegant Material Design modals with Field's refined aesthetic */
+
+/* Dialog base styling */
+.dialog {
+  --modal-bg: #ffffff;
+  --modal-border: rgba(168, 184, 160, 0.15);
+  --modal-text: #2c2c2c;
+  --modal-accent: #a8b8a0;
+}
+
+.dialog :global(.MuiDialog-paper) {
+  background: var(--modal-bg);
+  box-shadow:
+    0 20px 60px rgba(0, 0, 0, 0.12),
+    0 0 1px rgba(168, 184, 160, 0.3);
+  border-radius: 12px;
+  border: 1px solid var(--modal-border);
+}
+
+.dialog :global(.MuiBackdrop-root) {
+  background: rgba(0, 0, 0, 0.25);
+  backdrop-filter: blur(2px);
+}
+
+/* Dialog title */
+.dialogTitle {
+  padding: 28px 24px 20px;
+  border-bottom: 1px solid var(--modal-border);
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.02) 0%, transparent 100%);
+}
+
+.titleText {
+  display: block;
+  font-size: 1.375rem;
+  font-weight: 600;
+  color: var(--modal-text);
+  margin-bottom: 6px;
+  letter-spacing: -0.02em;
+}
+
+.titleSubtext {
+  display: block;
+  font-size: 0.875rem;
+  color: #8c8c8c;
+  font-weight: 500;
+  letter-spacing: 0.01em;
+}
+
+/* Dialog content */
+.dialogContent {
+  padding: 24px;
+  max-height: 60vh;
+  overflow-y: auto;
+}
+
+/* Scrollbar styling */
+.dialogContent::-webkit-scrollbar {
+  width: 6px;
+}
+
+.dialogContent::-webkit-scrollbar-track {
+  background: transparent;
+}
+
+.dialogContent::-webkit-scrollbar-thumb {
+  background: rgba(168, 184, 160, 0.3);
+  border-radius: 3px;
+}
+
+.dialogContent::-webkit-scrollbar-thumb:hover {
+  background: rgba(168, 184, 160, 0.5);
+}
+
+/* Dialog actions */
+.dialogActions {
+  padding: 16px 24px;
+  border-top: 1px solid var(--modal-border);
+  display: flex;
+  gap: 12px;
+  justify-content: flex-end;
+}
+
+.button {
+  text-transform: none;
+  font-weight: 500;
+  letter-spacing: 0.02em;
+  padding: 8px 20px;
+  border-radius: 6px;
+  color: var(--modal-accent) !important;
+  border-color: var(--modal-accent) !important;
+}
+
+.button:hover {
+  background: rgba(168, 184, 160, 0.08) !important;
+}
+
+/* Pathways list */
+.pathwaysList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.pathwayItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  background: rgba(168, 184, 160, 0.03);
+  padding: 16px;
+  border-radius: 8px;
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  transition: all 200ms ease;
+}
+
+.pathwayItem:hover {
+  background: rgba(168, 184, 160, 0.06);
+  border-color: rgba(168, 184, 160, 0.2);
+}
+
+.pathwayHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 12px;
+}
+
+.pathwayTitle {
+  font-weight: 600;
+  font-size: 1rem;
+  color: var(--modal-text);
+}
+
+.statusBadge {
+  font-size: 0.75rem;
+  font-weight: 600;
+  padding: 4px 10px;
+  border-radius: 20px;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+}
+
+.progressBarContainer {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+
+.progressBar {
+  flex: 1;
+  height: 6px;
+  background: rgba(168, 184, 160, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  border-radius: 3px;
+  transition: width 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.progressText {
+  font-size: 0.8rem;
+  color: #8c8c8c;
+  font-weight: 500;
+  min-width: 35px;
+  text-align: right;
+}
+
+/* Skills list */
+.skillsList {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.skillItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.skillHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 10px;
+}
+
+.skillLabel {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+.skillEmoji {
+  font-size: 1.25rem;
+}
+
+.skillName {
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 0.95rem;
+}
+
+.skillScore {
+  font-size: 1rem;
+  font-weight: 700;
+  color: var(--modal-accent);
+}
+
+.skillBarContainer {
+  width: 100%;
+}
+
+.skillBar {
+  height: 8px;
+  background: rgba(168, 184, 160, 0.1);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.skillBarFill {
+  height: 100%;
+  border-radius: 4px;
+  transition: width 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.skillsNote {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 3px solid var(--modal-accent);
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Skill description modal */
+.skillDescription {
+  margin-bottom: 24px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.06) 0%, rgba(168, 184, 160, 0.02) 100%);
+  border-radius: 8px;
+  border-left: 4px solid var(--modal-accent);
+}
+
+.skillDescription p {
+  margin: 0;
+  font-size: 0.95rem;
+  line-height: 1.6;
+  color: #2c2c2c;
+}
+
+/* Matching careers section */
+.matchingCareersSection {
+  margin-top: 24px;
+}
+
+.sectionHeading {
+  font-size: 0.95rem;
+  font-weight: 700;
+  color: var(--modal-text);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0 0 16px 0;
+}
+
+.careersList {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+}
+
+.careerMatch {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(168, 184, 160, 0.04);
+  border-radius: 6px;
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  transition: all 200ms ease;
+}
+
+.careerMatch:hover {
+  background: rgba(168, 184, 160, 0.08);
+  transform: translateX(4px);
+}
+
+.careerMatchIcon {
+  color: var(--modal-accent);
+  font-weight: 700;
+  font-size: 1.1rem;
+}
+
+.careerMatchName {
+  font-weight: 500;
+  color: var(--modal-text);
+}
+
+/* Career calculation modal */
+.calculationSection {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.matchPercentage {
+  display: flex;
+  align-items: center;
+  gap: 20px;
+  padding: 20px;
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.08) 0%, rgba(168, 184, 160, 0.02) 100%);
+  border-radius: 12px;
+  border: 1px solid rgba(168, 184, 160, 0.15);
+}
+
+.matchCircle {
+  flex-shrink: 0;
+  width: 100px;
+  height: 100px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #a8b8a0 0%, #8fa591 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 8px 20px rgba(168, 184, 160, 0.2);
+}
+
+.matchPercent {
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: white;
+  line-height: 1;
+}
+
+.matchExplanation {
+  margin: 0;
+  font-size: 0.9rem;
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+/* Skills breakdown */
+.skillsBreakdown {
+  margin-top: 12px;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+}
+
+.skillBreakdownItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 12px;
+  background: rgba(168, 184, 160, 0.03);
+  border-radius: 6px;
+}
+
+.skillBreakdownLabel {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--modal-text);
+  text-transform: uppercase;
+  letter-spacing: 0.02em;
+  margin-bottom: 6px;
+}
+
+.skillBreakdownBar {
+  height: 6px;
+  background: rgba(168, 184, 160, 0.1);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 6px;
+}
+
+.skillBreakdownFill {
+  height: 100%;
+  background: var(--modal-accent);
+  border-radius: 3px;
+  transition: width 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.skillBreakdownScore {
+  font-size: 0.8rem;
+  font-weight: 700;
+  color: var(--modal-accent);
+}
+
+.note {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: rgba(168, 184, 160, 0.05);
+  border-radius: 6px;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+/* Timeline */
+.timelineContainer {
+  position: relative;
+  padding: 12px 0;
+}
+
+.timelineItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  display: flex;
+  gap: 16px;
+  margin-bottom: 20px;
+  position: relative;
+}
+
+.timelineMarker {
+  position: relative;
+  width: 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  flex-shrink: 0;
+}
+
+.timelineDot {
+  width: 12px;
+  height: 12px;
+  border-radius: 50%;
+  background: var(--modal-accent);
+  border: 3px solid white;
+  box-shadow: 0 0 0 2px var(--modal-accent);
+  z-index: 2;
+}
+
+.timelineLine {
+  position: absolute;
+  top: 12px;
+  width: 2px;
+  height: 40px;
+  background: rgba(168, 184, 160, 0.2);
+}
+
+.timelineItem:last-child .timelineLine {
+  display: none;
+}
+
+.timelineContent {
+  padding-top: 2px;
+}
+
+.timelineTitle {
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 0.95rem;
+  margin-bottom: 4px;
+  text-transform: capitalize;
+}
+
+.timelineDate {
+  font-size: 0.8rem;
+  color: #8c8c8c;
+  margin-bottom: 6px;
+}
+
+.timelineStatus {
+  font-size: 0.8rem;
+  color: #7cb89f;
+  font-weight: 600;
+}
+
+.emptyState {
+  padding: 40px 20px;
+  text-align: center;
+}
+
+.emptyState p {
+  margin: 0;
+  color: #8c8c8c;
+  line-height: 1.6;
+}
+
+.motivationalNote {
+  margin-top: 24px;
+  padding: 16px;
+  background: linear-gradient(135deg, rgba(124, 184, 159, 0.08) 0%, rgba(124, 184, 159, 0.02) 100%);
+  border-left: 3px solid #7cb89f;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #2c2c2c;
+  line-height: 1.6;
+}
+
+/* Animations */
+@keyframes slideInUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+  }
+  to {
+    opacity: 1;
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .dialogTitle {
+    padding: 20px 16px 16px;
+  }
+
+  .dialogContent {
+    padding: 16px;
+  }
+
+  .dialogActions {
+    padding: 12px 16px;
+  }
+
+  .matchPercentage {
+    flex-direction: column;
+    text-align: center;
+  }
+
+  .matchCircle {
+    width: 80px;
+    height: 80px;
+  }
+
+  .matchPercent {
+    font-size: 2rem;
+  }
+}
