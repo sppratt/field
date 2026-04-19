@@ -14,6 +14,7 @@ import styles from './StudentDashboard.module.css';
 import { Button } from '@/app/components/Button';
 import { CareerCard } from '@/app/components/CareerCard';
 import { InfoIcon } from '@/app/components/InfoIcon';
+import { GoalsSection } from '@/app/components/GoalsSection';
 import { PathwaysExploredModal } from '@/app/components/modals/PathwaysExploredModal';
 import { SkillsFoundModal } from '@/app/components/modals/SkillsFoundModal';
 import { TopSkillModal } from '@/app/components/modals/TopSkillModal';
@@ -343,6 +344,16 @@ export default function StudentDashboard() {
             </div>
           </div>
         </div>
+      </div>
+
+      {/* Goals & Progress Section */}
+      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
+        <GoalsSection
+          interests={user?.interests}
+          completedSimulations={summary.completed}
+          totalPathways={careers.length}
+          topSkill={getTopSkill() || undefined}
+        />
       </div>
 
       {/* Recommended Section - Moved to top for discovery-first flow */}
