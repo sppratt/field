@@ -20,8 +20,8 @@
 }
 
 .card:hover {
-  border-color: var(--color-primary, #a8b8a0);
-  box-shadow: 0 8px 20px rgba(168, 184, 160, 0.2);
+  border-color: var(--color-secondary, #8b7355);
+  box-shadow: 0 8px 20px rgba(139, 115, 85, 0.2);
   transform: translateY(-4px) scale(1.02);
 }
 

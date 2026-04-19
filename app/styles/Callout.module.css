@@ -1,0 +1,78 @@
+/* Callout/Emphasis Box - Uses secondary brown color for important content */
+
+.callout {
+  padding: var(--spacing-lg);
+  border-radius: var(--radius-md);
+  border-left: 4px solid var(--color-secondary);
+  background: linear-gradient(135deg, rgba(139, 115, 85, 0.04) 0%, rgba(139, 115, 85, 0.02) 100%);
+  transition: all 200ms ease;
+}
+
+.callout:hover {
+  background: linear-gradient(135deg, rgba(139, 115, 85, 0.08) 0%, rgba(139, 115, 85, 0.04) 100%);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.12);
+}
+
+.calloutTitle {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  font-family: var(--font-display);
+}
+
+.calloutText {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: var(--line-height-relaxed);
+}
+
+/* Variants */
+.calloutInfo {
+  border-left-color: var(--color-secondary);
+}
+
+.calloutSuccess {
+  border-left-color: var(--color-success);
+  background: linear-gradient(135deg, rgba(124, 184, 159, 0.04) 0%, rgba(124, 184, 159, 0.02) 100%);
+}
+
+.calloutSuccess:hover {
+  background: linear-gradient(135deg, rgba(124, 184, 159, 0.08) 0%, rgba(124, 184, 159, 0.04) 100%);
+  box-shadow: 0 4px 12px rgba(124, 184, 159, 0.12);
+}
+
+.calloutWarning {
+  border-left-color: #d4a574;
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.04) 0%, rgba(212, 165, 116, 0.02) 100%);
+}
+
+.calloutWarning:hover {
+  background: linear-gradient(135deg, rgba(212, 165, 116, 0.08) 0%, rgba(212, 165, 116, 0.04) 100%);
+  box-shadow: 0 4px 12px rgba(212, 165, 116, 0.12);
+}
+
+.calloutError {
+  border-left-color: var(--color-error);
+  background: linear-gradient(135deg, rgba(194, 124, 124, 0.04) 0%, rgba(194, 124, 124, 0.02) 100%);
+}
+
+.calloutError:hover {
+  background: linear-gradient(135deg, rgba(194, 124, 124, 0.08) 0%, rgba(194, 124, 124, 0.04) 100%);
+  box-shadow: 0 4px 12px rgba(194, 124, 124, 0.12);
+}
+
+@media (max-width: 640px) {
+  .callout {
+    padding: var(--spacing-md);
+  }
+
+  .calloutTitle {
+    font-size: var(--font-size-sm);
+  }
+
+  .calloutText {
+    font-size: var(--font-size-xs);
+  }
+}

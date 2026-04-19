@@ -122,9 +122,9 @@ a:not(.button):not(.logo):not(.link)::after {
 input:focus,
 textarea:focus,
 select:focus {
-  outline: 2px solid var(--color-primary);
+  outline: 2px solid var(--color-secondary);
   outline-offset: 1px;
-  border-color: var(--color-primary) !important;
+  border-color: var(--color-secondary) !important;
 }
 
 /* Disabled states */
