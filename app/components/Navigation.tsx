@@ -31,7 +31,7 @@ export const Navigation = () => {
   return (
     <nav className={styles.nav}>
       <div className={styles.container}>
-        <Link href="/" className={styles.logo}>
+        <Link href={user ? dashboardHref : "/"} className={styles.logo}>
           <Image
             src="/field_logo.svg"
             alt="Field"
@@ -40,17 +40,19 @@ export const Navigation = () => {
           />
         </Link>
         <ul className={styles.links}>
-          <li>
-            <Link
-              href="/"
-              className={cn(
-                styles.link,
-                isActive('/') && !isActive('/pathways') && styles.active
-              )}
-            >
-              Home
-            </Link>
-          </li>
+          {!user && (
+            <li>
+              <Link
+                href="/"
+                className={cn(
+                  styles.link,
+                  isActive('/') && !isActive('/pathways') && styles.active
+                )}
+              >
+                Home
+              </Link>
+            </li>
+          )}
           <li>
             <Link
               href="/pathways"
