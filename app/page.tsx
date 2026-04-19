@@ -16,7 +16,6 @@ export default function Home() {
         </div>
 
         <div className={styles.heroBottom}>
-          <p className={styles.subtitle}>Explore Careers</p>
           <p className={styles.description}>
             Step into real-world scenarios, make meaningful decisions, and experience what professionals actually do on the job. Explore career paths in an interactive, exploratory environment.
           </p>
