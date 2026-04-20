@@ -1,0 +1,129 @@
+/* Weekly Challenges Section */
+
+.container {
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.5s;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 2px solid var(--color-secondary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(139, 115, 85, 0.1);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.subtitle {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+.emptyState {
+  text-align: center;
+  padding: var(--spacing-2xl);
+  color: var(--color-text-light);
+}
+
+.emptyState p {
+  margin: 0;
+}
+
+.challengesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: var(--spacing-lg);
+}
+
+.challengeCard {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: rgba(139, 115, 85, 0.03);
+  border: 2px solid rgba(139, 115, 85, 0.1);
+  border-radius: var(--radius-md);
+  transition: all 200ms ease;
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.challengeCard:hover {
+  border-color: var(--color-secondary);
+  background: rgba(139, 115, 85, 0.06);
+  transform: translateY(-2px);
+}
+
+.challengeCard.completed {
+  border-color: var(--color-success);
+  background: rgba(124, 184, 159, 0.05);
+}
+
+.emoji {
+  font-size: 2.5rem;
+  margin-bottom: var(--spacing-md);
+}
+
+.challengeTitle {
+  margin: 0 0 var(--spacing-sm) 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+}
+
+.challengeDesc {
+  margin: 0 0 var(--spacing-lg) 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  line-height: var(--line-height-normal);
+  flex: 1;
+}
+
+.actionButton {
+  margin-top: auto;
+}
+
+.completedBadge {
+  margin-top: auto;
+  padding: var(--spacing-md) var(--spacing-lg);
+  background: var(--color-success);
+  color: white;
+  border-radius: var(--radius-md);
+  font-weight: var(--font-weight-semibold);
+  font-size: var(--font-size-sm);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-lg);
+  }
+
+  .challengesGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .emoji {
+    font-size: 2rem;
+  }
+}

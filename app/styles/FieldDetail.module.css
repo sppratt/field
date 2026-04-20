@@ -1,0 +1,241 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  margin-bottom: 2rem;
+}
+
+.hero {
+  text-align: center;
+  margin-bottom: 3rem;
+  padding: 3rem 1rem;
+  background: linear-gradient(135deg, var(--color-background) 0%, var(--color-background-lighter) 100%);
+  border-radius: 16px;
+}
+
+.heroIcon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.title {
+  font-size: 2.5rem;
+  color: var(--color-text);
+  margin: 0 0 1rem 0;
+  font-family: 'Fraunces', serif;
+}
+
+.description {
+  font-size: 1.1rem;
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0;
+  max-width: 600px;
+  margin-left: auto;
+  margin-right: auto;
+}
+
+.error {
+  padding: 1rem;
+  background: var(--color-error-background);
+  border: 1px solid rgba(192, 0, 0, 0.2);
+  border-radius: 8px;
+  color: var(--color-error-text);
+  margin-bottom: 2rem;
+}
+
+.loadingMessage {
+  text-align: center;
+  color: var(--color-text-secondary);
+  font-size: 1.1rem;
+  padding: 2rem;
+}
+
+/* Progress Section */
+.progressSection {
+  background: var(--color-surface);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-divider);
+  margin-bottom: 2rem;
+}
+
+.progressSection h2 {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin: 0 0 1.5rem 0;
+}
+
+.masteredMessage {
+  margin-top: 2rem;
+  padding: 2rem;
+  background: linear-gradient(135deg, var(--color-success-light) 0%, var(--color-success-background) 100%);
+  border: 2px solid var(--color-success-dark);
+  border-radius: 12px;
+  text-align: center;
+}
+
+.masteredMessage h3 {
+  font-size: 1.5rem;
+  color: #2e7d32;
+  margin: 0 0 1rem 0;
+}
+
+.masteredMessage p {
+  color: var(--color-text);
+  margin: 0 0 1.5rem 0;
+}
+
+/* Start Section */
+.startSection {
+  background: var(--color-surface);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-divider);
+  margin-bottom: 2rem;
+}
+
+.startSection h2 {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin: 0 0 1rem 0;
+}
+
+.startSection > p {
+  color: var(--color-text-secondary);
+  line-height: 1.6;
+  margin: 0 0 2rem 0;
+}
+
+.levelPreview {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 1rem;
+  margin: 2rem 0;
+  flex-wrap: wrap;
+}
+
+.levelItem {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  background: var(--color-background);
+  padding: 1rem;
+  border-radius: 8px;
+  min-width: 100px;
+  border: 2px solid var(--color-primary);
+}
+
+.levelName {
+  font-weight: 700;
+  color: var(--color-text);
+  font-size: 0.95rem;
+}
+
+.levelDesc {
+  font-size: 0.8rem;
+  color: var(--color-text-secondary);
+  margin-top: 0.25rem;
+}
+
+.arrow {
+  color: var(--color-primary);
+  font-size: 1.5rem;
+  font-weight: bold;
+}
+
+.startButton {
+  width: 100%;
+  margin-top: 2rem;
+}
+
+/* Info Section */
+.infoSection {
+  background: var(--color-surface);
+  padding: 2rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-divider);
+}
+
+.infoSection h2 {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin: 0 0 2rem 0;
+}
+
+.infoGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1.5rem;
+}
+
+.infoBox {
+  padding: 1.5rem;
+  background: var(--color-surface-secondary);
+  border-radius: 8px;
+  text-align: center;
+}
+
+.infoIcon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+}
+
+.infoBox h3 {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin: 0 0 0.5rem 0;
+}
+
+.infoBox p {
+  font-size: 0.9rem;
+  color: var(--color-text-secondary);
+  line-height: 1.5;
+  margin: 0;
+}
+
+@media (max-width: 768px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .hero {
+    padding: 2rem 1rem;
+    margin-bottom: 2rem;
+  }
+
+  .heroIcon {
+    font-size: 3rem;
+  }
+
+  .title {
+    font-size: 2rem;
+  }
+
+  .description {
+    font-size: 1rem;
+  }
+
+  .progressSection,
+  .startSection,
+  .infoSection {
+    padding: 1.5rem;
+  }
+
+  .levelPreview {
+    gap: 0.5rem;
+  }
+
+  .levelItem {
+    min-width: 80px;
+    padding: 0.75rem;
+  }
+
+  .infoGrid {
+    grid-template-columns: 1fr;
+  }
+}

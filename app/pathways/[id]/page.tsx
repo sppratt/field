@@ -1,11 +1,18 @@
-import { careers } from '@/app/data/careers';
-import { Button } from '@/app/components/Button';
-import { PathwayDetailClient } from '@/app/components/PathwayDetailClient';
+import FieldDetailClient from '@/app/components/FieldDetailClient';
+import Button from '@/app/components/Button';
 import styles from '@/app/styles/PathwayDetail.module.css';
 
+const FIELDS = [
+  { id: 'software-engineer', name: 'Software Engineer' },
+  { id: 'nurse', name: 'Nurse' },
+  { id: 'graphic-designer', name: 'Graphic Designer' },
+  { id: 'data-analyst', name: 'Data Analyst' },
+  { id: 'architect', name: 'Architect' },
+];
+
 export async function generateStaticParams() {
-  return careers.map((career) => ({
-    id: career.id,
+  return FIELDS.map((field) => ({
+    id: field.id,
   }));
 }
 
@@ -15,12 +22,12 @@ interface PathwayPageProps {
 
 export default async function PathwayPage({ params }: PathwayPageProps) {
   const { id } = await params;
-  const career = careers.find((c) => c.id === id);
+  const field = FIELDS.find((f) => f.id === id);
 
-  if (!career) {
+  if (!field) {
     return (
       <div className={styles.notFound}>
-        <h1>Career not found</h1>
+        <h1>Field not found</h1>
         <p>The field you&apos;re looking for doesn&apos;t exist.</p>
         <Button href="/pathways" variant="primary">
           Back to Fields
@@ -29,5 +36,5 @@ export default async function PathwayPage({ params }: PathwayPageProps) {
     );
   }
 
-  return <PathwayDetailClient career={career} />;
+  return <FieldDetailClient field={field} />;
 }

@@ -1,0 +1,128 @@
+/* Skill Mastery Section */
+
+.container {
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+  animation-delay: 0.3s;
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.section {
+  padding: var(--spacing-xl);
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  box-shadow: 0 4px 12px rgba(168, 184, 160, 0.1);
+}
+
+.title {
+  font-size: var(--font-size-xl);
+  font-family: var(--font-display);
+  font-weight: 700;
+  color: var(--color-text);
+  margin: 0 0 var(--spacing-sm) 0;
+}
+
+.description {
+  font-size: var(--font-size-sm);
+  color: var(--color-text-light);
+  margin: 0 0 var(--spacing-lg) 0;
+}
+
+.skillsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: var(--spacing-lg);
+  margin-bottom: var(--spacing-lg);
+}
+
+.skillItem {
+  padding: var(--spacing-lg);
+  background: rgba(168, 184, 160, 0.04);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: var(--radius-md);
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.skillHeader {
+  display: flex;
+  align-items: center;
+  gap: var(--spacing-md);
+  margin-bottom: var(--spacing-md);
+}
+
+.skillEmoji {
+  font-size: 1.75rem;
+  flex-shrink: 0;
+}
+
+.skillName {
+  font-size: var(--font-size-sm);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  flex: 1;
+}
+
+.skillScore {
+  font-size: var(--font-size-base);
+  font-weight: 700;
+  color: var(--color-primary);
+  min-width: 40px;
+  text-align: right;
+}
+
+.progressBar {
+  width: 100%;
+  height: 8px;
+  background-color: rgba(168, 184, 160, 0.12);
+  border-radius: 4px;
+  overflow: hidden;
+}
+
+.progressFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary) 0%, var(--color-secondary) 100%);
+  border-radius: 4px;
+  transition: width 0.8s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.insight {
+  padding: var(--spacing-lg);
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 4px solid var(--color-primary);
+  border-radius: var(--radius-md);
+  animation: slideUp 0.6s ease-out 0.4s forwards;
+  opacity: 0;
+}
+
+.insight p {
+  margin: 0;
+  font-size: var(--font-size-sm);
+  color: var(--color-text);
+  line-height: var(--line-height-relaxed);
+}
+
+@media (max-width: 768px) {
+  .section {
+    padding: var(--spacing-lg);
+  }
+
+  .skillsGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillHeader {
+    gap: var(--spacing-sm);
+  }
+}

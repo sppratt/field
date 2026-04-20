@@ -6,6 +6,7 @@ import { useAuth } from '@/app/providers/AuthProvider';
 import { Button } from '@/app/components/Button';
 import { SimulationStep } from '@/app/components/SimulationStep';
 import { SimulationIntro } from '@/app/components/SimulationIntro';
+import { ReflectionPromptModal } from '@/app/components/modals/ReflectionPromptModal';
 import type { Choice } from '@/app/components/SimulationStep';
 import { Career, RecommendationTag } from '@/app/data/careers';
 import { Simulation, SimulationChoice, TagEffects } from '@/app/data/simulations';
@@ -47,6 +48,7 @@ export function PathwayDetailClient({ career }: PathwayDetailClientProps) {
   });
   const [isSaving, setIsSaving] = useState(false);
   const [error, setError] = useState<string | null>(null);
+  const [showReflectionModal, setShowReflectionModal] = useState(false);
 
   const simulation: Simulation | undefined = simulations[career.id];
 
@@ -153,6 +155,11 @@ export function PathwayDetailClient({ career }: PathwayDetailClientProps) {
         tagScores: updatedTagScores,
         completed: isCompleted,
       }));
+
+      // Show reflection modal after completion
+      if (isCompleted) {
+        setShowReflectionModal(true);
+      }
     } catch (err) {
       setError('Failed to save progress. Please try again.');
       console.error('Error saving progress:', err);
@@ -418,6 +425,16 @@ export function PathwayDetailClient({ career }: PathwayDetailClientProps) {
           </Button>
         </div>
       </div>
+
+      {user && (
+        <ReflectionPromptModal
+          open={showReflectionModal}
+          onClose={() => setShowReflectionModal(false)}
+          userId={user.id}
+          pathwayId={career.id}
+          pathwayTitle={career.title}
+        />
+      )}
     </div>
   );
 }

@@ -22,7 +22,7 @@ interface PathwaysMetricModalProps {
 
 export const PathwaysMetricModal = ({ open, onClose, students, type, totalCount }: PathwaysMetricModalProps) => {
   const metric = type === 'started' ? 'pathways_started' : 'pathways_completed';
-  const studentsWithMetric = students.filter((s) => s[metric as keyof Student] > 0);
+  const studentsWithMetric = students.filter((s) => Number(s[metric as keyof Student] ?? 0) > 0);
 
   const title = type === 'started' ? 'Fields Started' : 'Simulations Completed';
   const subtitle = type === 'started' ? `${totalCount} total across class` : `${totalCount} total completed`;

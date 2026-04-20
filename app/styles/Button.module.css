@@ -16,8 +16,8 @@
   overflow: hidden;
 }
 
-.button:focus {
-  outline: 2px solid var(--color-primary);
+.button:focus-visible {
+  outline: 3px solid var(--color-primary);
   outline-offset: 2px;
 }
 
@@ -87,8 +87,8 @@
   color: white;
 }
 
-.accent:focus {
-  outline: 2px solid var(--color-secondary);
+.accent:focus-visible {
+  outline: 3px solid var(--color-secondary);
   outline-offset: 2px;
 }
 

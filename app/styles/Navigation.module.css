@@ -62,10 +62,9 @@
 }
 
 .link:hover,
-.link:focus {
+.link:focus-visible {
   color: white;
   background-color: var(--color-primary);
-  outline: none;
 }
 
 .link:hover::after {
@@ -134,9 +133,8 @@
 }
 
 .profileButton:hover,
-.profileButton:focus {
+.profileButton:focus-visible {
   color: var(--color-primary);
-  outline: none;
   background-color: rgba(168, 184, 160, 0.08);
   transform: scale(1.05);
 }
@@ -150,20 +148,21 @@
   border-radius: var(--radius-lg);
   box-shadow: 0 8px 24px rgba(0, 0, 0, 0.12);
   min-width: 180px;
-  opacity: 0;
-  visibility: hidden;
-  transform: translateY(-12px);
-  transition: opacity var(--transition-base), visibility var(--transition-base), transform var(--transition-base);
   z-index: 1000;
   margin-top: 12px;
   backdrop-filter: blur(8px);
+  animation: dropdownEnter 150ms ease-out;
 }
 
-.profileContainer:hover .profileDropdown,
-.profileContainer:focus-within .profileDropdown {
-  opacity: 1;
-  visibility: visible;
-  transform: translateY(0);
+@keyframes dropdownEnter {
+  from {
+    opacity: 0;
+    transform: translateY(-12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
 }
 
 .dropdownItem {
@@ -204,10 +203,9 @@
 }
 
 .dropdownItem:hover,
-.dropdownItem:focus {
+.dropdownItem:focus-visible {
   background-color: rgba(168, 184, 160, 0.06);
   color: var(--color-primary);
-  outline: none;
   padding-left: calc(var(--spacing-lg) + 4px);
 }
 

@@ -32,7 +32,7 @@ export const WeeklyActivityModal = ({ open, onClose, progress }: WeeklyActivityM
   return (
     <Dialog open={open} onClose={onClose} className={styles.dialog} maxWidth="sm" fullWidth>
       <DialogTitle className={styles.dialogTitle}>
-        <span className={styles.titleText}>This Week's Activity</span>
+        <span className={styles.titleText}>This Week&apos;s Activity</span>
         <span className={styles.titleSubtext}>{weeklyActivity.length} simulation{weeklyActivity.length !== 1 ? 's' : ''} completed</span>
       </DialogTitle>
       <DialogContent className={styles.dialogContent}>
@@ -59,7 +59,7 @@ export const WeeklyActivityModal = ({ open, onClose, progress }: WeeklyActivityM
         )}
 
         <div className={styles.motivationalNote}>
-          <strong>Keep it up!</strong> You're building a stronger understanding of different careers each week.
+          <strong>Keep it up!</strong> You&apos;re building a stronger understanding of different careers each week.
         </div>
       </DialogContent>
       <DialogActions className={styles.dialogActions}>

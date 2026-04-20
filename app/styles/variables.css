@@ -24,6 +24,27 @@
   --color-success: #7cb89f;
   --color-error: #c27c7c;
 
+  /* Semantic Colors - Backgrounds & States */
+  --color-surface: #ffffff;
+  --color-surface-secondary: #fafafa;
+  --color-overlay: rgba(0, 0, 0, 0.5);
+
+  /* Error States */
+  --color-error-light: #fee;
+  --color-error-text: #c00;
+  --color-error-background: #fee;
+
+  /* Success States */
+  --color-success-light: #e8f5e9;
+  --color-success-background: #f0f8f5;
+  --color-success-dark: #4caf50;
+
+  /* Neutral Backgrounds */
+  --color-background-light: #f8f8f8;
+  --color-background-lighter: #f0f8f5;
+  --color-background-warm: #fef8f0;
+  --color-divider: #e5e5e5;
+
   /* Career-Specific Accents */
   --career-software-engineer: #4f9fd8;
   --career-nurse: #d97a7a;

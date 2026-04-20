@@ -1,9 +1,11 @@
 'use client';
 
 import { useState, useMemo, useEffect } from 'react';
+import { useRouter } from 'next/navigation';
 import { careers, RecommendationTag, CareerLevel } from '@/app/data/careers';
 import { CareerCard } from '@/app/components/CareerCard';
 import { useAuth } from '@/app/providers/AuthProvider';
+import { useUserRole } from '@/app/hooks/useUserRole';
 import { getUserProgress } from '@/lib/db/progress';
 import { StudentProgress } from '@/lib/db/types';
 import styles from '@/app/styles/PathwaysPage.module.css';
@@ -30,7 +32,9 @@ const sortOptions = [
 ];
 
 export default function PathwaysPage() {
+  const router = useRouter();
   const { user } = useAuth();
+  const role = useUserRole();
   const [searchQuery, setSearchQuery] = useState('');
   const [selectedSkills, setSelectedSkills] = useState<Set<string>>(new Set());
   const [selectedLevels, setSelectedLevels] = useState<Set<CareerLevel>>(new Set());
@@ -41,6 +45,13 @@ export default function PathwaysPage() {
   const [selectedStatuses, setSelectedStatuses] = useState<Set<'not_started' | 'in_progress' | 'completed'>>(
     new Set(['not_started', 'in_progress', 'completed'])
   );
+
+  // Redirect teachers away from pathways
+  useEffect(() => {
+    if (role === 'teacher') {
+      router.push('/teacher/dashboard');
+    }
+  }, [role, router]);
 
   // Fetch user progress
   useEffect(() => {

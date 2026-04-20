@@ -1,0 +1,19 @@
+.focusVisible {
+  outline: 3px solid var(--color-primary, #a8b8a0);
+  outline-offset: 2px;
+}
+
+.focusVisibleDark {
+  outline: 3px solid var(--color-text, #3a3a3a);
+  outline-offset: 2px;
+}
+
+.focusVisibleError {
+  outline: 3px solid var(--color-error, #c27c7c);
+  outline-offset: 2px;
+}
+
+.focusVisibleSuccess {
+  outline: 3px solid var(--color-success, #7cb89f);
+  outline-offset: 2px;
+}

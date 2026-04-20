@@ -510,6 +510,256 @@
   }
 }
 
+/* Achievements grid */
+.achievementsGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(140px, 1fr));
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.celebrationBox {
+  margin-top: 20px;
+  padding: 16px 20px;
+  background: linear-gradient(135deg, rgba(124, 184, 159, 0.08) 0%, rgba(124, 184, 159, 0.02) 100%);
+  border-left: 4px solid #7cb89f;
+  border-radius: 8px;
+  text-align: center;
+}
+
+.celebrationBox p {
+  margin: 0;
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 0.95rem;
+}
+
+/* Rankings container */
+.rankingsContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.rankingItem {
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+  padding: 16px;
+  background: rgba(168, 184, 160, 0.03);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: 8px;
+  transition: all 200ms ease;
+}
+
+.rankingItem:hover {
+  background: rgba(168, 184, 160, 0.06);
+  border-color: rgba(168, 184, 160, 0.2);
+}
+
+.rankingHeader {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin-bottom: 12px;
+}
+
+.rankNumber {
+  font-weight: 700;
+  font-size: 1.25rem;
+  color: #8b7355;
+  min-width: 35px;
+}
+
+.careerIcon {
+  font-size: 1.5rem;
+}
+
+.careerTitle {
+  flex: 1;
+  font-weight: 600;
+  color: var(--modal-text);
+  font-size: 1rem;
+}
+
+.matchBadge {
+  background: #a8b8a0;
+  color: white;
+  padding: 4px 12px;
+  border-radius: 20px;
+  font-weight: 700;
+  font-size: 0.9rem;
+}
+
+.matchBar {
+  height: 6px;
+  background: rgba(168, 184, 160, 0.12);
+  border-radius: 3px;
+  overflow: hidden;
+  margin-bottom: 10px;
+}
+
+.matchFill {
+  height: 100%;
+  background: linear-gradient(90deg, #a8b8a0 0%, #8b7355 100%);
+  border-radius: 3px;
+  transition: width 600ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.reasoning {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.tipsBox {
+  margin-top: 20px;
+  padding: 12px 16px;
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 3px solid #a8b8a0;
+  border-radius: 4px;
+  font-size: 0.9rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.tipsBox p {
+  margin: 0;
+}
+
+/* Reflection Prompt Modal */
+.reflectionPrompt {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.promptText {
+  margin: 0;
+  font-size: 0.95rem;
+  color: var(--modal-text);
+  line-height: 1.6;
+}
+
+.reflectionInput {
+  padding: 12px;
+  border: 2px solid rgba(168, 184, 160, 0.2);
+  border-radius: 8px;
+  font-family: inherit;
+  font-size: 0.9rem;
+  color: var(--modal-text);
+  resize: vertical;
+  transition: border-color 200ms ease;
+}
+
+.reflectionInput:focus {
+  outline: none;
+  border-color: #a8b8a0;
+  box-shadow: 0 0 0 3px rgba(168, 184, 160, 0.1);
+}
+
+/* Decision Replay Modal */
+.decisionReplayContainer {
+  display: flex;
+  flex-direction: column;
+  gap: 20px;
+}
+
+.progressSummary {
+  padding: 12px 16px;
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 4px solid #a8b8a0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: var(--modal-text);
+}
+
+.progressSummary p {
+  margin: 0;
+}
+
+.decisionsTimeline {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.decisionStep {
+  display: flex;
+  gap: 12px;
+  padding: 12px;
+  background: rgba(168, 184, 160, 0.03);
+  border-radius: 8px;
+  border-left: 3px solid rgba(168, 184, 160, 0.2);
+  opacity: 0.6;
+  animation: slideInUp 400ms cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.decisionStep.completed {
+  border-left-color: #7cb89f;
+  background: rgba(124, 184, 159, 0.05);
+  opacity: 1;
+}
+
+.stepNumber {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  background: rgba(168, 184, 160, 0.1);
+  border-radius: 50%;
+  font-weight: 700;
+  color: var(--modal-text);
+  flex-shrink: 0;
+  font-size: 0.9rem;
+}
+
+.decisionStep.completed .stepNumber {
+  background: #7cb89f;
+  color: white;
+}
+
+.stepContent {
+  flex: 1;
+}
+
+.stepScenario {
+  margin: 0 0 8px 0;
+  font-size: 0.85rem;
+  color: #666;
+  line-height: 1.5;
+}
+
+.chosenPath {
+  margin: 0;
+  font-size: 0.9rem;
+  color: var(--modal-text);
+  background: rgba(124, 184, 159, 0.08);
+  padding: 8px;
+  border-radius: 4px;
+}
+
+.unfinished {
+  margin: 0;
+  font-size: 0.85rem;
+  color: #999;
+  font-style: italic;
+}
+
+.reflectionBox {
+  padding: 12px 16px;
+  background: rgba(168, 184, 160, 0.05);
+  border-left: 4px solid #a8b8a0;
+  border-radius: 6px;
+  font-size: 0.9rem;
+  color: #666;
+}
+
+.reflectionBox p {
+  margin: 0;
+  line-height: 1.5;
+}
+
 /* Responsive */
 @media (max-width: 768px) {
   .dialogTitle {
@@ -536,5 +786,14 @@
 
   .matchPercent {
     font-size: 2rem;
+  }
+
+  .achievementsGrid {
+    grid-template-columns: repeat(auto-fit, minmax(110px, 1fr));
+    gap: 12px;
+  }
+
+  .rankingHeader {
+    gap: 8px;
   }
 }

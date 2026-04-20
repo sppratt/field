@@ -1,0 +1,159 @@
+/* Achievement Badge */
+
+.badge {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  padding: var(--spacing-lg);
+  background: linear-gradient(135deg, #ffffff 0%, #fafaf9 100%);
+  border: 2px solid var(--color-primary);
+  border-radius: var(--radius-lg);
+  transition: all 200ms ease;
+  animation: slideUp 0.6s ease-out forwards;
+  opacity: 0;
+}
+
+.badge:nth-child(1) {
+  animation-delay: 0.1s;
+}
+
+.badge:nth-child(2) {
+  animation-delay: 0.2s;
+}
+
+.badge:nth-child(3) {
+  animation-delay: 0.3s;
+}
+
+.badge:nth-child(4) {
+  animation-delay: 0.4s;
+}
+
+.badge:nth-child(5) {
+  animation-delay: 0.5s;
+}
+
+.badge:nth-child(n + 6) {
+  animation-delay: calc(0.1s * (var(--index, 6) - 5));
+}
+
+@keyframes slideUp {
+  from {
+    opacity: 0;
+    transform: translateY(12px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.badge.medium {
+  min-width: 150px;
+  gap: var(--spacing-md);
+}
+
+.badge.small {
+  min-width: 120px;
+  padding: var(--spacing-md);
+  gap: var(--spacing-sm);
+}
+
+.badge.large {
+  min-width: 180px;
+  gap: var(--spacing-lg);
+}
+
+.emoji {
+  font-size: 3rem;
+}
+
+.badge.small .emoji {
+  font-size: 2rem;
+}
+
+.badge.large .emoji {
+  font-size: 4rem;
+}
+
+.title {
+  margin: 0;
+  font-size: var(--font-size-base);
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text);
+  line-height: var(--line-height-tight);
+}
+
+.badge.small .title {
+  font-size: var(--font-size-sm);
+}
+
+.badge.large .title {
+  font-size: var(--font-size-lg);
+}
+
+.description {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-text-light);
+  line-height: var(--line-height-normal);
+}
+
+.date {
+  margin: 0;
+  font-size: var(--font-size-xs);
+  color: var(--color-secondary);
+  font-weight: var(--font-weight-semibold);
+  margin-top: var(--spacing-sm);
+}
+
+.locked {
+  opacity: 0.6;
+  border-color: rgba(90, 90, 90, 0.2);
+  background: rgba(90, 90, 90, 0.02);
+}
+
+.locked .emoji {
+  filter: grayscale(100%);
+  opacity: 0.5;
+}
+
+.lockIcon {
+  position: absolute;
+  top: -8px;
+  right: -8px;
+  background: var(--color-primary);
+  width: 32px;
+  height: 32px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 1.25rem;
+}
+
+.locked .lockIcon {
+  background: rgba(90, 90, 90, 0.3);
+}
+
+@media (max-width: 768px) {
+  .badge.medium {
+    min-width: 130px;
+    padding: var(--spacing-md);
+  }
+
+  .emoji {
+    font-size: 2.5rem;
+  }
+
+  .badge.small .emoji {
+    font-size: 1.75rem;
+  }
+
+  .badge.large .emoji {
+    font-size: 3.5rem;
+  }
+}

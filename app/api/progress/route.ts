@@ -44,7 +44,9 @@ export async function GET(request: NextRequest) {
 export async function POST(request: NextRequest) {
   try {
     const supabase = createClient();
-    const { updateProgress, startPathway } = await import('@/lib/db/progress');
+    const { updateProgress, startPathway, getUserProgress } = await import('@/lib/db/progress');
+    const { evaluateAndAwardAchievements } = await import('@/lib/db/achievements');
+    const { updateExplorationStreak } = await import('@/lib/db/achievements');
 
     const {
       data: { user },
@@ -78,7 +80,16 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
 
-    return NextResponse.json({ progress: result.progress });
+    let newAchievements = [];
+
+    // If pathway just completed, award achievements and update streak
+    if (result.progress?.status === 'completed') {
+      const allProgress = await getUserProgress(user.id);
+      newAchievements = await evaluateAndAwardAchievements(user.id, allProgress);
+      await updateExplorationStreak(user.id);
+    }
+
+    return NextResponse.json({ progress: result.progress, newAchievements });
   } catch (error: any) {
     console.error('Error updating progress:', error);
     return NextResponse.json({ error: 'Failed to update progress' }, { status: 500 });
