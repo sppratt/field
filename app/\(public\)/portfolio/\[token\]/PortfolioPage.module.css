@@ -1,0 +1,123 @@
+.container {
+  max-width: 1000px;
+  margin: 0 auto;
+  padding: 2rem 1rem;
+}
+
+.header {
+  text-align: center;
+  margin-bottom: 3rem;
+}
+
+.userName {
+  font-size: 2rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.tagContainer {
+  display: flex;
+  gap: 0.5rem;
+  justify-content: center;
+  flex-wrap: wrap;
+  margin: 1.5rem 0;
+}
+
+.tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  padding: 0.5rem 1rem;
+  background: var(--color-background);
+  border-radius: 20px;
+  font-size: 0.9rem;
+  border: 1px solid var(--color-border);
+}
+
+.skillsSection {
+  margin-bottom: 3rem;
+}
+
+.sectionTitle {
+  font-size: 1.5rem;
+  color: var(--color-text);
+  margin-bottom: 1.5rem;
+}
+
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+}
+
+.skillCard {
+  background: var(--color-surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+  text-align: center;
+}
+
+.skillEmoji {
+  font-size: 2.5rem;
+  margin-bottom: 0.5rem;
+}
+
+.skillName {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.skillScore {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+.careersSection {
+  margin-bottom: 3rem;
+}
+
+.careersList {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1rem;
+}
+
+.careerCard {
+  background: var(--color-surface);
+  padding: 1.5rem;
+  border-radius: 12px;
+  border: 1px solid var(--color-border);
+}
+
+.careerIcon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.careerName {
+  font-size: 1.1rem;
+  color: var(--color-text);
+  margin-bottom: 0.5rem;
+}
+
+.careerMatch {
+  font-size: 0.9rem;
+  color: var(--color-text-light);
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+  }
+
+  .userName {
+    font-size: 1.5rem;
+  }
+
+  .skillGrid,
+  .careersList {
+    grid-template-columns: 1fr;
+  }
+}
