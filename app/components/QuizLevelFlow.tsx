@@ -92,6 +92,7 @@ export default function QuizLevelFlow({
 
       const response = await fetch('/api/quiz/attempt', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           fieldId,

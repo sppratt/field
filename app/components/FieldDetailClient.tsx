@@ -72,7 +72,9 @@ export default function FieldDetailClient({ field }: FieldDetailClientProps) {
   const loadFieldProgress = async () => {
     try {
       setLoading(true);
-      const response = await fetch('/api/field-progress');
+      const response = await fetch('/api/field-progress', {
+        credentials: 'include',
+      });
       if (!response.ok) throw new Error('Failed to load progress');
 
       const data = await response.json();
@@ -91,6 +93,7 @@ export default function FieldDetailClient({ field }: FieldDetailClientProps) {
     try {
       const response = await fetch('/api/field-progress', {
         method: 'POST',
+        credentials: 'include',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ fieldId: field.id }),
       });

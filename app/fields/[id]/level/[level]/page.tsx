@@ -30,12 +30,21 @@ export default function QuizPage() {
       try {
         setLoading(true);
         const response = await fetch(
-          `/api/quiz/templates?field_id=${fieldId}&level=${levelNum}`
+          `/api/quiz/templates?field_id=${fieldId}&level=${levelNum}`,
+          {
+            credentials: 'include',
+            headers: {
+              'Content-Type': 'application/json',
+            },
+          }
         );
 
         if (!response.ok) {
           if (response.status === 403) {
             throw new Error('Level locked. Complete the previous level first.');
+          }
+          if (response.status === 401) {
+            throw new Error('Please log in to continue.');
           }
           throw new Error('Failed to load quiz');
         }
