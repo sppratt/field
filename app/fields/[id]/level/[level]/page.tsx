@@ -61,19 +61,6 @@ export default function QuizPage() {
     fetchQuiz();
   }, [fieldId, levelNum]);
 
-  const handleComplete = (score: number, unlockedNext: boolean) => {
-    if (unlockedNext && levelNum < 5) {
-      // Auto-navigate to next level after brief delay
-      setTimeout(() => {
-        router.push(`/fields/${fieldId}/level/${levelNum + 1}`);
-      }, 2000);
-    } else if (levelNum === 5 && unlockedNext) {
-      // Field mastered - go back to pathway view
-      setTimeout(() => {
-        router.push(`/pathways/${fieldId}`);
-      }, 2000);
-    }
-  };
 
   const fieldName = FIELD_NAMES[fieldId] || fieldId;
 
@@ -127,7 +114,6 @@ export default function QuizPage() {
         template={template}
         fieldId={fieldId}
         level={levelNum}
-        onComplete={handleComplete}
         onRetry={() => window.location.reload()}
       />
     </div>

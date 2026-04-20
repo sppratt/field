@@ -1,0 +1,368 @@
+.container {
+  max-width: 1400px;
+  margin: 0 auto;
+  padding: 1.5rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+/* === HERO SECTION === */
+.heroSection {
+  display: grid;
+  grid-template-columns: 1fr 280px;
+  gap: 1.5rem;
+  align-items: start;
+}
+
+.welcome {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1.5rem;
+}
+
+.welcome h1 {
+  font-size: 1.75rem;
+  color: var(--color-text);
+  margin: 0 0 0.5rem 0;
+  font-family: var(--font-display);
+}
+
+.welcome p {
+  font-size: 0.95rem;
+  color: var(--color-text-light);
+  margin: 0;
+}
+
+/* Top Strength - Compact Sidebar */
+.topStrength {
+  background: linear-gradient(135deg, var(--color-primary) 0%, var(--color-accent) 100%);
+  border-radius: 12px;
+  padding: 1rem;
+  color: white;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  box-shadow: 0 4px 12px rgba(168, 184, 160, 0.2);
+}
+
+.strengthEmoji {
+  font-size: 2rem;
+}
+
+.strengthLabel {
+  font-size: 0.7rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  opacity: 0.9;
+  font-weight: 600;
+}
+
+.strengthTag {
+  font-size: 0.95rem;
+  font-weight: 600;
+}
+
+.strengthScore {
+  font-size: 1.5rem;
+  font-weight: 700;
+  margin: 0.25rem 0;
+}
+
+.strengthDesc {
+  font-size: 0.75rem;
+  margin: 0;
+  opacity: 0.95;
+  line-height: 1.3;
+}
+
+/* === MAIN GRID === */
+.mainGrid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1.5rem;
+}
+
+.section {
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+  border-radius: 12px;
+  padding: 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.sectionTitle {
+  font-size: 0.95rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.03em;
+  color: var(--color-text);
+  margin: 0 0 0.5rem 0;
+  font-family: var(--font-family-sans);
+}
+
+/* === SKILL GRID === */
+.skillGrid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.75rem;
+}
+
+.skillCard {
+  background: var(--color-background);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem;
+  text-align: center;
+  transition: all 0.2s ease;
+}
+
+.skillCard:hover {
+  border-color: var(--color-primary);
+  box-shadow: 0 2px 8px rgba(168, 184, 160, 0.08);
+  transform: translateY(-2px);
+}
+
+.skillEmoji {
+  font-size: 1.5rem;
+  margin-bottom: 0.25rem;
+  display: block;
+}
+
+.skillName {
+  font-size: 0.75rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.4rem;
+  line-height: 1.2;
+}
+
+.skillBar {
+  background: var(--color-divider);
+  height: 3px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+}
+
+.skillFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-primary), var(--color-accent));
+  transition: width 0.3s ease;
+}
+
+.skillScore {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+/* === ACTIVITY LIST === */
+.activityList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.5rem;
+}
+
+.activityItem {
+  background: var(--color-background);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: 8px;
+  padding: 0.7rem;
+  display: grid;
+  grid-template-columns: 1fr auto;
+  gap: 0.75rem;
+  align-items: center;
+  transition: all 0.2s ease;
+}
+
+.activityItem:hover {
+  border-color: var(--color-primary);
+  background: rgba(168, 184, 160, 0.03);
+}
+
+.activityField {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.activityMeta {
+  display: flex;
+  gap: 0.5rem;
+  align-items: center;
+}
+
+.activityLevel {
+  font-size: 0.7rem;
+  background: var(--color-secondary-subtle);
+  color: var(--color-secondary);
+  padding: 0.2rem 0.5rem;
+  border-radius: 4px;
+  font-weight: 600;
+}
+
+.activityScore {
+  font-size: 0.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+}
+
+.activityDate {
+  grid-column: 1 / -1;
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+}
+
+/* === GOALS LIST === */
+.goalsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.goalItem {
+  background: var(--color-background);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem;
+  transition: all 0.2s ease;
+}
+
+.goalItem:hover {
+  border-color: var(--color-primary);
+  background: rgba(168, 184, 160, 0.03);
+}
+
+.goalHeader {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  margin-bottom: 0.5rem;
+  gap: 0.5rem;
+}
+
+.goalTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+}
+
+.goalDeadline {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+  white-space: nowrap;
+}
+
+.goalBar {
+  background: var(--color-divider);
+  height: 3px;
+  border-radius: 2px;
+  overflow: hidden;
+  margin-bottom: 0.3rem;
+}
+
+.goalFill {
+  height: 100%;
+  background: linear-gradient(90deg, var(--color-success), var(--color-primary));
+  transition: width 0.3s ease;
+}
+
+.goalProgress {
+  font-size: 0.7rem;
+  color: var(--color-text-light);
+  font-weight: 600;
+}
+
+/* === RECOMMENDATIONS === */
+.recommendationsList {
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+}
+
+.recommendationItem {
+  background: var(--color-background);
+  border: 1px solid rgba(168, 184, 160, 0.1);
+  border-radius: 8px;
+  padding: 0.75rem;
+  display: grid;
+  grid-template-columns: auto 1fr;
+  gap: 0.75rem;
+  align-items: start;
+  transition: all 0.2s ease;
+}
+
+.recommendationItem:hover {
+  border-color: var(--color-primary);
+  background: rgba(168, 184, 160, 0.03);
+  transform: translateX(2px);
+}
+
+.recEmoji {
+  font-size: 1.25rem;
+  flex-shrink: 0;
+}
+
+.recTitle {
+  font-size: 0.85rem;
+  font-weight: 600;
+  color: var(--color-text);
+  margin-bottom: 0.15rem;
+}
+
+.recDesc {
+  font-size: 0.75rem;
+  color: var(--color-text-light);
+  margin: 0;
+  line-height: 1.3;
+}
+
+/* === RESPONSIVE === */
+@media (max-width: 1024px) {
+  .heroSection {
+    grid-template-columns: 1fr;
+  }
+
+  .mainGrid {
+    grid-template-columns: 1fr;
+  }
+
+  .skillGrid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 640px) {
+  .container {
+    padding: 1rem;
+    gap: 1rem;
+  }
+
+  .section {
+    padding: 0.75rem;
+    gap: 0.5rem;
+  }
+
+  .skillGrid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 0.5rem;
+  }
+
+  .skillCard {
+    padding: 0.6rem;
+  }
+
+  .topStrength {
+    padding: 0.75rem;
+  }
+
+  .sectionTitle {
+    font-size: 0.85rem;
+  }
+}

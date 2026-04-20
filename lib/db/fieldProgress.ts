@@ -1,12 +1,17 @@
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/server';
 import type { StudentFieldProgress, FieldStatus } from './types';
 
-const supabase = createClient();
+// Create client function for server-side usage
+async function getClient() {
+  return await createClient();
+}
 
 export async function getFieldProgress(
   userId: string,
   fieldId: string
 ): Promise<StudentFieldProgress | null> {
+  const supabase = await getClient();
+
   const { data, error } = await supabase
     .from('student_field_progress')
     .select('*')
@@ -22,6 +27,8 @@ export async function getFieldProgress(
 }
 
 export async function getAllFieldProgress(userId: string): Promise<StudentFieldProgress[]> {
+  const supabase = await getClient();
+
   const { data, error } = await supabase
     .from('student_field_progress')
     .select('*')
@@ -37,6 +44,9 @@ export async function getAllFieldProgress(userId: string): Promise<StudentFieldP
 }
 
 export async function startField(userId: string, fieldId: string): Promise<StudentFieldProgress | null> {
+  const supabase = await getClient();
+
+
   const { data, error } = await supabase
     .from('student_field_progress')
     .upsert({
@@ -47,16 +57,15 @@ export async function startField(userId: string, fieldId: string): Promise<Stude
       levels_completed: [],
       started_at: new Date().toISOString(),
     })
-    .eq('user_id', userId)
-    .eq('field_id', fieldId)
     .select()
     .single();
 
   if (error) {
     console.error('Error starting field:', error);
+    return null;
   }
 
-  return data || null;
+  return data;
 }
 
 export async function updateFieldLevel(
@@ -65,8 +74,17 @@ export async function updateFieldLevel(
   newLevel: number,
   unlocked: boolean
 ): Promise<StudentFieldProgress | null> {
-  const progress = await getFieldProgress(userId, fieldId);
-  if (!progress) return null;
+  const supabase = await getClient();
+
+  let progress = await getFieldProgress(userId, fieldId);
+  if (!progress) {
+    // Defensive: create field progress if it doesn't exist
+    progress = await startField(userId, fieldId);
+    if (!progress) {
+      console.error(`[updateFieldLevel] Failed to create field progress for user ${userId}, field ${fieldId}`);
+      return null;
+    }
+  }
 
   const levelsCompleted = [...progress.levels_completed];
   if (unlocked && !levelsCompleted.includes(newLevel - 1)) {
@@ -75,6 +93,7 @@ export async function updateFieldLevel(
 
   const newStatus: FieldStatus =
     levelsCompleted.length === 5 ? 'mastered' : 'in_progress';
+
 
   const { data, error } = await supabase
     .from('student_field_progress')
@@ -101,6 +120,8 @@ export async function getFieldsByStatus(
   userId: string,
   status: FieldStatus
 ): Promise<StudentFieldProgress[]> {
+  const supabase = await getClient();
+
   const { data, error } = await supabase
     .from('student_field_progress')
     .select('*')

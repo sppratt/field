@@ -3,13 +3,13 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import styles from './StatsModals.module.css';
 import { careers } from '@/app/data/careers';
-import type { StudentProgress } from '@/lib/db/types';
+import type { StudentFieldProgress } from '@/lib/db/types';
 
 interface TopSkillModalProps {
   open: boolean;
   onClose: () => void;
   topSkill: string | null;
-  progress: StudentProgress[];
+  progress: StudentFieldProgress[];
 }
 
 const skillDescriptions: Record<string, string> = {

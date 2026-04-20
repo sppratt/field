@@ -7,16 +7,14 @@ export const dynamic = 'force-dynamic';
 import Link from 'next/link';
 import { useRouter } from 'next/navigation';
 import { getCurrentUserProfile } from '@/lib/db/users';
-import { getUserProgress, getProgressSummary } from '@/lib/db/progress';
+
 import { careers } from '@/app/data/careers';
-import type { User, StudentProgress } from '@/lib/db/types';
+import type { User, StudentFieldProgress } from '@/lib/db/types';
 import styles from './StudentDashboard.module.css';
 import { Button } from '@/app/components/Button';
 import { CareerCard } from '@/app/components/CareerCard';
 import { InfoIcon } from '@/app/components/InfoIcon';
-import { GoalsSection } from '@/app/components/GoalsSection';
-import { SkillMasterySection } from '@/app/components/SkillMasterySection';
-import { AchievementBadge } from '@/app/components/AchievementBadge';
+import { DashboardStatsCards } from '@/app/components/DashboardStatsCards';
 import { PathwaysExploredModal } from '@/app/components/modals/PathwaysExploredModal';
 import { SkillsFoundModal } from '@/app/components/modals/SkillsFoundModal';
 import { TopSkillModal } from '@/app/components/modals/TopSkillModal';
@@ -24,7 +22,9 @@ import { CareerCalculationModal } from '@/app/components/modals/CareerCalculatio
 import { WeeklyActivityModal } from '@/app/components/modals/WeeklyActivityModal';
 import { AchievementsModal } from '@/app/components/modals/AchievementsModal';
 import { CareerMatchRankingsModal } from '@/app/components/modals/CareerMatchRankingsModal';
-import { WeeklyChallengesSection } from '@/app/components/WeeklyChallengesSection';
+import { GoalsModal } from '@/app/components/modals/GoalsModal';
+import { SkillMasteryModal } from '@/app/components/modals/SkillMasteryModal';
+import { WeeklyChallengesDetailModal } from '@/app/components/modals/WeeklyChallengesDetailModal';
 import { getUserAchievements } from '@/lib/db/achievements';
 import { getCurrentWeekChallenges, generateWeekChallenges } from '@/lib/db/challenges';
 import { getAggregateTagScores } from '@/app/utils/skillScoring';
@@ -49,7 +49,7 @@ const careerColors: Record<string, string> = {
 export default function StudentDashboard() {
   const router = useRouter();
   const [user, setUser] = useState<User | null>(null);
-  const [progress, setProgress] = useState<StudentProgress[]>([]);
+  const [progress, setProgress] = useState<StudentFieldProgress[]>([]);
   const [summary, setSummary] = useState({ notStarted: 0, inProgress: 0, completed: 0 });
   const [loading, setLoading] = useState(true);
   const [classCode, setClassCode] = useState('');
@@ -73,6 +73,9 @@ export default function StudentDashboard() {
     weeklyActivity: false,
     achievements: false,
     careerRankings: false,
+    goals: false,
+    skills: false,
+    challenges: false,
   });
 
   useEffect(() => {
@@ -86,11 +89,13 @@ export default function StudentDashboard() {
 
         setUser(userProfile);
 
-        const userProgress = await getUserProgress(userProfile.id);
-        setProgress(userProgress);
-
-        const summaryData = await getProgressSummary(userProfile.id);
-        setSummary(summaryData);
+        const progressRes = await fetch('/api/field-progress', {
+          credentials: 'include',
+        });
+        if (progressRes.ok) {
+          const progressData = await progressRes.json();
+          setProgress(progressData.fields || []);
+        }
 
         // Load engagement features
         const userAchievements = await getUserAchievements(userProfile.id);
@@ -111,24 +116,63 @@ export default function StudentDashboard() {
     loadData();
   }, [router]);
 
+  // Calculate summary stats whenever progress changes
+  useEffect(() => {
+    const notStarted = progress.filter((p) => !p || p.status === 'not_started').length;
+    const completed = progress.filter((p) => p.levels_completed?.length === 5).length;
+    const inProgress = progress.length - notStarted - completed;
+
+    setSummary({ notStarted, inProgress, completed });
+  }, [progress]);
+
   const getProgressStatus = (careerTitle: string) => {
-    const careerProgress = progress.find((p) => p.pathway_id === careerTitle.toLowerCase());
-    const status = careerProgress?.status || 'not_started';
-    // Map status to visual state: not_started, planted (has started but no progress), in_progress, completed
+    const careerProgress = progress.find((p) => p.field_id === careerTitle.toLowerCase());
+    if (!careerProgress) return 'not_started';
+
+    // Check if all 5 levels are completed
+    const allLevelsCompleted = careerProgress.levels_completed?.length === 5;
+    if (allLevelsCompleted) return 'completed';
+
+    const status = careerProgress.status || 'not_started';
     if (status === 'not_started') return 'not_started';
-    if (status === 'completed') return 'completed';
+
     // Else: in_progress state becomes 'in_progress'
     return 'in_progress';
   };
 
   const getProgressPercentage = (careerTitle: string) => {
-    const careerProgress = progress.find((p) => p.pathway_id === careerTitle.toLowerCase());
-    return careerProgress?.completion_percentage || 0;
+    const careerProgress = progress.find((p) => p.field_id === careerTitle.toLowerCase());
+    if (!careerProgress) return 0;
+    return (careerProgress.levels_completed?.length || 0) / 5 * 100;
   };
 
-  const getTagScores = () => {
-    return getAggregateTagScores(progress);
-  };
+  const [tagScores, setTagScores] = useState({
+    analytical: 0,
+    creative: 0,
+    hands_on: 0,
+    social: 0,
+    problem_solving: 0,
+  });
+
+  useEffect(() => {
+    const fetchTagScores = async () => {
+      try {
+        const response = await fetch('/api/tag-scores', {
+          credentials: 'include',
+        });
+        if (response.ok) {
+          const data = await response.json();
+          setTagScores(data.tagScores);
+        }
+      } catch (error) {
+        console.error('Error fetching tag scores:', error);
+      }
+    };
+
+    fetchTagScores();
+  }, []);
+
+  const getTagScores = () => tagScores;
 
   const getTopSkill = () => {
     const tagScores = getTagScores();
@@ -164,7 +208,7 @@ export default function StudentDashboard() {
 
     // Find not-started careers that match top tags
     const notStartedCareers = careers.filter((c) => {
-      const careerProgress = progress.find((p) => p.pathway_id === c.id);
+      const careerProgress = progress.find((p) => p.field_id === c.id);
       return !careerProgress || careerProgress.status === 'not_started';
     });
 
@@ -206,7 +250,7 @@ export default function StudentDashboard() {
 
     return progress.filter((p) => {
       const updatedAt = p.updated_at ? new Date(p.updated_at) : null;
-      return updatedAt && updatedAt >= oneWeekAgo && p.status === 'completed';
+      return updatedAt && updatedAt >= oneWeekAgo && p.status === 'mastered';
     }).length;
   };
 
@@ -280,7 +324,7 @@ export default function StudentDashboard() {
                 <div className={styles.statNumber}>{getPathwaysExplored()}</div>
                 <p className={styles.statLabel}>Pathways Explored</p>
               </div>
-              <div
+              {/* <div
                 className={styles.statCard}
                 title="Click to see skill breakdown"
                 onClick={() => setModalsOpen({ ...modalsOpen, skillsFound: true })}
@@ -288,7 +332,7 @@ export default function StudentDashboard() {
                 <InfoIcon label="See skill breakdown" />
                 <div className={styles.statNumber}>{getSkillsDiscovered()}/5</div>
                 <p className={styles.statLabel}>Skills Found</p>
-              </div>
+              </div> */}
               {getTopSkill() && (
                 <div
                   className={styles.statCard}
@@ -345,81 +389,23 @@ export default function StudentDashboard() {
         </div>
       </div>
 
-      {/* Goals & Progress Section */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
-        <GoalsSection
-          interests={user?.interests || undefined}
-          completedSimulations={summary.completed}
-          totalPathways={careers.length}
-          topSkill={getTopSkill() || undefined}
-        />
+      {/* Quick Stats Cards Row */}
+      <div style={{ maxWidth: '1400px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
+        <h3 style={{ fontSize: '0.875rem', fontWeight: 600, color: 'var(--color-text-light)', textTransform: 'uppercase', letterSpacing: '0.05em', margin: '0 0 1rem 0' }}>
+          Your Dashboard
+        </h3>
       </div>
+      <DashboardStatsCards
+        progress={progress}
+        achievements={achievements}
+        challenges={challenges}
+        onOpenGoals={() => setModalsOpen({ ...modalsOpen, goals: true })}
+        onOpenSkills={() => setModalsOpen({ ...modalsOpen, skills: true })}
+        onOpenAchievements={() => setModalsOpen({ ...modalsOpen, achievements: true })}
+        onOpenCareers={() => setModalsOpen({ ...modalsOpen, careerRankings: true })}
+        onOpenChallenges={() => setModalsOpen({ ...modalsOpen, challenges: true })}
+      />
 
-      {/* Skill Mastery Section */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
-        <SkillMasterySection progress={progress} />
-      </div>
-
-      {/* Achievements Showcase */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
-        <div className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h2>Your Achievements</h2>
-            <button
-              className={styles.viewAllButton}
-              onClick={() => setModalsOpen({ ...modalsOpen, achievements: true })}
-            >
-              View All →
-            </button>
-          </div>
-          <p className={styles.sectionSubheading}>
-            {achievements.length} achievement{achievements.length !== 1 ? 's' : ''} unlocked
-          </p>
-          {achievements.length > 0 ? (
-            <div className={styles.achievementsPreview}>
-              {achievements.slice(0, 3).map((achievement) => (
-                <AchievementBadge
-                  key={achievement.id}
-                  type={achievement.achievement_type}
-                  unlocked={true}
-                  unlockedDate={achievement.earned_at}
-                  size="small"
-                />
-              ))}
-            </div>
-          ) : (
-            <p className={styles.emptyState}>
-              Complete simulations to earn achievements and unlock rewards!
-            </p>
-          )}
-        </div>
-      </div>
-
-      {/* Career Match Rankings */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
-        <div className={styles.section}>
-          <div className={styles.sectionHeader}>
-            <h2>Your Career Matches</h2>
-            <button
-              className={styles.viewAllButton}
-              onClick={() => setModalsOpen({ ...modalsOpen, careerRankings: true })}
-            >
-              View Rankings →
-            </button>
-          </div>
-          <p className={styles.sectionSubheading}>Based on your skill development</p>
-          {progress.length > 0 ? (
-            <p className={styles.emptyState}>Click "View Rankings" to see all careers ranked by your compatibility</p>
-          ) : (
-            <p className={styles.emptyState}>Start exploring to see your personalized career rankings</p>
-          )}
-        </div>
-      </div>
-
-      {/* Weekly Challenges */}
-      <div style={{ maxWidth: '1200px', margin: '0 auto', padding: '0 var(--spacing-2xl)' }}>
-        <WeeklyChallengesSection challenges={challenges} />
-      </div>
 
       {/* Recommended Section - Moved to top for discovery-first flow */}
       <div id="recommended-section" className={styles.recommendedSection}>
@@ -624,6 +610,23 @@ export default function StudentDashboard() {
         open={modalsOpen.careerRankings}
         onClose={() => setModalsOpen({ ...modalsOpen, careerRankings: false })}
         skillScores={getTagScores()}
+      />
+
+      {/* New modals for stats cards */}
+      <GoalsModal
+        open={modalsOpen.goals}
+        onClose={() => setModalsOpen({ ...modalsOpen, goals: false })}
+        progress={progress}
+      />
+      <SkillMasteryModal
+        open={modalsOpen.skills}
+        onClose={() => setModalsOpen({ ...modalsOpen, skills: false })}
+        progress={progress}
+      />
+      <WeeklyChallengesDetailModal
+        open={modalsOpen.challenges}
+        onClose={() => setModalsOpen({ ...modalsOpen, challenges: false })}
+        challenges={challenges}
       />
     </div>
   );

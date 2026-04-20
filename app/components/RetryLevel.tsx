@@ -87,13 +87,13 @@ export default function RetryLevel({
       <div className={styles.encouragement}>
         {bestScore < 75 && (
           <p>
-            💡 You're close! Try a different approach to the decisions. Think about what each
+            💡 You&apos;re close! Try a different approach to the decisions. Think about what each
             choice reveals about the character.
           </p>
         )}
         {bestScore >= 75 && (
           <p>
-            ✨ Great job! You've mastered this level. Ready to move to the next challenge?
+            ✨ Great job! You&apos;ve mastered this level. Ready to move to the next challenge?
           </p>
         )}
       </div>

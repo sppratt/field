@@ -9,6 +9,9 @@ interface LevelUnlockModalProps {
   score: number;
   unlockedNext: boolean;
   onContinue: () => void;
+  onStartNext?: () => void;
+  onExit?: () => void;
+  fieldId?: string;
 }
 
 export default function LevelUnlockModal({
@@ -16,9 +19,12 @@ export default function LevelUnlockModal({
   score,
   unlockedNext,
   onContinue,
+  onStartNext,
+  onExit,
+  fieldId,
 }: LevelUnlockModalProps) {
   const modalRef = useRef<HTMLDivElement>(null);
-  const buttonRef = useRef<HTMLButtonElement>(null);
+  const buttonRef = useRef<HTMLElement>(null);
 
   useEffect(() => {
     buttonRef.current?.focus();
@@ -74,7 +80,7 @@ export default function LevelUnlockModal({
             <div className={styles.celebration}>🎉</div>
             <h2 id="modal-title" className={styles.title}>Level {level} Mastered!</h2>
             <p className={styles.subtitle}>
-              You've successfully completed this level with a score of{' '}
+              You&apos;ve successfully completed this level with a score of{' '}
               <strong>{Math.round(score)}%</strong>
             </p>
             <div className={styles.unlockMessage}>
@@ -90,20 +96,41 @@ export default function LevelUnlockModal({
               You scored {Math.round(score)}%. You need 75% to advance.
             </p>
             <div className={styles.feedback}>
-              <p>Don't worry—you're getting closer! Each attempt helps you learn.</p>
+              <p>Don&apos;t worry—you&apos;re getting closer! Each attempt helps you learn.</p>
               <p>Try again and focus on different approaches.</p>
             </div>
           </>
         )}
 
-        <Button
-          ref={buttonRef}
-          onClick={onContinue}
-          className={styles.button}
-          aria-label={unlockedNext ? `Start Level ${level + 1}` : 'Try Again'}
-        >
-          {unlockedNext ? `Start Level ${level + 1}` : 'Try Again'}
-        </Button>
+        {unlockedNext && level < 5 ? (
+          <div style={{ display: 'flex', gap: '1rem', justifyContent: 'center', marginTop: '1.5rem' }}>
+            <Button
+              ref={buttonRef as any}
+              onClick={onStartNext}
+              className={styles.button}
+              aria-label={`Start Level ${level + 1}`}
+            >
+              Start Level {level + 1}
+            </Button>
+            <Button
+              onClick={onExit}
+              variant="secondary"
+              className={styles.button}
+              aria-label={`Exit to ${fieldId}`}
+            >
+              Exit
+            </Button>
+          </div>
+        ) : (
+          <Button
+            ref={buttonRef as any}
+            onClick={onContinue}
+            className={styles.button}
+            aria-label={unlockedNext ? 'Continue' : 'Try Again'}
+          >
+            {unlockedNext ? 'Continue' : 'Try Again'}
+          </Button>
+        )}
       </div>
     </div>
   );

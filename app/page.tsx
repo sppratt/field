@@ -66,6 +66,12 @@ export default function Home() {
             </Button>
           </div>
         </div>
+
+        <div className={styles.heroHighlight}>
+          <p className={styles.highlightLabel}>Scenarios to Experience</p>
+          <p className={styles.highlightStat}>100+</p>
+          <p className={styles.highlightText}>Decision-driven paths across careers</p>
+        </div>
       </section>
 
       <section className={styles.section}>

@@ -2,7 +2,8 @@
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import styles from './StatsModals.module.css';
-import type { StudentProgress, Career } from '@/lib/db/types';
+import type { StudentProgress } from '@/lib/db/types';
+import type { Career } from '@/app/data/careers';
 import { simulations } from '@/app/data/simulations';
 
 interface DecisionReplayModalProps {

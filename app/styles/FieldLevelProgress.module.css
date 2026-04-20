@@ -79,18 +79,18 @@
 }
 
 .levelBox.available {
-  background: #ffe57f;
-  border-color: #f57c00;
+  background: rgba(168, 184, 160, 0.15);
+  border-color: var(--color-secondary);
 }
 
 .levelBox.available:hover {
-  background: #ffd54f;
-  border-color: #e65100;
+  background: rgba(168, 184, 160, 0.25);
+  border-color: var(--color-secondary-dark);
   cursor: pointer;
 }
 
 .levelBox.available .levelIcon {
-  color: #e65100;
+  color: var(--color-secondary);
 }
 
 .levelBox.available:focus-visible {

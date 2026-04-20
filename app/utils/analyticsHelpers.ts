@@ -66,7 +66,7 @@ export function getEmergingStrengths(
       trend: vel > threshold ? 'increasing' : vel < -threshold ? 'decreasing' : 'stable',
     }))
     .filter(m => m.trend !== 'stable')
-    .sort((a, b) => Math.abs(b.velocity) - Math.abs(a.velocity));
+    .sort((a, b) => Math.abs(b.velocity) - Math.abs(a.velocity)) as any as SkillMetric[];
 }
 
 export function calculateFieldAffinity(

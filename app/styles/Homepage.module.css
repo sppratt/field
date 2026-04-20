@@ -1,13 +1,16 @@
 .hero {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: space-between;
-  min-height: 100vh;
-  padding: var(--spacing-3xl) var(--spacing-2xl);
+  display: grid;
+  grid-template-columns: 1fr 300px;
+  grid-template-rows: auto auto;
+  gap: var(--spacing-2xl) var(--spacing-3xl);
+  align-items: start;
+  min-height: 80vh;
+  padding: var(--spacing-3xl) var(--spacing-3xl) var(--spacing-4xl);
   position: relative;
   overflow: visible;
   background: var(--color-background);
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .hero::before {
@@ -16,30 +19,36 @@
   top: 0;
   left: 0;
   right: 0;
-  height: 40%;
+  height: 35%;
   background: linear-gradient(135deg, rgba(168, 184, 160, 0.02) 0%, rgba(139, 115, 85, 0.03) 100%);
   pointer-events: none;
   z-index: 0;
 }
 
 .heroCenter {
-  flex: 1;
+  grid-column: 1;
+  grid-row: 1;
   display: flex;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
   position: relative;
   z-index: 1;
+  padding-top: var(--spacing-lg);
 }
 
 .heroBottom {
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
+  align-items: flex-start;
+  justify-content: flex-start;
   width: 100%;
   position: relative;
   z-index: 1;
+  grid-column: 1;
+  grid-row: 2;
+  gap: var(--spacing-md);
+  padding-top: var(--spacing-lg);
 }
 
 @keyframes fadeInScale {
@@ -64,32 +73,35 @@
 
 .headlineWrapper {
   position: relative;
-  text-align: center;
+  text-align: left;
+  width: 100%;
+  max-width: 600px;
 }
 
 .title {
   margin: 0;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  gap: 0;
+  align-items: flex-start;
+  justify-content: flex-start;
+  gap: var(--spacing-sm);
+  line-height: 1.1;
 }
 
 .titleLine1 {
   font-family: var(--font-display);
-  font-size: 5.5rem;
+  font-size: 6.5rem;
   color: var(--color-text);
   font-weight: 700;
   line-height: 1;
-  letter-spacing: -0.025em;
+  letter-spacing: -0.03em;
   margin: 0;
   animation: fadeInScale 0.8s ease-out 0.2s both;
 }
 
 .titleLine2 {
   font-family: var(--font-playful);
-  font-size: 4.5rem;
+  font-size: 3.5rem;
   color: var(--color-accent);
   font-weight: 600;
   font-style: italic;
@@ -104,6 +116,49 @@
   font-weight: 700;
 }
 
+.heroHighlight {
+  grid-column: 2;
+  grid-row: 1 / 3;
+  display: flex;
+  flex-direction: column;
+  gap: var(--spacing-lg);
+  padding: var(--spacing-2xl) var(--spacing-lg);
+  background: linear-gradient(135deg, rgba(168, 184, 160, 0.06) 0%, rgba(139, 115, 85, 0.02) 100%);
+  border: 1px solid rgba(168, 184, 160, 0.2);
+  border-radius: 1rem;
+  align-self: center;
+  justify-self: center;
+  animation: fadeIn 0.6s ease-out 0.6s both;
+  position: relative;
+  z-index: 1;
+  width: 100%;
+  text-align: center;
+}
+
+.highlightLabel {
+  font-size: 0.7rem;
+  font-weight: var(--font-weight-semibold);
+  color: var(--color-text-light);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.highlightStat {
+  font-size: 1.75rem;
+  font-weight: 700;
+  color: var(--color-primary);
+  margin: 0;
+  font-family: var(--font-playful);
+}
+
+.highlightText {
+  font-size: 0.8rem;
+  color: var(--color-text-light);
+  line-height: 1.4;
+  margin: 0;
+}
+
 .subtitle {
   font-size: var(--font-size-xs);
   color: var(--color-primary);
@@ -116,30 +171,33 @@
 
 .description {
   font-family: var(--font-family-sans);
-  font-size: var(--font-size-base);
+  font-size: 1.125rem;
   color: var(--color-text-light);
-  line-height: 1.8;
-  max-width: 560px;
-  text-align: center;
-  margin: 0 0 var(--spacing-2xl) 0;
+  line-height: 1.7;
+  max-width: 520px;
+  text-align: left;
+  margin: var(--spacing-xl) 0 var(--spacing-lg) 0;
   animation: fadeIn 0.6s ease-out 0.8s both;
 }
 
 .cta {
   display: flex;
-  justify-content: center;
-  animation: fadeIn 0.6s ease-out 1s both;
+  justify-content: flex-start;
+  animation: fadeIn 0.6s ease-out 0.9s both;
+  margin-top: 0;
 }
 
 
 .section {
-  padding: var(--spacing-3xl) var(--spacing-2xl);
+  padding: var(--spacing-4xl) var(--spacing-3xl);
   background: transparent;
   position: relative;
   overflow: visible;
   display: flex;
   flex-direction: column;
   align-items: center;
+  max-width: 1400px;
+  margin: 0 auto;
 }
 
 .section h2 {
@@ -147,7 +205,8 @@
   font-size: var(--font-size-4xl);
   color: var(--color-text);
   text-align: center;
-  margin-bottom: 100px;
+  margin-bottom: 80px;
+  margin-top: var(--spacing-lg);
   font-weight: 700;
   line-height: 1.2;
   letter-spacing: -0.01em;
@@ -155,7 +214,7 @@
   position: relative;
   z-index: 1;
   width: 100%;
-  padding-bottom: 24px;
+  padding-bottom: 28px;
 }
 
 .section h2::after {
@@ -186,21 +245,21 @@
   align-items: center;
   text-align: center;
   position: relative;
-  padding: 50px 30px;
-  background: rgba(168, 184, 160, 0.02);
-  border: 1px solid rgba(168, 184, 160, 0.1);
-  border-radius: 16px;
+  padding: 60px 40px;
+  background: rgba(168, 184, 160, 0.03);
+  border: 1px solid rgba(168, 184, 160, 0.12);
+  border-radius: 1.25rem;
   animation: slideUpFadeIn 0.7s ease-out forwards;
   opacity: 0;
   transition: all var(--transition-base);
 }
 
 .step:nth-child(1) {
-  animation-delay: 0.2s;
+  animation-delay: 0.3s;
 }
 
 .step:nth-child(2) {
-  animation-delay: 0.4s;
+  animation-delay: 0.45s;
 }
 
 .step:nth-child(3) {
@@ -208,9 +267,10 @@
 }
 
 .step:hover {
-  background: rgba(168, 184, 160, 0.04);
-  border-color: rgba(168, 184, 160, 0.2);
-  transform: translateY(-4px);
+  background: rgba(168, 184, 160, 0.05);
+  border-color: rgba(168, 184, 160, 0.25);
+  transform: translateY(-6px);
+  box-shadow: 0 12px 24px rgba(139, 115, 85, 0.08);
 }
 
 @keyframes slideUpFadeIn {
@@ -261,22 +321,43 @@
 }
 
 @media (max-width: 1024px) {
+  .hero {
+    grid-template-columns: 1fr;
+    gap: var(--spacing-2xl);
+    min-height: auto;
+    padding: var(--spacing-2xl) var(--spacing-2xl) var(--spacing-3xl);
+  }
+
+  .heroHighlight {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: var(--spacing-lg);
+  }
+
   .titleLine1 {
-    font-size: 4.5rem;
+    font-size: 5.5rem;
   }
 
   .titleLine2 {
     font-size: 3.5rem;
   }
 
+  .section {
+    padding: var(--spacing-3xl) var(--spacing-2xl);
+  }
+
   .section h2 {
     font-size: var(--font-size-3xl);
-    margin-bottom: 80px;
+    margin-bottom: 70px;
   }
 
   .steps {
     grid-template-columns: repeat(3, 1fr);
     gap: 30px;
+  }
+
+  .step {
+    padding: 50px 30px;
   }
 
   .stepTitle {
@@ -286,42 +367,67 @@
 
 @media (max-width: 768px) {
   .hero {
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    grid-template-columns: 1fr;
+    padding: var(--spacing-2xl) var(--spacing-lg) var(--spacing-3xl);
     min-height: auto;
+    gap: var(--spacing-xl);
   }
 
   .hero::before {
     height: 50%;
   }
 
+  .heroCenter {
+    padding-top: var(--spacing-sm);
+  }
+
+  .heroBottom {
+    grid-column: 1;
+    gap: var(--spacing-sm);
+    padding-top: var(--spacing-lg);
+  }
+
+  .heroHighlight {
+    grid-column: 1;
+    grid-row: 3;
+    margin-top: var(--spacing-lg);
+  }
+
+  .headlineWrapper {
+    max-width: 100%;
+  }
+
   .titleLine1 {
-    font-size: 3rem;
+    font-size: 3.5rem;
   }
 
   .titleLine2 {
-    font-size: 2.25rem;
+    font-size: 2.5rem;
   }
 
   .description {
     max-width: 100%;
+    margin-top: var(--spacing-lg);
+    margin-bottom: var(--spacing-md);
+    font-size: 1rem;
   }
 
   .section {
-    padding: var(--spacing-2xl) var(--spacing-lg);
+    padding: var(--spacing-3xl) var(--spacing-lg);
   }
 
   .section h2 {
     font-size: var(--font-size-2xl);
-    margin-bottom: 60px;
+    margin-bottom: 50px;
   }
 
   .steps {
     grid-template-columns: 1fr;
-    gap: 30px;
+    gap: 25px;
   }
 
   .step {
-    padding: 40px 25px;
+    padding: 45px 28px;
   }
 
   .stepTitle {
@@ -332,28 +438,7 @@
     height: 45px;
     padding: 0 28px;
     font-size: 16px;
-    margin-bottom: 20px;
-  }
-
-  .description {
-    margin-bottom: var(--spacing-lg);
-  }
-
-  .steps {
-    gap: var(--spacing-xl);
-  }
-
-  .section {
-    padding: var(--spacing-2xl) var(--spacing-lg);
-  }
-
-  .section h2 {
-    font-size: var(--font-size-2xl);
-    margin-bottom: var(--spacing-2xl);
-  }
-
-  .step {
-    padding: var(--spacing-lg);
+    margin-bottom: 24px;
   }
 
   .stepContent h3 {

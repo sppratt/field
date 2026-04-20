@@ -1,11 +1,11 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import Link from 'next/link';
 import type { StudentFieldProgress } from '@/lib/db/types';
 import FieldLevelProgress from '@/app/components/FieldLevelProgress';
-import { Button } from '@/app/components/Button';
+import Button from '@/app/components/Button';
 import styles from '@/app/styles/FieldDetail.module.css';
 
 interface FieldInfo {
@@ -65,11 +65,7 @@ export default function FieldDetailClient({ field }: FieldDetailClientProps) {
 
   const fieldInfo = FIELD_DETAILS[field.id] || field;
 
-  useEffect(() => {
-    loadFieldProgress();
-  }, [field.id]);
-
-  const loadFieldProgress = async () => {
+  const loadFieldProgress = useCallback(async () => {
     try {
       setLoading(true);
       const response = await fetch('/api/field-progress', {
@@ -87,7 +83,11 @@ export default function FieldDetailClient({ field }: FieldDetailClientProps) {
     } finally {
       setLoading(false);
     }
-  };
+  }, [field.id]);
+
+  useEffect(() => {
+    loadFieldProgress();
+  }, [loadFieldProgress]);
 
   const handleStartField = async () => {
     try {
@@ -148,9 +148,9 @@ export default function FieldDetailClient({ field }: FieldDetailClientProps) {
 
           {progress.status === 'mastered' && (
             <div className={styles.masteredMessage}>
-              <h3>🌟 You've Mastered {fieldInfo.name}!</h3>
+              <h3>🌟 You&apos;ve Mastered {fieldInfo.name}!</h3>
               <p>
-                You've completed all 5 levels and developed deep expertise in this field. Great
+                You&apos;ve completed all 5 levels and developed deep expertise in this field. Great
                 work!
               </p>
               <Link href="/dashboard">

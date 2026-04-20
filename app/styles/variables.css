@@ -27,6 +27,7 @@
   /* Semantic Colors - Backgrounds & States */
   --color-surface: #ffffff;
   --color-surface-secondary: #fafafa;
+  --color-surface-depth: rgba(168, 184, 160, 0.02);
   --color-overlay: rgba(0, 0, 0, 0.5);
 
   /* Error States */
@@ -44,6 +45,7 @@
   --color-background-lighter: #f0f8f5;
   --color-background-warm: #fef8f0;
   --color-divider: #e5e5e5;
+  --color-divider-soft: rgba(168, 184, 160, 0.1);
 
   /* Career-Specific Accents */
   --career-software-engineer: #4f9fd8;
@@ -58,6 +60,7 @@
   --spacing-md: 1rem;
   --spacing-lg: 1.5rem;
   --spacing-xl: 2rem;
+  --spacing-1.25xl: 2.25rem;
   --spacing-2xl: 3rem;
   --spacing-3xl: 4rem;
 
@@ -86,6 +89,7 @@
 
   /* Transitions */
   --transition-fast: 150ms ease-in-out;
+  --transition-micro: 120ms ease-in-out;
   --transition-base: 250ms ease-in-out;
 
   /* Border Radius */

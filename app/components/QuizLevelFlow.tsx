@@ -132,7 +132,10 @@ export default function QuizLevelFlow({
         level={level}
         score={score}
         unlockedNext={unlockedNext}
+        fieldId={fieldId}
         onContinue={() => setShowUnlock(false)}
+        onStartNext={unlockedNext && level < 5 ? () => window.location.href = `/fields/${fieldId}/level/${level + 1}` : undefined}
+        onExit={() => window.location.href = `/pathways/${fieldId}`}
       />
     );
   }
@@ -188,10 +191,9 @@ export default function QuizLevelFlow({
               disabled={loading}
               aria-selected={choices[currentStep] === choice.id}
               role="option"
-              aria-label={`${choice.text}: ${choice.feedback}`}
+              aria-label={choice.text}
             >
               <div className={styles.choiceText}>{choice.text}</div>
-              <div className={styles.choiceFeedback}>{choice.feedback}</div>
             </button>
           ))}
         </div>

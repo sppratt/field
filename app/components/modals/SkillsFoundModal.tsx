@@ -2,12 +2,12 @@
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import styles from './StatsModals.module.css';
-import type { StudentProgress } from '@/lib/db/types';
+import type { StudentFieldProgress } from '@/lib/db/types';
 
 interface SkillsFoundModalProps {
   open: boolean;
   onClose: () => void;
-  progress: StudentProgress[];
+  progress: StudentFieldProgress[];
 }
 
 const skillLabels: Record<string, string> = {
@@ -28,33 +28,15 @@ const skillEmojis: Record<string, string> = {
 
 export const SkillsFoundModal = ({ open, onClose, progress }: SkillsFoundModalProps) => {
   const getTagScores = () => {
-    const tagScores: Record<string, number> = {
+    // TODO: Fetch tag scores from student_level_attempts
+    // For now, return empty scores as we're using StudentFieldProgress
+    return {
       analytical: 0,
       creative: 0,
       hands_on: 0,
       social: 0,
       problem_solving: 0,
     };
-
-    progress.forEach((p) => {
-      if (p.status === 'completed' || p.status === 'in_progress') {
-        try {
-          const tagScoresJson = p.decisions_made?.tagScores_json;
-          if (tagScoresJson) {
-            const scores = typeof tagScoresJson === 'string' ? JSON.parse(tagScoresJson) : tagScoresJson;
-            Object.keys(scores).forEach((tag) => {
-              if (tag in tagScores) {
-                tagScores[tag] += scores[tag] || 0;
-              }
-            });
-          }
-        } catch (err) {
-          console.error('Error parsing tag scores:', err);
-        }
-      }
-    });
-
-    return tagScores;
   };
 
   const tagScores = getTagScores();

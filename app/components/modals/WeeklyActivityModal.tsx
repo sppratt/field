@@ -2,12 +2,12 @@
 
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import styles from './StatsModals.module.css';
-import type { StudentProgress } from '@/lib/db/types';
+import type { StudentFieldProgress } from '@/lib/db/types';
 
 interface WeeklyActivityModalProps {
   open: boolean;
   onClose: () => void;
-  progress: StudentProgress[];
+  progress: StudentFieldProgress[];
 }
 
 export const WeeklyActivityModal = ({ open, onClose, progress }: WeeklyActivityModalProps) => {
@@ -16,7 +16,7 @@ export const WeeklyActivityModal = ({ open, onClose, progress }: WeeklyActivityM
 
   const weeklyActivity = progress.filter((p) => {
     const updatedAt = p.updated_at ? new Date(p.updated_at) : null;
-    return updatedAt && updatedAt >= oneWeekAgo && p.status === 'completed';
+    return updatedAt && updatedAt >= oneWeekAgo && p.status === 'mastered';
   });
 
   const getDayName = (date: Date) => {
@@ -49,7 +49,7 @@ export const WeeklyActivityModal = ({ open, onClose, progress }: WeeklyActivityM
                   <div className={styles.timelineLine}></div>
                 </div>
                 <div className={styles.timelineContent}>
-                  <div className={styles.timelineTitle}>{activity.pathway_id?.replace(/-/g, ' ').toUpperCase()}</div>
+                  <div className={styles.timelineTitle}>{activity.field_id?.replace(/-/g, ' ').toUpperCase()}</div>
                   <div className={styles.timelineDate}>{formatDate(activity.updated_at || '')}</div>
                   <div className={styles.timelineStatus}>✓ Completed</div>
                 </div>

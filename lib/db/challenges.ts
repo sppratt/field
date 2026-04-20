@@ -74,9 +74,10 @@ export async function generateWeekChallenges(userId: string): Promise<StudentCha
       return existingChallenges;
     }
 
-    // Generate 2 random challenges for the week
+    // Generate 2 random challenges for the week (pick 2 random from 3 types)
     const challengeTypes = ['weekly_new', 'compare_careers', 'skill_balance'];
-    const selected = challengeTypes.slice(0, 2); // Pick first 2
+    const shuffled = challengeTypes.sort(() => 0.5 - Math.random());
+    const selected = shuffled.slice(0, 2);
 
     const { data, error } = await supabase
       .from('student_challenges')

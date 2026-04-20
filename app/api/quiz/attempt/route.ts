@@ -75,6 +75,17 @@ export async function POST(request: NextRequest) {
       );
     }
 
+    // Ensure field progress exists before updating
+    let fieldProgress = await getFieldProgress(user.id, fieldId);
+    if (!fieldProgress) {
+      // Create initial field progress if it doesn't exist
+      const { startField } = await import('@/lib/db/fieldProgress');
+      fieldProgress = await startField(user.id, fieldId);
+      if (!fieldProgress) {
+        throw new Error('Failed to create field progress record');
+      }
+    }
+
     // If unlocked, update field progress
     if (unlockedNext) {
       await updateFieldLevel(user.id, fieldId, level + 1, true);

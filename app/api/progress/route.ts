@@ -80,16 +80,7 @@ export async function POST(request: NextRequest) {
       return NextResponse.json({ error: result.error }, { status: 400 });
     }
 
-    let newAchievements = [];
-
-    // If pathway just completed, award achievements and update streak
-    if (result.progress?.status === 'completed') {
-      const allProgress = await getUserProgress(user.id);
-      newAchievements = await evaluateAndAwardAchievements(user.id, allProgress);
-      await updateExplorationStreak(user.id);
-    }
-
-    return NextResponse.json({ progress: result.progress, newAchievements });
+    return NextResponse.json({ progress: result.progress });
   } catch (error: any) {
     console.error('Error updating progress:', error);
     return NextResponse.json({ error: 'Failed to update progress' }, { status: 500 });

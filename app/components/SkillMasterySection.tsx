@@ -1,17 +1,24 @@
 'use client';
 
 import styles from '@/app/styles/SkillMasterySection.module.css';
-import { getAggregateTagScores, getSkillLabel, getSkillEmoji, SkillTag } from '@/app/utils/skillScoring';
-import type { StudentProgress } from '@/lib/db/types';
+import { getSkillLabel, getSkillEmoji, SkillTag } from '@/app/utils/skillScoring';
+import type { StudentFieldProgress } from '@/lib/db/types';
 
 interface SkillMasterySectionProps {
-  progress: StudentProgress[];
+  progress: StudentFieldProgress[];
 }
 
 const skillOrder: SkillTag[] = ['analytical', 'creative', 'hands_on', 'social', 'problem_solving'];
 
 export function SkillMasterySection({ progress }: SkillMasterySectionProps) {
-  const skillScores = getAggregateTagScores(progress);
+  // TODO: Fetch tag scores from student_level_attempts
+  const skillScores = {
+    analytical: 0,
+    creative: 0,
+    hands_on: 0,
+    social: 0,
+    problem_solving: 0,
+  };
 
   // Calculate max score for normalization
   const maxScore = Math.max(...Object.values(skillScores), 10);

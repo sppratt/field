@@ -2,6 +2,7 @@
 
 import { useEffect, useState } from 'react';
 import { useParams } from 'next/navigation';
+import Link from 'next/link';
 import styles from './PortfolioPage.module.css';
 import { getAggregateTagScores, getSkillLabel, getSkillEmoji, SkillTag } from '@/app/utils/skillScoring';
 import { rankCareersForStudent } from '@/app/utils/careerMatching';
@@ -74,7 +75,14 @@ export default function PortfolioPage() {
   }
 
   const { user, progress, achievements } = data;
-  const skillScores = getAggregateTagScores(progress);
+  // TODO: Fetch tag scores from student_level_attempts
+  const skillScores = {
+    analytical: 0,
+    creative: 0,
+    hands_on: 0,
+    social: 0,
+    problem_solving: 0,
+  };
   const completedCount = progress.filter(p => p.status === 'completed').length;
   const exploredCount = progress.filter(p => p.status !== 'not_started').length;
   const rankedCareers = rankCareersForStudent(careers, skillScores).slice(0, 3);
@@ -175,9 +183,9 @@ export default function PortfolioPage() {
         <section className={styles.ctaSection}>
           <h2>Interested in Career Exploration?</h2>
           <p>Explore careers through interactive simulations and discover your path forward.</p>
-          <a href="/" className={styles.ctaButton}>
+          <Link href="/" className={styles.ctaButton}>
             Get Started with Field
-          </a>
+          </Link>
         </section>
       </div>
 

@@ -1,5 +1,5 @@
 import { createClient } from '@/utils/supabase/client';
-import type { StudentAchievement, AchievementType, StudentProgress, ExplorationStreak } from './types';
+import type { StudentAchievement, AchievementType, StudentFieldProgress, ExplorationStreak } from './types';
 
 const supabase = createClient();
 
@@ -57,16 +57,19 @@ export async function awardAchievement(
 
 export async function evaluateAndAwardAchievements(
   userId: string,
-  progress: StudentProgress[]
+  progress: StudentFieldProgress[]
 ): Promise<StudentAchievement[]> {
   const awardedAchievements: StudentAchievement[] = [];
 
   try {
     // Calculate metrics from progress
-    const completedCount = progress.filter(p => p.status === 'completed').length;
+    // A field is completed when all 5 levels are mastered
+    const completedCount = progress.filter(p => p.levels_completed?.length === 5).length;
     const exploredCount = progress.filter(p => p.status !== 'not_started').length;
     const totalPathways = progress.length;
 
+    // For now, tag scores come from the tag-scores API
+    // This will be populated when users take quizzes
     const tagScores: Record<string, number> = {
       analytical: 0,
       creative: 0,
@@ -74,27 +77,6 @@ export async function evaluateAndAwardAchievements(
       social: 0,
       problem_solving: 0,
     };
-
-    progress.forEach(p => {
-      if (p.status === 'completed' || p.status === 'in_progress') {
-        try {
-          const tagScoresJson = p.decisions_made?.tagScores_json;
-          if (tagScoresJson) {
-            const scores =
-              typeof tagScoresJson === 'string'
-                ? JSON.parse(tagScoresJson)
-                : tagScoresJson;
-            Object.keys(scores).forEach(tag => {
-              if (tag in tagScores) {
-                tagScores[tag] += scores[tag] || 0;
-              }
-            });
-          }
-        } catch (err) {
-          console.error('Error parsing tag scores:', err);
-        }
-      }
-    });
 
     // First Explorer: 1 completed pathway
     if (completedCount >= 1) {
@@ -109,6 +91,7 @@ export async function evaluateAndAwardAchievements(
     }
 
     // Skill Specialists: Score > 15 in each skill
+    // Note: Will work once users complete quizzes and accumulate tag scores
     const skillSpecialists: AchievementType[] = [
       'skill_specialist_analytical',
       'skill_specialist_creative',

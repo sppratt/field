@@ -481,7 +481,8 @@ const softwareEngineer_L3: QuizTemplate = {
       ),
       createStep(
         5,
-        'The refactor introduces a subtle bug in production that takes down payments for 20 minutes. How do you respond?',
+        'Your refactor deployment to production introduces a subtle bug that takes down the payment system for 20 minutes.',
+        'How do you respond?',
         [
           createChoice(
             'c1',
@@ -795,7 +796,8 @@ const softwareEngineer_L5: QuizTemplate = {
       ),
       createStep(
         4,
-        'You discover that one engineer is regularly shipping code without proper testing. They\'re fast but risky. How do you handle this?',
+        'You discover that one engineer is regularly shipping code without proper testing. They\'re fast but risky.',
+        'How do you handle this?',
         [
           createChoice(
             'c1',
@@ -844,7 +846,8 @@ const softwareEngineer_L5: QuizTemplate = {
       ),
       createStep(
         6,
-        'Looking ahead to next year, you realize your team might be outpaced by competitors using new technologies. How do you stay ahead?',
+        'Looking ahead to next year, you realize your team might be outpaced by competitors using new technologies.',
+        'How do you stay ahead?',
         [
           createChoice(
             'c1',
@@ -960,7 +963,7 @@ const nurse_L2: QuizTemplate = {
         createChoice('c2', 'Ask questions to understand their concerns', 'Patient-centered. Effective.', { social: 2, analytical: 1, problem_solving: 1, creative: 0, hands_on: 0 }),
         createChoice('c3', 'Document non-compliance and move on', 'Passive—misses opportunity to help.', { analytical: 0, hands_on: -1, problem_solving: -1, social: -1, creative: 0 }),
       ]),
-      createStep(6, 'You make a minor medication administration error that didn\'t harm the patient. How do you handle it?', [
+      createStep(6, 'You make a minor medication administration error that didn\'t harm the patient.', 'How do you handle it?', [
         createChoice('c1', 'Say nothing since no harm was done', 'Risky. Undermines trust if discovered.', { social: -1, analytical: -1, problem_solving: -1, creative: -1, hands_on: 0 }),
         createChoice('c2', 'Report it immediately to your supervisor', 'Transparent and responsible.', { social: 2, analytical: 1, problem_solving: 1, creative: 0, hands_on: 0 }),
         createChoice('c3', 'Tell the patient but not management', 'Partial transparency—incomplete.', { social: 1, analytical: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
@@ -1005,12 +1008,12 @@ const nurse_L3: QuizTemplate = {
         createChoice('c2', 'Suggest they ask their doctor', 'Appropriate boundary.', { social: 1, analytical: 1, problem_solving: 1, creative: 0, hands_on: 0 }),
         createChoice('c3', 'Provide information but let them decide', 'Balanced patient advocacy.', { social: 2, analytical: 1, problem_solving: 1, creative: 0, hands_on: 0 }),
       ]),
-      createStep(5, 'You\'re interested in pursuing advanced nursing certification. How do you balance it with your current role?', [
+      createStep(5, 'You\'re interested in pursuing advanced nursing certification.', 'How do you balance it with your current role?', [
         createChoice('c1', 'Put it off until things are less busy', 'Procrastination. Might never happen.', { analytical: -1, hands_on: 0, problem_solving: -1, social: 0, creative: 0 }),
         createChoice('c2', 'Pursue it aggressively even if it affects your current work', 'Self-focused.', { analytical: 0, hands_on: 1, problem_solving: -1, social: -1, creative: 0 }),
         createChoice('c3', 'Create a realistic plan that doesn\'t compromise current patients', 'Mature growth planning.', { analytical: 2, social: 1, problem_solving: 2, creative: 0, hands_on: 1 }),
       ]),
-      createStep(6, 'A colleague is struggling with burnout and considering leaving. They ask for advice.', [
+      createStep(6, 'A colleague is struggling with burnout and considering leaving.', 'They ask for advice.', [
         createChoice('c1', 'Tell them to leave if they\'re unhappy', 'Dismissive of their struggle.', { social: -1, analytical: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Listen deeply and help them explore options', 'Great mentorship and support.', { social: 2, analytical: 2, problem_solving: 1, creative: 0, hands_on: 0 }),
         createChoice('c3', 'Tell them it gets easier but give no practical help', 'Vague reassurance.', { social: 0, analytical: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
@@ -1049,17 +1052,17 @@ const nurse_L4: QuizTemplate = {
         createChoice('c2', 'Reject it until full evidence is available', 'Conservative but might delay help.', { analytical: 1, problem_solving: -1, creative: -1, hands_on: 0, social: 0 }),
         createChoice('c3', 'Design a controlled study to gather evidence safely', 'Rigorous and ethical.', { analytical: 2, problem_solving: 2, creative: 1, hands_on: 1, social: 0 }),
       ]),
-      createStep(4, 'You\'re being considered for a director role but it means less direct patient care. How do you decide?', [
+      createStep(4, 'You\'re being considered for a director role but it means less direct patient care.', 'How do you decide?', [
         createChoice('c1', 'Take it for the status and pay increase', 'Self-focused. You might not excel.', { analytical: -1, social: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Decline to stay close to patients', 'Undervalues your leadership impact.', { analytical: 0, hands_on: 1, problem_solving: 0, social: -1, creative: 0 }),
         createChoice('c3', 'Explore the role carefully and consider your impact potential', 'Thoughtful career decision.', { analytical: 2, problem_solving: 1, social: 1, creative: 0, hands_on: 0 }),
       ]),
-      createStep(5, 'You discover systemic issues in patient care that require addressing hospital-wide policies. It\'s politically risky.', [
+      createStep(5, 'You discover systemic issues in patient care that require addressing hospital-wide policies. It\'s politically risky.', 'What do you do?', [
         createChoice('c1', 'Stay quiet to protect your position', 'Cowardly. Patients suffer.', { social: -2, analytical: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Present findings through appropriate channels with evidence', 'Courageous and professional.', { analytical: 2, social: 1, problem_solving: 2, creative: 0, hands_on: 1 }),
         createChoice('c3', 'Bypass formal channels and go public', 'Risky. Could backfire.', { analytical: 0, social: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
       ]),
-      createStep(6, 'Your legacy in nursing is developing strong leaders. How do you prioritize this?', [
+      createStep(6, 'Your legacy in nursing is developing strong leaders.', 'How do you prioritize this?', [
         createChoice('c1', 'Focus on your own advancement', 'Misses lasting impact.', { analytical: -1, social: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Dedicate time to mentoring and developing others', 'Transformational leadership.', { social: 2, analytical: 1, problem_solving: 1, creative: 0, hands_on: 0 }),
         createChoice('c3', 'Let younger nurses figure it out themselves', 'Misses opportunity.', { social: -1, analytical: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
@@ -1088,27 +1091,27 @@ const nurse_L5: QuizTemplate = {
         createChoice('c2', 'Analyze root causes and propose multi-faceted solutions', 'Strategic and comprehensive.', { analytical: 2, problem_solving: 2, creative: 1, social: 1, hands_on: 0 }),
         createChoice('c3', 'Accept it as inevitable and manage with what you have', 'Defeatist. Misses opportunity.', { analytical: -1, problem_solving: -1, creative: -1, social: 0, hands_on: 0 }),
       ]),
-      createStep(2, 'You\'re designing nursing curriculum for the region. What priorities do you set?', [
+      createStep(2, 'You\'re designing nursing curriculum for the region.', 'What priorities do you set?', [
         createChoice('c1', 'Focus on technical skills only', 'Incomplete. Ignores leadership.', { analytical: 0, hands_on: 2, problem_solving: -1, social: -1, creative: 0 }),
         createChoice('c2', 'Balance clinical excellence with leadership, ethics, and innovation', 'Holistic nursing education.', { analytical: 2, social: 2, problem_solving: 2, creative: 1, hands_on: 1 }),
         createChoice('c3', 'Emphasize whatever your hospital needs right now', 'Too reactive. Lacks vision.', { analytical: 0, problem_solving: 0, creative: -1, social: 0, hands_on: 1 }),
       ]),
-      createStep(3, 'There\'s political pressure to cut nursing hours to reduce costs. You have data showing it harms outcomes.', [
+      createStep(3, 'There\'s political pressure to cut nursing hours to reduce costs. You have data showing it harms outcomes.', 'What do you do?', [
         createChoice('c1', 'Give up and accept budget cuts', 'Surrender. Patients suffer.', { analytical: -1, problem_solving: -1, social: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Present strong evidence to leadership and propose alternatives', 'Courageous advocacy backed by data.', { analytical: 2, social: 2, problem_solving: 2, creative: 1, hands_on: 0 }),
         createChoice('c3', 'Work quietly to minimize harm without challenging leadership', 'Doesn\'t address root issue.', { analytical: -1, problem_solving: 0, social: -1, creative: 0, hands_on: 1 }),
       ]),
-      createStep(4, 'You have opportunity to shape national nursing policy. What\'s your vision?', [
+      createStep(4, 'You have opportunity to shape national nursing policy.', 'What\'s your vision?', [
         createChoice('c1', 'Maintain current practices—if it\'s not broken, don\'t fix it', 'No vision for progress.', { analytical: -1, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
         createChoice('c2', 'Propose transformative changes based on evidence and patient outcomes', 'Visionary leadership.', { analytical: 2, creative: 2, problem_solving: 2, social: 1, hands_on: 0 }),
         createChoice('c3', 'Follow what other countries are doing', 'Derivative. Lacks independent thinking.', { analytical: 0, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
       ]),
-      createStep(5, 'You\'re asked to balance equity in healthcare access with financial sustainability.', [
+      createStep(5, 'You\'re asked to balance equity in healthcare access with financial sustainability.', 'How do you proceed?', [
         createChoice('c1', 'Prioritize access regardless of cost', 'Idealistic but unsustainable.', { social: 1, problem_solving: -1, analytical: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Prioritize financial health even if it limits access', 'Cold. Misses mission.', { analytical: 1, social: -2, problem_solving: -1, creative: 0, hands_on: 0 }),
         createChoice('c3', 'Develop solutions that advance both equity and sustainability', 'Strategic problem-solving.', { analytical: 2, social: 2, problem_solving: 2, creative: 2, hands_on: 0 }),
       ]),
-      createStep(6, 'Reflecting on your career, what impact do you want nursing to have?', [
+      createStep(6, 'Reflecting on your career.', 'What impact do you want nursing to have?', [
         createChoice('c1', 'Personal success and recognition', 'Self-focused. Limited legacy.', { analytical: -1, social: -1, problem_solving: -1, creative: 0, hands_on: 0 }),
         createChoice('c2', 'Transform nursing to be seen as central to healthcare excellence and equity', 'Transformational vision.', { analytical: 2, creative: 2, problem_solving: 2, social: 2, hands_on: 0 }),
         createChoice('c3', 'Maintain the status quo and pass leadership to younger generation', 'Safe but uninspiring.', { analytical: 0, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
@@ -1119,6 +1122,177 @@ const nurse_L5: QuizTemplate = {
   },
   min_mastery_score: 75,
   estimated_time_minutes: 13,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+// FIELD 5: ARCHITECT
+const architect_L1: QuizTemplate = {
+  id: '',
+  field_id: 'architect',
+  level: 1,
+  title: 'Your First Project as an Architect',
+  description: 'You\'re starting your career in architecture. Navigate your first major design project.',
+  difficulty_level: 'basic',
+  quiz_data: {
+    steps: [
+      createStep(1, 'You\'re assigned your first project: a 5-story office building downtown.', 'What\'s your initial approach?', [
+        createChoice('c1', 'Follow the standard office design without innovation', 'Safe but uninspired.', { analytical: 1, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
+        createChoice('c2', 'Propose a sustainable design with green spaces and natural light', 'Thoughtful and forward-thinking.', { analytical: 2, creative: 2, problem_solving: 1, social: 1, hands_on: 0 }),
+        createChoice('c3', 'Design something bold and experimental to make your mark', 'Ambitious but risky for first project.', { analytical: 0, creative: 2, problem_solving: 1, social: -1, hands_on: 1 }),
+      ]),
+      createStep(2, 'The client wants to cut costs significantly.', 'How do you respond?', [
+        createChoice('c1', 'Accept and redesign with cheaper materials', 'Compromises quality.', { analytical: 1, creative: -1, problem_solving: 0, social: 1, hands_on: 1 }),
+        createChoice('c2', 'Show data on long-term value of better design and materials', 'Educates client while maintaining standards.', { analytical: 2, creative: 0, problem_solving: 2, social: 1, hands_on: 0 }),
+        createChoice('c3', 'Propose phased construction to deliver within budget', 'Pragmatic solution.', { analytical: 2, creative: 1, problem_solving: 2, social: 1, hands_on: 1 }),
+      ]),
+      createStep(3, 'A structural engineer challenges your design, saying it\'s over-engineered.', 'What do you do?', [
+        createChoice('c1', 'Defend your design passionately without compromise', 'Inflexible approach.', { analytical: 0, creative: -1, problem_solving: -1, social: -1, hands_on: 0 }),
+        createChoice('c2', 'Collaborate with the engineer to find optimal balance', 'Professional and collaborative.', { analytical: 2, creative: 1, problem_solving: 2, social: 2, hands_on: 1 }),
+        createChoice('c3', 'Trust their expertise and simplify the design', 'Defers too easily.', { analytical: 1, creative: -1, problem_solving: 0, social: 1, hands_on: 0 }),
+      ]),
+    ],
+    minMasteryScore: 75,
+    estimatedTime: 10,
+  },
+  min_mastery_score: 75,
+  estimated_time_minutes: 10,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+const architect_L2: QuizTemplate = {
+  id: '',
+  field_id: 'architect',
+  level: 2,
+  title: 'Leading a Complex Urban Project',
+  description: 'You\'re lead architect on a mixed-use development in a historic district.',
+  difficulty_level: 'intermediate',
+  quiz_data: {
+    steps: [
+      createStep(1, 'The project sits in a historic district with strict preservation rules.', 'How do you approach this constraint?', [
+        createChoice('c1', 'Strictly follow historic guidelines without innovation', 'Misses opportunity for integration.', { analytical: 1, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
+        createChoice('c2', 'Design something that respects history while adding modern elements thoughtfully', 'Balanced and innovative.', { analytical: 2, creative: 2, problem_solving: 2, social: 1, hands_on: 0 }),
+        createChoice('c3', 'Push the rules to create something bold and contemporary', 'Risky politically.', { analytical: 0, creative: 2, problem_solving: 1, social: -1, hands_on: 1 }),
+      ]),
+      createStep(2, 'Community groups have conflicting concerns about the project.', 'How do you manage stakeholders?', [
+        createChoice('c1', 'Ignore objections and proceed with your vision', 'Arrogant and risky.', { analytical: -1, creative: -1, problem_solving: -1, social: -2, hands_on: 0 }),
+        createChoice('c2', 'Hold listening sessions and integrate community feedback', 'Democratic and collaborative.', { analytical: 1, creative: 1, problem_solving: 2, social: 2, hands_on: 0 }),
+        createChoice('c3', 'Present a single proposal and let them accept or reject', 'Inflexible.', { analytical: 1, creative: 0, problem_solving: 0, social: -1, hands_on: 0 }),
+      ]),
+      createStep(3, 'Budget increases are needed for your revised design.', 'What\'s your strategy?', [
+        createChoice('c1', 'Cut corners to stay within budget', 'Compromises vision.', { analytical: -1, creative: -1, problem_solving: -1, social: 0, hands_on: 1 }),
+        createChoice('c2', 'Present detailed ROI analysis showing value of enhanced design', 'Strategic and data-driven.', { analytical: 2, creative: 0, problem_solving: 2, social: 1, hands_on: 0 }),
+        createChoice('c3', 'Redesign efficiently while maintaining quality', 'Problem-solving focused.', { analytical: 2, creative: 1, problem_solving: 2, social: 0, hands_on: 1 }),
+      ]),
+    ],
+    minMasteryScore: 75,
+    estimatedTime: 11,
+  },
+  min_mastery_score: 75,
+  estimated_time_minutes: 11,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+const architect_L3: QuizTemplate = {
+  id: '',
+  field_id: 'architect',
+  level: 3,
+  title: 'Sustainable Design Leadership',
+  description: 'You\'re designing a zero-carbon office campus with cutting-edge sustainability.',
+  difficulty_level: 'intermediate',
+  quiz_data: {
+    steps: [
+      createStep(1, 'The client wants sustainable design, but it costs 20% more upfront.', 'How do you justify it?', [
+        createChoice('c1', 'Design conventionally to save costs', 'Misses opportunity.', { analytical: -1, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
+        createChoice('c2', 'Show 30-year lifecycle costs and environmental benefits', 'Strategic thinking.', { analytical: 2, creative: 1, problem_solving: 2, social: 1, hands_on: 0 }),
+        createChoice('c3', 'Design sustainable anyway and convince them after', 'Risky approach.', { analytical: 0, creative: 1, problem_solving: 1, social: -1, hands_on: 1 }),
+      ]),
+      createStep(2, 'Your innovative materials are untested at scale.', 'What do you do?', [
+        createChoice('c1', 'Use proven materials to avoid risk', 'Conservative but limits innovation.', { analytical: 1, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
+        createChoice('c2', 'Test thoroughly before full implementation', 'Methodical and smart.', { analytical: 2, creative: 1, problem_solving: 2, social: 0, hands_on: 2 }),
+        createChoice('c3', 'Use them anyway—innovation requires risk', 'Bold but potentially reckless.', { analytical: 0, creative: 2, problem_solving: 1, social: -1, hands_on: 1 }),
+      ]),
+      createStep(3, 'A team member suggests a simpler approach that\'s less sustainable.', 'How do you lead?', [
+        createChoice('c1', 'Override their suggestion and proceed with original plan', 'Authoritarian.', { analytical: 1, creative: 0, problem_solving: -1, social: -1, hands_on: 0 }),
+        createChoice('c2', 'Listen to their concerns, explain tradeoffs, and collaborate on best approach', 'Collaborative leadership.', { analytical: 2, creative: 1, problem_solving: 2, social: 2, hands_on: 1 }),
+        createChoice('c3', 'Accept their approach to keep team harmony', 'Avoids necessary decisions.', { analytical: -1, creative: -1, problem_solving: -1, social: 1, hands_on: 0 }),
+      ]),
+    ],
+    minMasteryScore: 75,
+    estimatedTime: 12,
+  },
+  min_mastery_score: 75,
+  estimated_time_minutes: 12,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+const architect_L4: QuizTemplate = {
+  id: '',
+  field_id: 'architect',
+  level: 4,
+  title: 'Principal Architect: City-Scale Planning',
+  description: 'You\'re now overseeing the master plan for an entire neighborhood development.',
+  difficulty_level: 'advanced',
+  quiz_data: {
+    steps: [
+      createStep(1, 'You\'re designing a neighborhood that must balance housing, commerce, and green space.', 'What\'s your vision?', [
+        createChoice('c1', 'Maximize density and commercial revenue', 'Profitable but soulless.', { analytical: 1, creative: -1, problem_solving: 0, social: -1, hands_on: 0 }),
+        createChoice('c2', 'Create a mixed-income, mixed-use neighborhood with ample green space', 'Visionary and inclusive.', { analytical: 2, creative: 2, problem_solving: 2, social: 2, hands_on: 1 }),
+        createChoice('c3', 'Focus on aesthetic beauty over practical functionality', 'Pretty but impractical.', { analytical: -1, creative: 2, problem_solving: -1, social: 0, hands_on: 0 }),
+      ]),
+      createStep(2, 'Political pressure exists to reduce environmental standards for development speed.', 'How do you respond?', [
+        createChoice('c1', 'Agree to reduce standards to move the project forward', 'Compromises integrity.', { analytical: -1, creative: -1, problem_solving: -1, social: 1, hands_on: 0 }),
+        createChoice('c2', 'Present data showing sustainable design creates long-term value', 'Principled and strategic.', { analytical: 2, creative: 0, problem_solving: 2, social: 1, hands_on: 0 }),
+        createChoice('c3', 'Stand firm against pressure regardless of consequences', 'Idealistic but risky.', { analytical: 1, creative: -1, problem_solving: -1, social: -1, hands_on: 0 }),
+      ]),
+      createStep(3, 'An emerging technology could revolutionize the project but requires learning new methods.', 'What\'s your approach?', [
+        createChoice('c1', 'Stick with proven methods you know', 'Misses opportunity.', { analytical: 0, creative: -1, problem_solving: -1, social: 0, hands_on: -1 }),
+        createChoice('c2', 'Investigate, pilot test, and integrate if valuable', 'Balanced innovation.', { analytical: 2, creative: 1, problem_solving: 2, social: 0, hands_on: 2 }),
+        createChoice('c3', 'Adopt it fully immediately without proper vetting', 'Reckless.', { analytical: -1, creative: 2, problem_solving: -1, social: 0, hands_on: 1 }),
+      ]),
+    ],
+    minMasteryScore: 75,
+    estimatedTime: 13,
+  },
+  min_mastery_score: 75,
+  estimated_time_minutes: 13,
+  created_at: new Date().toISOString(),
+  updated_at: new Date().toISOString(),
+};
+
+const architect_L5: QuizTemplate = {
+  id: '',
+  field_id: 'architect',
+  level: 5,
+  title: 'Visionary Architecture: Shaping the Future',
+  description: 'You\'re a recognized thought leader designing a landmark that will influence architecture globally.',
+  difficulty_level: 'advanced',
+  quiz_data: {
+    steps: [
+      createStep(1, 'You have freedom to design something truly innovative and paradigm-shifting.', 'What\'s your legacy project?', [
+        createChoice('c1', 'Play it safe with a refined but conventional design', 'Wasted opportunity.', { analytical: 0, creative: -1, problem_solving: -1, social: 0, hands_on: 0 }),
+        createChoice('c2', 'Design something innovative that challenges conventions while remaining functional', 'True visionary leadership.', { analytical: 2, creative: 2, problem_solving: 2, social: 1, hands_on: 1 }),
+        createChoice('c3', 'Create radical experimental architecture that ignores practical concerns', 'Artistic but impractical.', { analytical: -1, creative: 2, problem_solving: -1, social: -1, hands_on: 0 }),
+      ]),
+      createStep(2, 'Your design will influence global architecture practice.', 'How do you use this influence?', [
+        createChoice('c1', 'Focus on aesthetics and personal expression', 'Narcissistic approach.', { analytical: -1, creative: 1, problem_solving: -1, social: -1, hands_on: 0 }),
+        createChoice('c2', 'Demonstrate how beauty, sustainability, and function can integrate for societal benefit', 'Transformational thinking.', { analytical: 2, creative: 2, problem_solving: 2, social: 2, hands_on: 1 }),
+        createChoice('c3', 'Push extreme boundaries to maximize artistic impact', 'Limits practical adoption.', { analytical: -1, creative: 2, problem_solving: -1, social: -1, hands_on: 1 }),
+      ]),
+      createStep(3, 'Reflecting on your career, what impact do you want architecture to have?', 'What\'s your legacy?', [
+        createChoice('c1', 'Be remembered for beautiful iconic buildings', 'Limited vision.', { analytical: -1, creative: 1, problem_solving: -1, social: -1, hands_on: 0 }),
+        createChoice('c2', 'Transform how architecture serves humanity—sustainability, equity, beauty, and innovation', 'Transformational legacy.', { analytical: 2, creative: 2, problem_solving: 2, social: 2, hands_on: 1 }),
+        createChoice('c3', 'Achieve personal success and recognition', 'Self-focused.', { analytical: -1, creative: 0, problem_solving: -1, social: -1, hands_on: 0 }),
+      ]),
+    ],
+    minMasteryScore: 75,
+    estimatedTime: 14,
+  },
+  min_mastery_score: 75,
+  estimated_time_minutes: 14,
   created_at: new Date().toISOString(),
   updated_at: new Date().toISOString(),
 };
@@ -1136,8 +1310,10 @@ export const allQuizTemplates: QuizTemplate[] = [
   nurse_L3,
   nurse_L4,
   nurse_L5,
-  // Graphic Designer, Data Analyst, Architect (15 more) are in quizTemplatesRemaining.ts
-  // This can be imported and merged if needed:
-  // import { remainingQuizTemplates } from './quizTemplatesRemaining';
-  // const allQuizTemplates = [...core25Quizzes, ...remainingQuizTemplates];
+  // Architect (5 levels)
+  architect_L1,
+  architect_L2,
+  architect_L3,
+  architect_L4,
+  architect_L5,
 ];

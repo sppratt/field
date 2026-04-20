@@ -66,3 +66,34 @@ CREATE INDEX IF NOT EXISTS idx_student_challenges_week ON public.student_challen
 CREATE INDEX IF NOT EXISTS idx_portfolio_exports_user ON public.portfolio_exports(user_id);
 CREATE INDEX IF NOT EXISTS idx_portfolio_exports_token ON public.portfolio_exports(public_token);
 CREATE INDEX IF NOT EXISTS idx_exploration_streaks_user ON public.exploration_streaks(user_id);
+
+-- Row Level Security (RLS) Policies for Engagement Features
+ALTER TABLE public.student_achievements ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.simulation_reflections ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.student_challenges ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.portfolio_exports ENABLE ROW LEVEL SECURITY;
+ALTER TABLE public.exploration_streaks ENABLE ROW LEVEL SECURITY;
+
+-- Achievements: Users can read and insert their own achievements
+CREATE POLICY achievements_read ON public.student_achievements FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY achievements_insert ON public.student_achievements FOR INSERT WITH CHECK (auth.uid() = user_id);
+
+-- Reflections: Users can manage their own reflections
+CREATE POLICY reflections_read ON public.simulation_reflections FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY reflections_insert ON public.simulation_reflections FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY reflections_update ON public.simulation_reflections FOR UPDATE USING (auth.uid() = user_id);
+
+-- Challenges: Users can read and update their own challenges
+CREATE POLICY challenges_read ON public.student_challenges FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY challenges_insert ON public.student_challenges FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY challenges_update ON public.student_challenges FOR UPDATE USING (auth.uid() = user_id);
+
+-- Portfolio exports: Users can manage their own exports
+CREATE POLICY portfolio_read ON public.portfolio_exports FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY portfolio_insert ON public.portfolio_exports FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY portfolio_update ON public.portfolio_exports FOR UPDATE USING (auth.uid() = user_id);
+
+-- Streaks: Users can read and update their own streaks
+CREATE POLICY streaks_read ON public.exploration_streaks FOR SELECT USING (auth.uid() = user_id);
+CREATE POLICY streaks_insert ON public.exploration_streaks FOR INSERT WITH CHECK (auth.uid() = user_id);
+CREATE POLICY streaks_update ON public.exploration_streaks FOR UPDATE USING (auth.uid() = user_id);

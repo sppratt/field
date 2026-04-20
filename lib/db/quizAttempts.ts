@@ -1,7 +1,10 @@
-import { createClient } from '@/utils/supabase/client';
+import { createClient } from '@/utils/supabase/server';
 import type { StudentLevelAttempt } from './types';
 
-const supabase = createClient();
+// Create client function for server-side usage
+async function getClient() {
+  return await createClient();
+}
 
 export async function recordAttempt(
   userId: string,
@@ -11,6 +14,8 @@ export async function recordAttempt(
   decisions: Record<string, any>,
   unlockedNext: boolean
 ): Promise<StudentLevelAttempt | null> {
+  const supabase = await getClient();
+
   // First, get the next attempt number
   const { data: existingAttempts, error: countError } = await supabase
     .from('student_level_attempts')
@@ -54,6 +59,8 @@ export async function getAttemptsForLevel(
   fieldId: string,
   level: number
 ): Promise<StudentLevelAttempt[]> {
+  const supabase = await getClient();
+
   const { data, error } = await supabase
     .from('student_level_attempts')
     .select('*')
@@ -75,6 +82,8 @@ export async function getBestAttempt(
   fieldId: string,
   level: number
 ): Promise<StudentLevelAttempt | null> {
+  const supabase = await getClient();
+
   const { data, error } = await supabase
     .from('student_level_attempts')
     .select('*')
@@ -96,6 +105,8 @@ export async function getFieldAttempts(
   userId: string,
   fieldId: string
 ): Promise<StudentLevelAttempt[]> {
+  const supabase = await getClient();
+
   const { data, error } = await supabase
     .from('student_level_attempts')
     .select('*')
@@ -138,6 +149,51 @@ export async function calculateFieldVelocity(
   return velocity;
 }
 
+export async function getAggregateTagScores(userId: string): Promise<Record<string, number>> {
+  const supabase = await getClient();
+
+  const { data, error } = await supabase
+    .from('student_level_attempts')
+    .select('decisions_made')
+    .eq('user_id', userId);
+
+  if (error) {
+    console.error('Error fetching tag scores:', error);
+    return {
+      analytical: 0,
+      creative: 0,
+      hands_on: 0,
+      social: 0,
+      problem_solving: 0,
+    };
+  }
+
+  // Aggregate tag effects from all attempts
+  const scores: Record<string, number> = {
+    analytical: 0,
+    creative: 0,
+    hands_on: 0,
+    social: 0,
+    problem_solving: 0,
+  };
+
+  data?.forEach(attempt => {
+    const decisions = attempt.decisions_made as any[];
+    if (Array.isArray(decisions)) {
+      decisions.forEach(decision => {
+        const tagEffects = decision.tagEffects || {};
+        Object.entries(tagEffects).forEach(([tag, points]) => {
+          if (tag in scores) {
+            scores[tag] += (points as number) || 0;
+          }
+        });
+      });
+    }
+  });
+
+  return scores;
+}
+
 export async function getDecisionPatterns(
   userId: string,
   fieldId: string
@@ -154,23 +210,18 @@ export async function getDecisionPatterns(
   };
 
   attempts.forEach(attempt => {
-    const decisions = attempt.decisions_made as Record<string, any>;
-    if (decisions?.tagEffects) {
-      Object.entries(decisions.tagEffects).forEach(([tag, points]) => {
-        if (tag in patterns) {
-          patterns[tag] += (points as number) || 0;
-        }
+    const decisions = attempt.decisions_made as any[];
+    if (Array.isArray(decisions)) {
+      decisions.forEach(decision => {
+        const tagEffects = decision.tagEffects || {};
+        Object.entries(tagEffects).forEach(([tag, points]) => {
+          if (tag in patterns) {
+            patterns[tag] += (points as number) || 0;
+          }
+        });
       });
     }
   });
-
-  // Convert to percentages
-  const total = Object.values(patterns).reduce((a, b) => a + b, 0);
-  if (total > 0) {
-    Object.keys(patterns).forEach(tag => {
-      patterns[tag] = Math.round((patterns[tag] / total) * 100);
-    });
-  }
 
   return patterns;
 }

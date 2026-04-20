@@ -35,6 +35,7 @@ export async function GET(request: NextRequest) {
     // Check if user has access to this level
     const fieldProgress = await getFieldProgress(user.id, fieldId);
 
+
     // Level 1 is always available if field is started
     // Higher levels require previous level to be completed
     if (levelNum > 1 && (!fieldProgress || !fieldProgress.levels_completed.includes(levelNum - 1))) {
@@ -43,6 +44,7 @@ export async function GET(request: NextRequest) {
         { status: 403 }
       );
     }
+
 
     // Find the template
     const template = allTemplates.find(

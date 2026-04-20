@@ -3,30 +3,42 @@
 import { Dialog, DialogTitle, DialogContent, DialogActions, Button } from '@mui/material';
 import styles from './StatsModals.module.css';
 import { careers } from '@/app/data/careers';
-import type { StudentProgress } from '@/lib/db/types';
+import type { StudentFieldProgress } from '@/lib/db/types';
 
 interface PathwaysExploredModalProps {
   open: boolean;
   onClose: () => void;
-  progress: StudentProgress[];
+  progress: StudentFieldProgress[];
 }
 
 export const PathwaysExploredModal = ({ open, onClose, progress }: PathwaysExploredModalProps) => {
-  const exploredCareers = careers.filter((c) => progress.some((p) => p.pathway_id === c.id));
+  const exploredCareers = careers.filter((c) => progress.some((p) => p.field_id === c.id));
 
   const getStatus = (careerTitle: string) => {
-    const careerProgress = progress.find((p) => p.pathway_id === careerTitle.toLowerCase());
-    return careerProgress?.status || 'not_started';
+    const careerProgress = progress.find((p) => p.field_id === careerTitle.toLowerCase());
+    if (!careerProgress) return 'not_started';
+
+    // Only mark as mastered if all 5 levels are completed AND status is mastered
+    const allLevelsCompleted = careerProgress.levels_completed?.length === 5 &&
+                               careerProgress.status === 'mastered';
+
+    if (allLevelsCompleted) return 'mastered';
+
+    // Show current status or in_progress if no status set
+    const status = careerProgress.status || 'in_progress';
+    return status === 'mastered' ? 'in_progress' : status;
   };
 
   const getPercentage = (careerTitle: string) => {
-    const careerProgress = progress.find((p) => p.pathway_id === careerTitle.toLowerCase());
-    return careerProgress?.completion_percentage || 0;
+    const careerProgress = progress.find((p) => p.field_id === careerTitle.toLowerCase());
+    if (!careerProgress) return 0;
+    return (careerProgress.levels_completed?.length || 0) / 5 * 100;
   };
 
   const statusConfig = {
+    not_started: { label: 'Not Started', color: '#999', bgColor: 'rgba(150, 150, 150, 0.1)' },
     in_progress: { label: 'In Progress', color: '#a8b8a0', bgColor: 'rgba(168, 184, 160, 0.1)' },
-    completed: { label: 'Completed', color: '#7cb89f', bgColor: 'rgba(124, 184, 159, 0.1)' },
+    mastered: { label: 'Mastered', color: '#7cb89f', bgColor: 'rgba(124, 184, 159, 0.1)' },
   };
 
   return (

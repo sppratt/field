@@ -9,6 +9,7 @@ interface ButtonProps {
   size?: 'small' | 'medium' | 'large';
   fullWidth?: boolean;
   disabled?: boolean;
+  loading?: boolean;
   onClick?: () => void;
   className?: string;
   href?: string;
@@ -20,7 +21,7 @@ interface ButtonProps {
 }
 
 export const Button = React.forwardRef<
-  HTMLButtonElement & HTMLAnchorElement,
+  HTMLButtonElement | HTMLAnchorElement,
   ButtonProps
 >(
   (
@@ -77,3 +78,5 @@ export const Button = React.forwardRef<
 );
 
 Button.displayName = 'Button';
+
+export default Button;

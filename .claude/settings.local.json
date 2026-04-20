@@ -21,7 +21,10 @@
       "Bash(curl -s http://localhost:3001)",
       "Bash(xargs kill *)",
       "WebSearch",
-      "WebFetch(domain:fonts.google.com)"
+      "WebFetch(domain:fonts.google.com)",
+      "Bash(sed -e '64,76d')",
+      "Bash(mv /tmp/quiz_page_new.tsx /Users/samipratt/Desktop/claude_tester/app/fields/\\\\[id\\\\]/level/\\\\[level\\\\]/page.tsx)",
+      "Bash(python3 *)"
     ]
   }
 }
